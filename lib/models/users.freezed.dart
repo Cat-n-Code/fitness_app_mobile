@@ -23,7 +23,7 @@ mixin _$User {
   int? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  Role get role => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError; // TODO: make required
   UserGoal? get goal => throw _privateConstructorUsedError;
   Sex? get sex => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
@@ -204,7 +204,7 @@ class _$UserImpl extends _User {
       {this.id,
       required this.name,
       required this.email,
-      required this.role,
+      this.role = Role.customer,
       this.goal,
       this.sex,
       @JsonKey(name: 'birth_date') this.birthDate,
@@ -222,7 +222,9 @@ class _$UserImpl extends _User {
   @override
   final String email;
   @override
+  @JsonKey()
   final Role role;
+// TODO: make required
   @override
   final UserGoal? goal;
   @override
@@ -282,7 +284,7 @@ abstract class _User extends User {
       {final int? id,
       required final String name,
       required final String email,
-      required final Role role,
+      final Role role,
       final UserGoal? goal,
       final Sex? sex,
       @JsonKey(name: 'birth_date') final DateTime? birthDate,
@@ -300,7 +302,7 @@ abstract class _User extends User {
   String get email;
   @override
   Role get role;
-  @override
+  @override // TODO: make required
   UserGoal? get goal;
   @override
   Sex? get sex;

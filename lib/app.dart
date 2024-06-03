@@ -7,11 +7,16 @@ import 'package:fitness_app/providers/scaffold_messenger.dart';
 import 'package:fitness_app/routers.dart';
 import 'package:fitness_app/theme.dart';
 
-class App extends ConsumerWidget {
+class App extends ConsumerStatefulWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<App> createState() => AppState();
+}
+
+class AppState extends ConsumerState<App> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
       theme: themeData,

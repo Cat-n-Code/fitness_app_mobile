@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/models/users.dart';
+import 'package:fitness_app/providers/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -144,8 +146,14 @@ class _LoginViewBodyState extends ConsumerState<_LoginViewBody> {
 
     switch (result) {
       case Left():
+        final user = await ref.read(currentUserNotifierProvider.future);
         if (mounted) {
-          context.go('/');
+          switch (user.toNullable()!.role) {
+            case Role.customer:
+              context.go('/customer');
+            case Role.couch:
+              context.go('/couch');
+          }
         }
       case Right(value: final exception):
         if (exception case ApiException(response: final response)

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:fitness_app/models/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -17,9 +18,17 @@ void main() async {
   await dotenv.load();
 
   final container = ProviderContainer();
-  final user = await container.read(currentUserNotifierProvider.future);
-  if (user case None()) {
-    router.go('/startup');
+  final userOption = await container.read(currentUserNotifierProvider.future);
+  switch (userOption) {
+    case Some(value: final user):
+      switch (user.role) {
+        case Role.customer:
+          router.go('/customer');
+        case Role.couch:
+          router.go('/couch');
+      }
+    case None():
+      router.go('/startup');
   }
 
   FlutterNativeSplash.remove();

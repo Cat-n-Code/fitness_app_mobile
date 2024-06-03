@@ -10,7 +10,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String,
       email: json['email'] as String,
-      role: $enumDecode(_$RoleEnumMap, json['role']),
+      role: $enumDecodeNullable(_$RoleEnumMap, json['role']) ?? Role.customer,
       goal: $enumDecodeNullable(_$UserGoalEnumMap, json['goal']),
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']),
       birthDate: json['birth_date'] == null
@@ -35,8 +35,8 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     };
 
 const _$RoleEnumMap = {
-  Role.client: 'CLIENT',
-  Role.trainer: 'TRAINER',
+  Role.customer: 'CUSTOMER',
+  Role.couch: 'COUCH',
 };
 
 const _$UserGoalEnumMap = {

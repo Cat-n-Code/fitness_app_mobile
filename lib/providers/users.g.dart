@@ -7,7 +7,7 @@ part of 'users.dart';
 // **************************************************************************
 
 String _$currentUserNotifierHash() =>
-    r'c10676324544e40130af2376c76c2e0a4e0b0b50';
+    r'c151038625275ac8f619677cc14e78ce376a1b99';
 
 /// See also [CurrentUserNotifier].
 @ProviderFor(CurrentUserNotifier)
@@ -24,7 +24,7 @@ final currentUserNotifierProvider =
 
 typedef _$CurrentUserNotifier = AsyncNotifier<Option<User>>;
 String _$userRegistrationNotifierHash() =>
-    r'7cab560e1912327d48ffc6cd2c24ac1e119b569c';
+    r'56bfba7927c4a48e02456c7845f4f280c055f211';
 
 /// See also [UserRegistrationNotifier].
 @ProviderFor(UserRegistrationNotifier)

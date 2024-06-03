@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:fitness_app/providers/scaffold_messenger.dart';
 import 'package:fitness_app/utils/exceptions.dart';
 import 'package:fitness_app/utils/logger.dart';
-import 'package:fitness_app/widgets/error_snackbar.dart';
+import 'package:fitness_app/widgets/snackbars.dart';
 
 void presentError(
   Exception error, {
