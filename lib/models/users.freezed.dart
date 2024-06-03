@@ -23,6 +23,7 @@ mixin _$User {
   int? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
   UserGoal? get goal => throw _privateConstructorUsedError;
   Sex? get sex => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
@@ -44,6 +45,7 @@ abstract class $UserCopyWith<$Res> {
       {int? id,
       String name,
       String email,
+      Role role,
       UserGoal? goal,
       Sex? sex,
       @JsonKey(name: 'birth_date') DateTime? birthDate,
@@ -67,6 +69,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = freezed,
     Object? name = null,
     Object? email = null,
+    Object? role = null,
     Object? goal = freezed,
     Object? sex = freezed,
     Object? birthDate = freezed,
@@ -86,6 +89,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
       goal: freezed == goal
           ? _value.goal
           : goal // ignore: cast_nullable_to_non_nullable
@@ -121,6 +128,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       {int? id,
       String name,
       String email,
+      Role role,
       UserGoal? goal,
       Sex? sex,
       @JsonKey(name: 'birth_date') DateTime? birthDate,
@@ -141,6 +149,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = null,
     Object? email = null,
+    Object? role = null,
     Object? goal = freezed,
     Object? sex = freezed,
     Object? birthDate = freezed,
@@ -160,6 +169,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
       goal: freezed == goal
           ? _value.goal
           : goal // ignore: cast_nullable_to_non_nullable
@@ -191,6 +204,7 @@ class _$UserImpl extends _User {
       {this.id,
       required this.name,
       required this.email,
+      required this.role,
       this.goal,
       this.sex,
       @JsonKey(name: 'birth_date') this.birthDate,
@@ -208,6 +222,8 @@ class _$UserImpl extends _User {
   @override
   final String email;
   @override
+  final Role role;
+  @override
   final UserGoal? goal;
   @override
   final Sex? sex;
@@ -221,7 +237,7 @@ class _$UserImpl extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, goal: $goal, sex: $sex, birthDate: $birthDate, level: $level, preference: $preference)';
+    return 'User(id: $id, name: $name, email: $email, role: $role, goal: $goal, sex: $sex, birthDate: $birthDate, level: $level, preference: $preference)';
   }
 
   @override
@@ -232,6 +248,7 @@ class _$UserImpl extends _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.goal, goal) || other.goal == goal) &&
             (identical(other.sex, sex) || other.sex == sex) &&
             (identical(other.birthDate, birthDate) ||
@@ -243,8 +260,8 @@ class _$UserImpl extends _User {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, email, goal, sex, birthDate, level, preference);
+  int get hashCode => Object.hash(runtimeType, id, name, email, role, goal, sex,
+      birthDate, level, preference);
 
   @JsonKey(ignore: true)
   @override
@@ -265,6 +282,7 @@ abstract class _User extends User {
       {final int? id,
       required final String name,
       required final String email,
+      required final Role role,
       final UserGoal? goal,
       final Sex? sex,
       @JsonKey(name: 'birth_date') final DateTime? birthDate,
@@ -280,6 +298,8 @@ abstract class _User extends User {
   String get name;
   @override
   String get email;
+  @override
+  Role get role;
   @override
   UserGoal? get goal;
   @override

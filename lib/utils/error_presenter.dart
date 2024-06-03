@@ -29,8 +29,8 @@ void presentError(
 
   final snackBar = buildErrorSnackBar(localizedMessage);
   if (widgetRef != null) {
-    widgetRef.read(scaffoldMessengerProvider).showSnackBar(snackBar);
+    widgetRef.read(scaffoldMessengerProvider)?.showSnackBar(snackBar);
   } else if (ref != null) {
-    ref.read(scaffoldMessengerProvider).showSnackBar(snackBar);
+    ref.read(scaffoldMessengerProvider)?.showSnackBar(snackBar);
   }
 }

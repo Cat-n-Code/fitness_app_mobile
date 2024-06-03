@@ -1,2 +1,95 @@
 common:
-  aba: ""
+  login_button: LOG IN
+  sign_up_button: SIGN UP
+  skip_button: SKIP
+  continue_button: CONTINUE
+  dialog_no: No
+  dialog_yes: Yes
+  
+  name_field_label: Name
+  email_field_label: Email address
+  password_field_label: Password
+  repeat_password_field_labeL: Repeat password
+  birth_date_field_label: Birth date
+  sex_field_label: Sex
+
+  tos_disclaimer: By continuing you agree to accept our Terms of Service & Privacy Policy
+  
+  sex:
+    male: Male
+    female: Female
+  goals:
+    be_active: I want to be active
+    be_strong: I want to be strong
+    lose_weight: I want to lose weight
+  fitness_levels:
+    novice: Novice
+    beginner: Beginner
+    intermediate: Intermediate
+    advanced: Advanced
+    athlete: Athlete
+  exercise_preferences:
+    jogging: Jogging
+    walking: Walking
+    weightlift: Weightlift
+    cardio: Cardio
+    yoga: Yoga
+    other: Other
+
+validation:
+  field_is_empty: This field is required
+  field_too_short: Minimum field length is {}
+  invalid_email: Invalid email address
+  invalid_date_format: Invalid date format
+
+errors:
+  unknown_error: Unknown error happened
+  network_error: Unable to establish connection
+  timeout_error: The waiting time has been exceeded
+  bad_request: Invalid client request format
+  unauthorized: Unable to authorize
+  invalid_credentials: Email or password is incorrect
+  forbidden: Access is denied
+  not_found: Required content was not found
+  conflict: Conflict occurred during request
+  internal_error: Server side error happened
+  invalid_format: Invalid client request format
+
+start_up_view:
+  title_1: WELCOME TO
+  title_2: Inner Spark
+  tips:
+    "0":
+      title: WORKOUTS
+      body: >
+        Embrace the strength within as you embark on a journey of self-discovery
+        through invigorating workouts. Fuel your body and find harmony in every
+        movement.
+    "1":
+      title: MEDITATIONS
+      body: >
+        In the tranquil sanctuary of your mind, find solace and serenity. Let
+        each breath be a reminder of your inner light. Through mindfulness,
+        unlock the path to inner peace and self-love.
+    "2":
+      title: MOOD TRACKER
+      body: >
+        Track the rhythm of your emotions, for they are the waves that shape
+        your journey. Embrace balance, for within it lies the key to self-love
+        and well-being.
+
+login_view:
+  title: LOG IN
+
+sign_up_email_view:
+  title: SIGN UP WITH EMAIL
+  name_field_label: YOUR NAME
+  email_field_label: YOUR EMAIL ADDRESS
+  password_field_label: YOUR PASSWORD
+
+sign_up_profile_view:
+  goal_title: WHAT IS YOUR FITNESS GOAL?
+  sex_title: WHAT IS YOUR SEX?
+  birth_date_title: WHEN IS YOUR BIRTHDAY?
+  fitness_level_title: HOW WOULD YOU RATE YOUR FITNESS LEVEL?
+  exercise_preference_title: DO YOU HAVE A SPECIFIC EXERCISE PREFERENCE?

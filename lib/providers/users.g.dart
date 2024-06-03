@@ -24,7 +24,7 @@ final currentUserNotifierProvider =
 
 typedef _$CurrentUserNotifier = AsyncNotifier<Option<User>>;
 String _$userRegistrationNotifierHash() =>
-    r'9deb11151f420294048ee3530d5ebcda8ea5ecc7';
+    r'7cab560e1912327d48ffc6cd2c24ac1e119b569c';
 
 /// See also [UserRegistrationNotifier].
 @ProviderFor(UserRegistrationNotifier)

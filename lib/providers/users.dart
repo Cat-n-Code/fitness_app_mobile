@@ -186,6 +186,7 @@ class UserRegistrationNotifier extends _$UserRegistrationNotifier {
         final preferences = await SharedPreferences.getInstance();
         final json = state.toJson();
         json['id'] = 1;
+        json['role'] = 'CLIENT';
 
         await preferences.setString('userRegistrationForm', jsonEncode(json));
         user = User.fromJson(json);

@@ -4,6 +4,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'users.freezed.dart';
 part 'users.g.dart';
 
+enum Role {
+  @JsonValue('CLIENT')
+  client,
+  @JsonValue('TRAINER')
+  trainer;
+}
+
 enum Sex {
   @JsonValue('MALE')
   male('common.sex.male', Icons.male),
@@ -75,6 +82,7 @@ class User with _$User {
     int? id,
     required String name,
     required String email,
+    required Role role,
     UserGoal? goal,
     Sex? sex,
     @JsonKey(name: 'birth_date') DateTime? birthDate,

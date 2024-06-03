@@ -24,12 +24,12 @@ final scaffoldMessengerKeyProvider =
 
 typedef ScaffoldMessengerKeyRef
     = AutoDisposeProviderRef<GlobalKey<ScaffoldMessengerState>>;
-String _$scaffoldMessengerHash() => r'57a3003945cfe3c51c0e1f4997d34bf4f5b8a13f';
+String _$scaffoldMessengerHash() => r'0c1c8f93d63410c9e65e6064d4f2d306fcc8a13b';
 
 /// See also [scaffoldMessenger].
 @ProviderFor(scaffoldMessenger)
 final scaffoldMessengerProvider =
-    AutoDisposeProvider<ScaffoldMessengerState>.internal(
+    AutoDisposeProvider<ScaffoldMessengerState?>.internal(
   scaffoldMessenger,
   name: r'scaffoldMessengerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -39,6 +39,6 @@ final scaffoldMessengerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef ScaffoldMessengerRef = AutoDisposeProviderRef<ScaffoldMessengerState>;
+typedef ScaffoldMessengerRef = AutoDisposeProviderRef<ScaffoldMessengerState?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

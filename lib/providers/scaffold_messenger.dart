@@ -10,5 +10,5 @@ GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey(
     GlobalKey();
 
 @riverpod
-ScaffoldMessengerState scaffoldMessenger(ScaffoldMessengerRef ref) =>
-    ref.watch(scaffoldMessengerKeyProvider).currentState!;
+ScaffoldMessengerState? scaffoldMessenger(ScaffoldMessengerRef ref) =>
+    ref.watch(scaffoldMessengerKeyProvider).currentState;
