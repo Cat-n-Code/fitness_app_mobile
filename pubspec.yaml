@@ -1,0 +1,48 @@
+name: fitness_app
+description: Mobile fitness app
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  go_router: ^14.1.4
+  shared_preferences: ^2.2.3
+  http: ^1.2.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
+  easy_localization: ^3.0.7
+  skeletonizer: ^1.2.0
+  flutter_native_splash: ^2.4.0
+  flutter_riverpod: ^2.5.1
+  easy_localization_loader: ^2.0.2
+  fpdart: ^1.1.0
+  logger: ^2.3.0
+  flutter_dotenv: ^5.1.0
+  google_fonts: ^6.2.1
+  flutter_markdown: ^0.7.1
+  riverpod_annotation: ^2.3.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
+  flutter_launcher_icons: ^0.13.1
+  riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.3.10
+  build_runner: ^2.4.10
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/locales/
+    - google_fonts/
