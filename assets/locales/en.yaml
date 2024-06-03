@@ -3,8 +3,14 @@ common:
   sign_up_button: SIGN UP
   skip_button: SKIP
   continue_button: CONTINUE
+  save_button: SAVE
   dialog_no: No
   dialog_yes: Yes
+  profile_edit_tooltip: Edit profile
+  logout_tooltip: Log out
+
+  logout_dialog_title: LOGOUT
+  logout_dialog_body: Are you sure you want to logout?
   
   name_field_label: Name
   email_field_label: Email address
@@ -54,6 +60,7 @@ errors:
   conflict: Conflict occurred during request
   internal_error: Server side error happened
   invalid_format: Invalid client request format
+  same_user_exists: User with given Email already exists
 
 start_up_view:
   title_1: WELCOME TO
@@ -93,3 +100,20 @@ sign_up_profile_view:
   birth_date_title: WHEN IS YOUR BIRTHDAY?
   fitness_level_title: HOW WOULD YOU RATE YOUR FITNESS LEVEL?
   exercise_preference_title: DO YOU HAVE A SPECIFIC EXERCISE PREFERENCE?
+
+customer_main_view:
+  workouts_tab: Workouts
+  chat_tab: Chat
+  profile_tab: Profile
+
+customer_workouts_view:
+  title: Workouts For You
+
+customer_profile_view:
+  title: My Profile
+  goal_label: MY GOAL
+  fitness_level_label: MY FITNESS LEVEL
+  exercise_preference_label: MY EXERCISE PREFERENCE
+
+customer_profile_edit_view:
+  title: Edit profile
