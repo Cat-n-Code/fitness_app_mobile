@@ -41,6 +41,10 @@ common:
     cardio: Cardio
     yoga: Yoga
     other: Other
+  coach_specialty:
+    kids: Kids
+    adult: Adults
+    yoga: Yoga
 
 validation:
   field_is_empty: This field is required
@@ -109,11 +113,17 @@ customer_main_view:
 customer_workouts_view:
   title: Workouts For You
 
-customer_profile_view:
+profile_view:
   title: My Profile
   goal_label: MY GOAL
   fitness_level_label: MY FITNESS LEVEL
   exercise_preference_label: MY EXERCISE PREFERENCE
 
-customer_profile_edit_view:
+profile_edit_view:
   title: Edit profile
+
+couch_main_view:
+  customer_tab: Customers
+  workouts_tab: Workouts
+  exercises_tab: Exercises
+  profile_tab: Profile

@@ -17,8 +17,11 @@ class WorkoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final workout = this.workout.valueOrNull ??
         Workout(
-          name: BoneMock.words(1),
-          description: BoneMock.words(3),
+          template: WorkoutTemplate(
+            name: BoneMock.words(1),
+            description: BoneMock.words(3),
+            exercises: [],
+          ),
           completionDate: DateTime.now(),
           exercises: [],
         );
@@ -70,16 +73,16 @@ class WorkoutCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildProgress(colorScheme, textTheme),
+        _buildProgress(workout, colorScheme, textTheme),
         const SizedBox(width: 12.0),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(workout.name, style: textTheme.titleMedium),
+              Text(workout.template.name, style: textTheme.titleMedium),
               Text(
-                workout.description,
+                workout.template.description,
                 style: textTheme.bodyMedium!.copyWith(
                   color: darkColor,
                 ),
@@ -100,7 +103,13 @@ class WorkoutCard extends StatelessWidget {
     );
   }
 
-  Widget _buildProgress(ColorScheme colorScheme, TextTheme textTheme) {
+  Widget _buildProgress(
+    Workout workout,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    final progress = workout.progress;
+
     return SizedBox(
       width: 64.0,
       height: 64.0,
@@ -109,12 +118,12 @@ class WorkoutCard extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              '60%',
+              '${(progress * 100.0).toStringAsFixed(0)}%',
               style: textTheme.bodyMedium!.copyWith(color: darkColor),
             ),
           ),
           CircularProgressIndicator(
-            value: 0.6,
+            value: progress,
             strokeCap: StrokeCap.round,
             strokeWidth: 6.0,
             strokeAlign: -1.0,

@@ -20,16 +20,13 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  int? get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  Role get role => throw _privateConstructorUsedError; // TODO: make required
-  UserGoal? get goal => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
   Sex? get sex => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate => throw _privateConstructorUsedError;
-  FitnessLevel? get level => throw _privateConstructorUsedError;
-  ExercisePreference? get preference => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,15 +39,12 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {int? id,
+      {int id,
       String name,
       String email,
       Role role,
-      UserGoal? goal,
       Sex? sex,
-      @JsonKey(name: 'birth_date') DateTime? birthDate,
-      FitnessLevel? level,
-      ExercisePreference? preference});
+      @JsonKey(name: 'birth_date') DateTime? birthDate});
 }
 
 /// @nodoc
@@ -66,21 +60,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? name = null,
     Object? email = null,
     Object? role = null,
-    Object? goal = freezed,
     Object? sex = freezed,
     Object? birthDate = freezed,
-    Object? level = freezed,
-    Object? preference = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -93,10 +84,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as Role,
-      goal: freezed == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as UserGoal?,
       sex: freezed == sex
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
@@ -105,14 +92,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      level: freezed == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as FitnessLevel?,
-      preference: freezed == preference
-          ? _value.preference
-          : preference // ignore: cast_nullable_to_non_nullable
-              as ExercisePreference?,
     ) as $Val);
   }
 }
@@ -125,15 +104,12 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {int id,
       String name,
       String email,
       Role role,
-      UserGoal? goal,
       Sex? sex,
-      @JsonKey(name: 'birth_date') DateTime? birthDate,
-      FitnessLevel? level,
-      ExercisePreference? preference});
+      @JsonKey(name: 'birth_date') DateTime? birthDate});
 }
 
 /// @nodoc
@@ -146,21 +122,18 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? name = null,
     Object? email = null,
     Object? role = null,
-    Object? goal = freezed,
     Object? sex = freezed,
     Object? birthDate = freezed,
-    Object? level = freezed,
-    Object? preference = freezed,
   }) {
     return _then(_$UserImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -173,10 +146,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as Role,
-      goal: freezed == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as UserGoal?,
       sex: freezed == sex
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
@@ -185,14 +154,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      level: freezed == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as FitnessLevel?,
-      preference: freezed == preference
-          ? _value.preference
-          : preference // ignore: cast_nullable_to_non_nullable
-              as ExercisePreference?,
     ));
   }
 }
@@ -201,45 +162,34 @@ class __$$UserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserImpl extends _User {
   const _$UserImpl(
-      {this.id,
+      {required this.id,
       required this.name,
       required this.email,
-      this.role = Role.customer,
-      this.goal,
+      required this.role,
       this.sex,
-      @JsonKey(name: 'birth_date') this.birthDate,
-      this.level,
-      this.preference})
+      @JsonKey(name: 'birth_date') this.birthDate})
       : super._();
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
 
   @override
-  final int? id;
+  final int id;
   @override
   final String name;
   @override
   final String email;
   @override
-  @JsonKey()
   final Role role;
-// TODO: make required
-  @override
-  final UserGoal? goal;
   @override
   final Sex? sex;
   @override
   @JsonKey(name: 'birth_date')
   final DateTime? birthDate;
-  @override
-  final FitnessLevel? level;
-  @override
-  final ExercisePreference? preference;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, role: $role, goal: $goal, sex: $sex, birthDate: $birthDate, level: $level, preference: $preference)';
+    return 'User(id: $id, name: $name, email: $email, role: $role, sex: $sex, birthDate: $birthDate)';
   }
 
   @override
@@ -251,19 +201,15 @@ class _$UserImpl extends _User {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(other.goal, goal) || other.goal == goal) &&
             (identical(other.sex, sex) || other.sex == sex) &&
             (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate) &&
-            (identical(other.level, level) || other.level == level) &&
-            (identical(other.preference, preference) ||
-                other.preference == preference));
+                other.birthDate == birthDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, role, goal, sex,
-      birthDate, level, preference);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, email, role, sex, birthDate);
 
   @JsonKey(ignore: true)
   @override
@@ -281,41 +227,386 @@ class _$UserImpl extends _User {
 
 abstract class _User extends User {
   const factory _User(
-      {final int? id,
+      {required final int id,
       required final String name,
       required final String email,
-      final Role role,
-      final UserGoal? goal,
+      required final Role role,
       final Sex? sex,
-      @JsonKey(name: 'birth_date') final DateTime? birthDate,
-      final FitnessLevel? level,
-      final ExercisePreference? preference}) = _$UserImpl;
+      @JsonKey(name: 'birth_date') final DateTime? birthDate}) = _$UserImpl;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  int? get id;
+  int get id;
   @override
   String get name;
   @override
   String get email;
   @override
   Role get role;
-  @override // TODO: make required
-  UserGoal? get goal;
   @override
   Sex? get sex;
   @override
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate;
   @override
+  @JsonKey(ignore: true)
+  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Customer _$CustomerFromJson(Map<String, dynamic> json) {
+  return _Customer.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Customer {
+  int get id => throw _privateConstructorUsedError;
+  UserGoal? get goal => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fitness_level')
+  FitnessLevel? get level => throw _privateConstructorUsedError;
+  ExercisePreference? get preference => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CustomerCopyWith<Customer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CustomerCopyWith<$Res> {
+  factory $CustomerCopyWith(Customer value, $Res Function(Customer) then) =
+      _$CustomerCopyWithImpl<$Res, Customer>;
+  @useResult
+  $Res call(
+      {int id,
+      UserGoal? goal,
+      @JsonKey(name: 'fitness_level') FitnessLevel? level,
+      ExercisePreference? preference});
+}
+
+/// @nodoc
+class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
+    implements $CustomerCopyWith<$Res> {
+  _$CustomerCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? goal = freezed,
+    Object? level = freezed,
+    Object? preference = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      goal: freezed == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as UserGoal?,
+      level: freezed == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as FitnessLevel?,
+      preference: freezed == preference
+          ? _value.preference
+          : preference // ignore: cast_nullable_to_non_nullable
+              as ExercisePreference?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CustomerImplCopyWith<$Res>
+    implements $CustomerCopyWith<$Res> {
+  factory _$$CustomerImplCopyWith(
+          _$CustomerImpl value, $Res Function(_$CustomerImpl) then) =
+      __$$CustomerImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      UserGoal? goal,
+      @JsonKey(name: 'fitness_level') FitnessLevel? level,
+      ExercisePreference? preference});
+}
+
+/// @nodoc
+class __$$CustomerImplCopyWithImpl<$Res>
+    extends _$CustomerCopyWithImpl<$Res, _$CustomerImpl>
+    implements _$$CustomerImplCopyWith<$Res> {
+  __$$CustomerImplCopyWithImpl(
+      _$CustomerImpl _value, $Res Function(_$CustomerImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? goal = freezed,
+    Object? level = freezed,
+    Object? preference = freezed,
+  }) {
+    return _then(_$CustomerImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      goal: freezed == goal
+          ? _value.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as UserGoal?,
+      level: freezed == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as FitnessLevel?,
+      preference: freezed == preference
+          ? _value.preference
+          : preference // ignore: cast_nullable_to_non_nullable
+              as ExercisePreference?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CustomerImpl implements _Customer {
+  const _$CustomerImpl(
+      {required this.id,
+      this.goal,
+      @JsonKey(name: 'fitness_level') this.level,
+      this.preference});
+
+  factory _$CustomerImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CustomerImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final UserGoal? goal;
+  @override
+  @JsonKey(name: 'fitness_level')
+  final FitnessLevel? level;
+  @override
+  final ExercisePreference? preference;
+
+  @override
+  String toString() {
+    return 'Customer(id: $id, goal: $goal, level: $level, preference: $preference)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CustomerImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.goal, goal) || other.goal == goal) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.preference, preference) ||
+                other.preference == preference));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, goal, level, preference);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CustomerImplCopyWith<_$CustomerImpl> get copyWith =>
+      __$$CustomerImplCopyWithImpl<_$CustomerImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CustomerImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Customer implements Customer {
+  const factory _Customer(
+      {required final int id,
+      final UserGoal? goal,
+      @JsonKey(name: 'fitness_level') final FitnessLevel? level,
+      final ExercisePreference? preference}) = _$CustomerImpl;
+
+  factory _Customer.fromJson(Map<String, dynamic> json) =
+      _$CustomerImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  UserGoal? get goal;
+  @override
+  @JsonKey(name: 'fitness_level')
   FitnessLevel? get level;
   @override
   ExercisePreference? get preference;
   @override
   @JsonKey(ignore: true)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$CustomerImplCopyWith<_$CustomerImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Coach _$CoachFromJson(Map<String, dynamic> json) {
+  return _Coach.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Coach {
+  int get id => throw _privateConstructorUsedError;
+  CoachSpecialty get speciality => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CoachCopyWith<Coach> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CoachCopyWith<$Res> {
+  factory $CoachCopyWith(Coach value, $Res Function(Coach) then) =
+      _$CoachCopyWithImpl<$Res, Coach>;
+  @useResult
+  $Res call({int id, CoachSpecialty speciality});
+}
+
+/// @nodoc
+class _$CoachCopyWithImpl<$Res, $Val extends Coach>
+    implements $CoachCopyWith<$Res> {
+  _$CoachCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? speciality = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      speciality: null == speciality
+          ? _value.speciality
+          : speciality // ignore: cast_nullable_to_non_nullable
+              as CoachSpecialty,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CoachImplCopyWith<$Res> implements $CoachCopyWith<$Res> {
+  factory _$$CoachImplCopyWith(
+          _$CoachImpl value, $Res Function(_$CoachImpl) then) =
+      __$$CoachImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id, CoachSpecialty speciality});
+}
+
+/// @nodoc
+class __$$CoachImplCopyWithImpl<$Res>
+    extends _$CoachCopyWithImpl<$Res, _$CoachImpl>
+    implements _$$CoachImplCopyWith<$Res> {
+  __$$CoachImplCopyWithImpl(
+      _$CoachImpl _value, $Res Function(_$CoachImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? speciality = null,
+  }) {
+    return _then(_$CoachImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      speciality: null == speciality
+          ? _value.speciality
+          : speciality // ignore: cast_nullable_to_non_nullable
+              as CoachSpecialty,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CoachImpl implements _Coach {
+  const _$CoachImpl({required this.id, required this.speciality});
+
+  factory _$CoachImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoachImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final CoachSpecialty speciality;
+
+  @override
+  String toString() {
+    return 'Coach(id: $id, speciality: $speciality)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CoachImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.speciality, speciality) ||
+                other.speciality == speciality));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, speciality);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CoachImplCopyWith<_$CoachImpl> get copyWith =>
+      __$$CoachImplCopyWithImpl<_$CoachImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CoachImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Coach implements Coach {
+  const factory _Coach(
+      {required final int id,
+      required final CoachSpecialty speciality}) = _$CoachImpl;
+
+  factory _Coach.fromJson(Map<String, dynamic> json) = _$CoachImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  CoachSpecialty get speciality;
+  @override
+  @JsonKey(ignore: true)
+  _$$CoachImplCopyWith<_$CoachImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -332,6 +623,7 @@ mixin _$UserRegistrationForm {
   Sex? get sex => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fitness_level')
   FitnessLevel? get level => throw _privateConstructorUsedError;
   ExercisePreference? get preference => throw _privateConstructorUsedError;
 
@@ -354,7 +646,7 @@ abstract class $UserRegistrationFormCopyWith<$Res> {
       UserGoal? goal,
       Sex? sex,
       @JsonKey(name: 'birth_date') DateTime? birthDate,
-      FitnessLevel? level,
+      @JsonKey(name: 'fitness_level') FitnessLevel? level,
       ExercisePreference? preference});
 }
 
@@ -433,7 +725,7 @@ abstract class _$$UserRegistrationFormImplCopyWith<$Res>
       UserGoal? goal,
       Sex? sex,
       @JsonKey(name: 'birth_date') DateTime? birthDate,
-      FitnessLevel? level,
+      @JsonKey(name: 'fitness_level') FitnessLevel? level,
       ExercisePreference? preference});
 }
 
@@ -504,7 +796,7 @@ class _$UserRegistrationFormImpl extends _UserRegistrationForm {
       this.goal,
       this.sex,
       @JsonKey(name: 'birth_date') this.birthDate,
-      this.level,
+      @JsonKey(name: 'fitness_level') this.level,
       this.preference})
       : super._();
 
@@ -525,6 +817,7 @@ class _$UserRegistrationFormImpl extends _UserRegistrationForm {
   @JsonKey(name: 'birth_date')
   final DateTime? birthDate;
   @override
+  @JsonKey(name: 'fitness_level')
   final FitnessLevel? level;
   @override
   final ExercisePreference? preference;
@@ -581,7 +874,7 @@ abstract class _UserRegistrationForm extends UserRegistrationForm {
       final UserGoal? goal,
       final Sex? sex,
       @JsonKey(name: 'birth_date') final DateTime? birthDate,
-      final FitnessLevel? level,
+      @JsonKey(name: 'fitness_level') final FitnessLevel? level,
       final ExercisePreference? preference}) = _$UserRegistrationFormImpl;
   const _UserRegistrationForm._() : super._();
 
@@ -602,6 +895,7 @@ abstract class _UserRegistrationForm extends UserRegistrationForm {
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate;
   @override
+  @JsonKey(name: 'fitness_level')
   FitnessLevel? get level;
   @override
   ExercisePreference? get preference;

@@ -23,6 +23,40 @@ final currentUserNotifierProvider =
 );
 
 typedef _$CurrentUserNotifier = AsyncNotifier<Option<User>>;
+String _$currentCustomerNotifierHash() =>
+    r'0ae4d47464d01779bb1c3d99c998b611ba03cf9e';
+
+/// See also [CurrentCustomerNotifier].
+@ProviderFor(CurrentCustomerNotifier)
+final currentCustomerNotifierProvider =
+    AsyncNotifierProvider<CurrentCustomerNotifier, Option<Customer>>.internal(
+  CurrentCustomerNotifier.new,
+  name: r'currentCustomerNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentCustomerNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CurrentCustomerNotifier = AsyncNotifier<Option<Customer>>;
+String _$currentCoachNotifierHash() =>
+    r'bcd766befce4e629c510ca0f03b3a1911fccba95';
+
+/// See also [CurrentCoachNotifier].
+@ProviderFor(CurrentCoachNotifier)
+final currentCoachNotifierProvider =
+    AsyncNotifierProvider<CurrentCoachNotifier, Option<Coach>>.internal(
+  CurrentCoachNotifier.new,
+  name: r'currentCoachNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentCoachNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CurrentCoachNotifier = AsyncNotifier<Option<Coach>>;
 String _$userRegistrationNotifierHash() =>
     r'56bfba7927c4a48e02456c7845f4f280c055f211';
 

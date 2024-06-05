@@ -14,16 +14,15 @@ import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/utils/validators.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CustomerProfileEditView extends ConsumerStatefulWidget {
-  const CustomerProfileEditView({super.key});
+class ProfileEditView extends ConsumerStatefulWidget {
+  const ProfileEditView({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _CustomerProfileEditViewState();
 }
 
-class _CustomerProfileEditViewState
-    extends ConsumerState<CustomerProfileEditView> {
+class _CustomerProfileEditViewState extends ConsumerState<ProfileEditView> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
@@ -85,7 +84,7 @@ class _CustomerProfileEditViewState
 
   AppBar _buildAppBar(TextTheme textTheme, ColorScheme colorScheme) {
     return AppBar(
-      title: const Text('customer_profile_edit_view.title').tr(),
+      title: const Text('profile_edit_view.title').tr(),
     );
   }
 
@@ -93,10 +92,12 @@ class _CustomerProfileEditViewState
     final userValue = ref.watch(currentUserNotifierProvider);
     final user = userValue.valueOrNull?.toNullable() ??
         User(
+          id: 1,
           email: BoneMock.email,
           name: BoneMock.name,
           birthDate: DateTime.now(),
           sex: Sex.male,
+          role: Role.customer,
         );
 
     return Skeletonizer(

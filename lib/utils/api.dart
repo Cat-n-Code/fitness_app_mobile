@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -75,7 +76,7 @@ Future<ApiResult<Response>> apiFetch(
 
   switch (body) {
     case String():
-      request.body = body;
+      request.bodyBytes = utf8.encode(body);
     case Uint8List():
       request.bodyBytes = body;
     case Map<String, String>():

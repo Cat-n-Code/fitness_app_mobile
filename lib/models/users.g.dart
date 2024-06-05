@@ -7,18 +7,14 @@ part of 'users.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       email: json['email'] as String,
-      role: $enumDecodeNullable(_$RoleEnumMap, json['role']) ?? Role.customer,
-      goal: $enumDecodeNullable(_$UserGoalEnumMap, json['goal']),
+      role: $enumDecode(_$RoleEnumMap, json['role']),
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']),
       birthDate: json['birth_date'] == null
           ? null
           : DateTime.parse(json['birth_date'] as String),
-      level: $enumDecodeNullable(_$FitnessLevelEnumMap, json['level']),
-      preference:
-          $enumDecodeNullable(_$ExercisePreferenceEnumMap, json['preference']),
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -27,11 +23,8 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'name': instance.name,
       'email': instance.email,
       'role': _$RoleEnumMap[instance.role]!,
-      'goal': _$UserGoalEnumMap[instance.goal],
       'sex': _$SexEnumMap[instance.sex],
       'birth_date': instance.birthDate?.toIso8601String(),
-      'level': _$FitnessLevelEnumMap[instance.level],
-      'preference': _$ExercisePreferenceEnumMap[instance.preference],
     };
 
 const _$RoleEnumMap = {
@@ -39,15 +32,32 @@ const _$RoleEnumMap = {
   Role.couch: 'COUCH',
 };
 
+const _$SexEnumMap = {
+  Sex.male: 'MALE',
+  Sex.female: 'FEMALE',
+};
+
+_$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
+    _$CustomerImpl(
+      id: (json['id'] as num).toInt(),
+      goal: $enumDecodeNullable(_$UserGoalEnumMap, json['goal']),
+      level: $enumDecodeNullable(_$FitnessLevelEnumMap, json['fitness_level']),
+      preference:
+          $enumDecodeNullable(_$ExercisePreferenceEnumMap, json['preference']),
+    );
+
+Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'goal': _$UserGoalEnumMap[instance.goal],
+      'fitness_level': _$FitnessLevelEnumMap[instance.level],
+      'preference': _$ExercisePreferenceEnumMap[instance.preference],
+    };
+
 const _$UserGoalEnumMap = {
   UserGoal.beActive: 'BE_ACTIVE',
   UserGoal.beStrong: 'BE_STRONG',
   UserGoal.loseWeight: 'LOSE_WEIGHT',
-};
-
-const _$SexEnumMap = {
-  Sex.male: 'MALE',
-  Sex.female: 'FEMALE',
 };
 
 const _$FitnessLevelEnumMap = {
@@ -67,6 +77,23 @@ const _$ExercisePreferenceEnumMap = {
   ExercisePreference.other: 'OTHER',
 };
 
+_$CoachImpl _$$CoachImplFromJson(Map<String, dynamic> json) => _$CoachImpl(
+      id: (json['id'] as num).toInt(),
+      speciality: $enumDecode(_$CoachSpecialtyEnumMap, json['speciality']),
+    );
+
+Map<String, dynamic> _$$CoachImplToJson(_$CoachImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'speciality': _$CoachSpecialtyEnumMap[instance.speciality]!,
+    };
+
+const _$CoachSpecialtyEnumMap = {
+  CoachSpecialty.kids: 'KIDS',
+  CoachSpecialty.adult: 'ADULT',
+  CoachSpecialty.yoga: 'YOGA',
+};
+
 _$UserRegistrationFormImpl _$$UserRegistrationFormImplFromJson(
         Map<String, dynamic> json) =>
     _$UserRegistrationFormImpl(
@@ -78,7 +105,7 @@ _$UserRegistrationFormImpl _$$UserRegistrationFormImplFromJson(
       birthDate: json['birth_date'] == null
           ? null
           : DateTime.parse(json['birth_date'] as String),
-      level: $enumDecodeNullable(_$FitnessLevelEnumMap, json['level']),
+      level: $enumDecodeNullable(_$FitnessLevelEnumMap, json['fitness_level']),
       preference:
           $enumDecodeNullable(_$ExercisePreferenceEnumMap, json['preference']),
     );
@@ -92,6 +119,6 @@ Map<String, dynamic> _$$UserRegistrationFormImplToJson(
       'goal': _$UserGoalEnumMap[instance.goal],
       'sex': _$SexEnumMap[instance.sex],
       'birth_date': instance.birthDate?.toIso8601String(),
-      'level': _$FitnessLevelEnumMap[instance.level],
+      'fitness_level': _$FitnessLevelEnumMap[instance.level],
       'preference': _$ExercisePreferenceEnumMap[instance.preference],
     };

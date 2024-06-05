@@ -74,20 +74,30 @@ enum ExercisePreference {
   final IconData icon;
 }
 
+enum CoachSpecialty {
+  @JsonValue('KIDS')
+  kids('common.coach_specialty.kids'),
+  @JsonValue('ADULT')
+  adult('common.coach_specialty.adults'),
+  @JsonValue('YOGA')
+  yoga('common.coach_specialty.yoga');
+
+  const CoachSpecialty(this.translationKey);
+
+  final String translationKey;
+}
+
 @freezed
 class User with _$User {
   const User._();
 
   const factory User({
-    int? id,
+    required int id,
     required String name,
     required String email,
-    @Default(Role.customer) Role role, // TODO: make required
-    UserGoal? goal,
+    required Role role,
     Sex? sex,
     @JsonKey(name: 'birth_date') DateTime? birthDate,
-    FitnessLevel? level,
-    ExercisePreference? preference,
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
@@ -97,6 +107,29 @@ class User with _$User {
         Sex.female => const AssetImage('assets/images/avatars/female.png'),
         _ => const AssetImage('assets/images/avatars/unknown.png')
       };
+}
+
+@freezed
+class Customer with _$Customer {
+  const factory Customer({
+    required int id,
+    UserGoal? goal,
+    @JsonKey(name: 'fitness_level') FitnessLevel? level,
+    ExercisePreference? preference,
+  }) = _Customer;
+
+  factory Customer.fromJson(Map<String, Object?> json) =>
+      _$CustomerFromJson(json);
+}
+
+@freezed
+class Coach with _$Coach {
+  const factory Coach({
+    required int id,
+    required CoachSpecialty speciality,
+  }) = _Coach;
+
+  factory Coach.fromJson(Map<String, Object?> json) => _$CoachFromJson(json);
 }
 
 @freezed
@@ -110,7 +143,7 @@ class UserRegistrationForm with _$UserRegistrationForm {
     UserGoal? goal,
     Sex? sex,
     @JsonKey(name: 'birth_date') DateTime? birthDate,
-    FitnessLevel? level,
+    @JsonKey(name: 'fitness_level') FitnessLevel? level,
     ExercisePreference? preference,
   }) = _UserRegistrationForm;
 

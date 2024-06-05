@@ -13,8 +13,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CustomerProfileView extends ConsumerWidget {
-  const CustomerProfileView({super.key});
+class ProfileView extends ConsumerWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,12 +27,12 @@ class CustomerProfileView extends ConsumerWidget {
 
   AppBar _buildAppBar(BuildContext context, WidgetRef ref) {
     return AppBar(
-      title: const Text('customer_profile_view.title').tr(),
+      title: const Text('profile_view.title').tr(),
       actions: [
         Tooltip(
           message: 'common.profile_edit_tooltip'.tr(context: context),
           child: IconButton(
-            onPressed: () => context.push('/customer/profile/edit'),
+            onPressed: () => context.push('/profile/edit'),
             icon: const Icon(Icons.edit),
           ),
         ),
@@ -50,13 +50,23 @@ class CustomerProfileView extends ConsumerWidget {
   Widget _buildBody(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+
     final userValue = ref.watch(currentUserNotifierProvider);
     final user = userValue.valueOrNull?.toNullable() ??
         User(
           id: 1,
           name: BoneMock.name,
           email: BoneMock.email,
+          role: Role.customer,
         );
+
+    final customerValue = ref.watch(currentCustomerNotifierProvider);
+    final customer =
+        customerValue.valueOrNull?.toNullable() ?? const Customer(id: 1);
+
+    final coachValue = ref.watch(currentCoachNotifierProvider);
+    final coach = coachValue.valueOrNull?.toNullable() ??
+        Coach(id: 1, speciality: CoachSpecialty.adult);
 
     return Skeletonizer(
       enabled: userValue.isLoading,
@@ -68,25 +78,30 @@ class CustomerProfileView extends ConsumerWidget {
             _buildUserCard(user, context, textTheme),
             const SizedBox(height: 16.0),
             Text(
-              'customer_profile_view.goal_label',
+              'profile_view.goal_label',
               style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 4.0),
-            _buildUserGoalField(user, context, ref),
-            const SizedBox(height: 16.0),
-            Text(
-              'customer_profile_view.fitness_level_label',
-              style: textTheme.labelLarge,
-            ).tr(),
-            const SizedBox(height: 4.0),
-            _buildFitnessLevelChips(user, ref),
-            const SizedBox(height: 16.0),
-            Text(
-              'customer_profile_view.exercise_preference_label',
-              style: textTheme.labelLarge,
-            ).tr(),
-            const SizedBox(height: 4.0),
-            _buildExercisePreference(user, ref),
+            if (user.role == Role.customer) ...[
+              _buildUserGoalField(customer, context, ref),
+              const SizedBox(height: 16.0),
+              Text(
+                'profile_view.fitness_level_label',
+                style: textTheme.labelLarge,
+              ).tr(),
+              const SizedBox(height: 4.0),
+              _buildFitnessLevelChips(customer, ref),
+              const SizedBox(height: 16.0),
+              Text(
+                'profile_view.exercise_preference_label',
+                style: textTheme.labelLarge,
+              ).tr(),
+              const SizedBox(height: 4.0),
+              _buildExercisePreference(customer, ref),
+            ],
+            if (user.role == Role.couch) ...[
+              _buildSpecialty(coach, context, ref)
+            ],
           ],
         ),
       ),
@@ -138,7 +153,7 @@ class CustomerProfileView extends ConsumerWidget {
     );
   }
 
-  Widget _buildFitnessLevelChips(User user, WidgetRef ref) {
+  Widget _buildFitnessLevelChips(Customer customer, WidgetRef ref) {
     final tileStyle = primaryRadioTileStyle.copyWith(
       selectedColor: primaryColor,
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
@@ -163,14 +178,14 @@ class CustomerProfileView extends ConsumerWidget {
                     style: tileStyle as RadioTileStyle,
                     value: t.$2,
                     addRadio: false,
-                    groupValue: user.level,
+                    groupValue: customer.level,
                     onChanged: (level) async {
                       final notifier = ref.read(
-                        currentUserNotifierProvider.notifier,
+                        currentCustomerNotifierProvider.notifier,
                       );
-                      final result = await notifier.updateUser(
-                        user.copyWith(
-                          level: user.level != level ? level : null,
+                      final result = await notifier.updateCustomer(
+                        customer.copyWith(
+                          level: customer.level != level ? level : null,
                         ),
                       );
                       if (result case Right(value: final error)) {
@@ -188,9 +203,13 @@ class CustomerProfileView extends ConsumerWidget {
     );
   }
 
-  Widget _buildUserGoalField(User user, BuildContext context, WidgetRef ref) {
+  Widget _buildUserGoalField(
+    Customer customer,
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     return DropdownMenu(
-      initialSelection: user.goal,
+      initialSelection: customer.goal,
       inputDecorationTheme: outlinedPrimaryInputDecoration,
       expandedInsets: EdgeInsets.zero,
       dropdownMenuEntries: UserGoal.values
@@ -203,10 +222,10 @@ class CustomerProfileView extends ConsumerWidget {
           .toList(),
       onSelected: (goal) async {
         final notifier = ref.read(
-          currentUserNotifierProvider.notifier,
+          currentCustomerNotifierProvider.notifier,
         );
-        final result = await notifier.updateUser(
-          user.copyWith(goal: goal),
+        final result = await notifier.updateCustomer(
+          customer.copyWith(goal: goal),
         );
         if (result case Right(value: final error)) {
           presentError(error);
@@ -215,17 +234,48 @@ class CustomerProfileView extends ConsumerWidget {
     );
   }
 
-  Widget _buildExercisePreference(User user, WidgetRef ref) {
+  Widget _buildExercisePreference(Customer customer, WidgetRef ref) {
     return ExercisePreferencesField(
-      preference: user.preference,
+      preference: customer.preference,
       onValueChanged: (preference) async {
         final notifier = ref.read(
-          currentUserNotifierProvider.notifier,
+          currentCustomerNotifierProvider.notifier,
         );
-        final result = await notifier.updateUser(
-          user.copyWith(
-            preference: user.preference != preference ? preference : null,
+        final result = await notifier.updateCustomer(
+          customer.copyWith(
+            preference: customer.preference != preference ? preference : null,
           ),
+        );
+        if (result case Right(value: final error)) {
+          presentError(error);
+        }
+      },
+    );
+  }
+
+  Widget _buildSpecialty(Coach coach, BuildContext context, WidgetRef ref) {
+    return DropdownMenu(
+      initialSelection: coach.speciality,
+      inputDecorationTheme: outlinedPrimaryInputDecoration,
+      expandedInsets: EdgeInsets.zero,
+      dropdownMenuEntries: CoachSpecialty.values
+          .map(
+            (specialty) => DropdownMenuEntry(
+              value: specialty,
+              label: specialty.translationKey.tr(context: context),
+            ),
+          )
+          .toList(),
+      onSelected: (specialty) async {
+        if (specialty == null) {
+          return;
+        }
+
+        final notifier = ref.read(
+          currentCoachNotifierProvider.notifier,
+        );
+        final result = await notifier.updateCoach(
+          coach.copyWith(speciality: specialty),
         );
         if (result case Right(value: final error)) {
           presentError(error);
