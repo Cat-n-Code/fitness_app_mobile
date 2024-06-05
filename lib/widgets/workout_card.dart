@@ -1,56 +1,59 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/models/workout.dart';
+import 'package:fitness_app/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class WorkoutCard extends StatelessWidget {
-  const WorkoutCard({
-    super.key,
-    required this.onTap,
-  });
+  const WorkoutCard({super.key, required this.workout, this.onTap});
 
-  static const defaultHeight = 140.0;
-  static const backgroundColor = Color.fromARGB(255, 148, 187, 195);
-  static const foregroundColor = Colors.white;
+  static const defaultHeight = 110.0;
 
-  final void Function() onTap;
+  final void Function()? onTap;
+  final AsyncValue<Workout> workout;
 
   @override
   Widget build(BuildContext context) {
+    final workout = this.workout.valueOrNull ??
+        Workout(
+          name: BoneMock.words(1),
+          description: BoneMock.words(3),
+          completionDate: DateTime.now(),
+          exercises: [],
+        );
+
     return Skeletonizer(
-      enabled: false,
+      enabled: this.workout.isLoading,
       child: SizedBox(
         height: defaultHeight,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16.0),
-          clipBehavior: Clip.hardEdge,
-          child: _buildBody(context),
-        ),
+        child: Skeleton.leaf(child: _buildBody(workout, context)),
       ),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(Workout workout, BuildContext context) {
     final theme = Theme.of(context);
-    final bodyMedium = theme.textTheme.bodyMedium!.copyWith(
-      color: foregroundColor,
-    );
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     final locale = EasyLocalization.of(context)!.locale;
-    final dateFormat = DateFormat.yMMMd(locale.toLanguageTag());
+    final dateFormat = DateFormat.MMMd(locale.toLanguageTag());
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(color: backgroundColor),
+        Material(
+          color: colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(20.0),
+          elevation: 0.5,
+        ),
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: _buildContent(
-            bodyMedium,
-            dateFormat,
-            theme.textTheme,
-            theme.colorScheme,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+          child: _buildContent(workout, dateFormat, colorScheme, textTheme),
         ),
         Material(
+          clipBehavior: Clip.hardEdge,
+          borderRadius: BorderRadius.circular(20.0),
           type: MaterialType.transparency,
           child: InkResponse(onTap: onTap, highlightShape: BoxShape.rectangle),
         )
@@ -59,78 +62,45 @@ class WorkoutCard extends StatelessWidget {
   }
 
   Widget _buildContent(
-    TextStyle textStyle,
+    Workout workout,
     DateFormat dateFormat,
-    TextTheme textTheme,
     ColorScheme colorScheme,
+    TextTheme textTheme,
   ) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        _buildProgress(colorScheme, textTheme),
+        const SizedBox(width: 12.0),
         Expanded(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FractionallySizedBox(
-                widthFactor: 0.7,
-                child: Text(
-                  'Muscle Building',
-                  style: textTheme.titleMedium!.copyWith(
-                    fontSize: 20.0,
-                    color: foregroundColor,
-                  ),
+              Text(workout.name, style: textTheme.titleMedium),
+              Text(
+                workout.description,
+                style: textTheme.bodyMedium!.copyWith(
+                  color: darkColor,
                 ),
               ),
-              Text('Full Body', style: textStyle),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    _buildChip(
-                      textStyle,
-                      Icons.event,
-                      dateFormat.format(DateTime.now()),
-                    ),
-                    const SizedBox(width: 4.0),
-                    _buildChip(textStyle, Icons.fitness_center, 'Beginner'),
-                  ],
-                ),
+              const Expanded(child: SizedBox()),
+              _buildChip(
+                Icons.event,
+                dateFormat.format(workout.completionDate),
+                colorScheme,
+                textTheme,
               )
             ],
           ),
         ),
-        _buildProgress(textTheme, colorScheme)
+        const SizedBox(width: 16.0),
+        const Icon(Icons.chevron_right, color: darkColor)
       ],
     );
   }
 
-  Widget _buildChip(
-    TextStyle textStyle,
-    IconData icon,
-    String content,
-  ) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: foregroundColor,
-          width: 1.0,
-          style: BorderStyle.solid,
-        ),
-      ),
-      padding: const EdgeInsets.fromLTRB(8.0, 4.0, 12.0, 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(icon, color: foregroundColor),
-          const SizedBox(width: 4.0),
-          Text(content, style: textStyle)
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProgress(TextTheme textTheme, ColorScheme colorScheme) {
+  Widget _buildProgress(ColorScheme colorScheme, TextTheme textTheme) {
     return SizedBox(
       width: 64.0,
       height: 64.0,
@@ -139,18 +109,41 @@ class WorkoutCard extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              '65%',
-              style: textTheme.bodyLarge!.copyWith(color: foregroundColor),
+              '60%',
+              style: textTheme.bodyMedium!.copyWith(color: darkColor),
             ),
           ),
           CircularProgressIndicator(
-            value: 0.3,
-            color: foregroundColor,
-            backgroundColor: colorScheme.surfaceDim.withAlpha(180),
+            value: 0.6,
             strokeCap: StrokeCap.round,
-            strokeWidth: 8.0,
+            strokeWidth: 6.0,
             strokeAlign: -1.0,
-          ),
+            color: colorScheme.primary,
+            // backgroundColor: darkColor.withAlpha(40),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChip(
+    IconData icon,
+    String content,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: colorScheme.primary,
+      ),
+      padding: const EdgeInsets.fromLTRB(8.0, 4.0, 12.0, 4.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: darkColor),
+          const SizedBox(width: 4.0),
+          Text(content, style: textTheme.bodySmall)
         ],
       ),
     );

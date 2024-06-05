@@ -6,6 +6,7 @@ const primaryColor = Color.fromARGB(255, 178, 224, 30);
 const secondaryColor = Color.fromARGB(255, 200, 187, 243);
 const tertiaryColor = Color.fromARGB(255, 229, 191, 41);
 const darkColor = Color.fromARGB(255, 75, 71, 71);
+const surfaceDimColor = Color.fromARGB(255, 237, 237, 237);
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
@@ -17,11 +18,11 @@ final colorScheme = ColorScheme.fromSeed(
   tertiary: tertiaryColor,
   surfaceDim: const Color.fromARGB(255, 237, 236, 236),
   surface: Colors.white,
-  surfaceContainerLowest: const Color.fromARGB(255, 237, 237, 237),
-  surfaceContainerLow: const Color.fromARGB(255, 237, 237, 237),
+  surfaceContainerLowest: surfaceDimColor,
+  surfaceContainerLow: Color.lerp(Colors.white, surfaceDimColor, 0.5),
   surfaceContainer: Colors.white,
-  surfaceContainerHigh: const Color.fromARGB(255, 237, 237, 237),
-  surfaceContainerHighest: const Color.fromARGB(255, 237, 237, 237),
+  surfaceContainerHigh: Color.lerp(Colors.white, surfaceDimColor, 0.5),
+  surfaceContainerHighest: surfaceDimColor,
   surfaceTint: Colors.white,
   scrim: darkColor.withAlpha(25),
 );

@@ -1,5 +1,6 @@
 import 'package:fitness_app/views/customer_main_view.dart';
 import 'package:fitness_app/views/customer_profile_edit.dart';
+import 'package:fitness_app/views/customer_workout_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitness_app/views/login_view.dart';
 import 'package:fitness_app/views/sign_up_profile_view.dart';
@@ -32,6 +33,12 @@ final router = GoRouter(
     GoRoute(
       path: '/customer/profile/edit',
       builder: (context, state) => const CustomerProfileEditView(),
+    ),
+    GoRoute(
+      path: '/customer/workout/:id',
+      builder: (context, state) => CustomerWorkoutView(
+        workoutId: int.parse(state.pathParameters['id']!),
+      ),
     )
   ],
 );
