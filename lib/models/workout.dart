@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'workout.freezed.dart';
 part 'workout.g.dart';
@@ -18,6 +19,16 @@ class ExerciseTemplate with _$ExerciseTemplate {
 
   factory ExerciseTemplate.fromJson(Map<String, Object?> json) =>
       _$ExerciseTemplateFromJson(json);
+
+  factory ExerciseTemplate.mock() => ExerciseTemplate(
+        name: BoneMock.words(1),
+        muscle: BoneMock.words(1),
+        additionalMuscle: BoneMock.words(1),
+        type: BoneMock.words(1),
+        equipment: BoneMock.words(1),
+        difficulty: BoneMock.words(1),
+        photosUrls: [],
+      );
 }
 
 @freezed
@@ -31,6 +42,12 @@ class Exercise with _$Exercise {
 
   factory Exercise.fromJson(Map<String, Object?> json) =>
       _$ExerciseFromJson(json);
+
+  factory Exercise.mock() => Exercise(
+        template: ExerciseTemplate.mock(),
+        setsCount: 3,
+        goalSetsCount: 10,
+      );
 }
 
 @freezed
@@ -44,6 +61,16 @@ class WorkoutTemplate with _$WorkoutTemplate {
 
   factory WorkoutTemplate.fromJson(Map<String, Object?> json) =>
       _$WorkoutTemplateFromJson(json);
+
+  factory WorkoutTemplate.mock() => WorkoutTemplate(
+        name: BoneMock.words(2),
+        description: BoneMock.words(3),
+        exercises: [
+          ExerciseTemplate.mock(),
+          ExerciseTemplate.mock(),
+          ExerciseTemplate.mock(),
+        ],
+      );
 }
 
 @freezed
@@ -59,6 +86,16 @@ class Workout with _$Workout {
 
   factory Workout.fromJson(Map<String, Object?> json) =>
       _$WorkoutFromJson(json);
+
+  factory Workout.mock() => Workout(
+        template: WorkoutTemplate.mock(),
+        exercises: [
+          Exercise.mock(),
+          Exercise.mock(),
+          Exercise.mock(),
+        ],
+        completionDate: DateTime.now(),
+      );
 
   double get progress {
     if (exercises.isEmpty) {

@@ -1,5 +1,7 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 part 'users.freezed.dart';
 part 'users.g.dart';
@@ -7,7 +9,7 @@ part 'users.g.dart';
 enum Role {
   @JsonValue('CUSTOMER')
   customer,
-  @JsonValue('COUCH')
+  @JsonValue('COACH')
   couch;
 }
 
@@ -102,17 +104,30 @@ class User with _$User {
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
 
+  factory User.mock() => User(
+        id: 1,
+        name: BoneMock.name,
+        email: BoneMock.email,
+        role: Role.customer,
+        sex: Sex.male,
+        birthDate: DateTime.now(),
+      );
+
   ImageProvider get photo => switch (sex) {
         Sex.male => const AssetImage('assets/images/avatars/male.png'),
         Sex.female => const AssetImage('assets/images/avatars/female.png'),
         _ => const AssetImage('assets/images/avatars/unknown.png')
       };
+
+  int? get age =>
+      birthDate != null ? AgeCalculator.age(birthDate!).years : null;
 }
 
 @freezed
 class Customer with _$Customer {
   const factory Customer({
     required int id,
+    @JsonKey(name: 'user_id') required int userId,
     UserGoal? goal,
     @JsonKey(name: 'fitness_level') FitnessLevel? level,
     ExercisePreference? preference,
@@ -120,16 +135,31 @@ class Customer with _$Customer {
 
   factory Customer.fromJson(Map<String, Object?> json) =>
       _$CustomerFromJson(json);
+
+  factory Customer.mock() => const Customer(
+        id: 1,
+        userId: 1,
+        goal: UserGoal.beActive,
+        level: FitnessLevel.novice,
+        preference: ExercisePreference.other,
+      );
 }
 
 @freezed
 class Coach with _$Coach {
   const factory Coach({
     required int id,
+    @JsonKey(name: 'user_id') required int userId,
     required CoachSpecialty speciality,
   }) = _Coach;
 
   factory Coach.fromJson(Map<String, Object?> json) => _$CoachFromJson(json);
+
+  factory Coach.mock() => const Coach(
+        id: 1,
+        userId: 1,
+        speciality: CoachSpecialty.adult,
+      );
 }
 
 @freezed

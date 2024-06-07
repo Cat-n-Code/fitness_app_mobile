@@ -29,7 +29,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
 
 const _$RoleEnumMap = {
   Role.customer: 'CUSTOMER',
-  Role.couch: 'COUCH',
+  Role.couch: 'COACH',
 };
 
 const _$SexEnumMap = {
@@ -40,6 +40,7 @@ const _$SexEnumMap = {
 _$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
     _$CustomerImpl(
       id: (json['id'] as num).toInt(),
+      userId: (json['user_id'] as num).toInt(),
       goal: $enumDecodeNullable(_$UserGoalEnumMap, json['goal']),
       level: $enumDecodeNullable(_$FitnessLevelEnumMap, json['fitness_level']),
       preference:
@@ -49,6 +50,7 @@ _$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'user_id': instance.userId,
       'goal': _$UserGoalEnumMap[instance.goal],
       'fitness_level': _$FitnessLevelEnumMap[instance.level],
       'preference': _$ExercisePreferenceEnumMap[instance.preference],
@@ -79,12 +81,14 @@ const _$ExercisePreferenceEnumMap = {
 
 _$CoachImpl _$$CoachImplFromJson(Map<String, dynamic> json) => _$CoachImpl(
       id: (json['id'] as num).toInt(),
+      userId: (json['user_id'] as num).toInt(),
       speciality: $enumDecode(_$CoachSpecialtyEnumMap, json['speciality']),
     );
 
 Map<String, dynamic> _$$CoachImplToJson(_$CoachImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'user_id': instance.userId,
       'speciality': _$CoachSpecialtyEnumMap[instance.speciality]!,
     };
 

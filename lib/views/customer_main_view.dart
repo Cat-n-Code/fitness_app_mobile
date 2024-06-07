@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fitness_app/views/customer/customer_chat_view.dart';
+import 'package:fitness_app/views/customer/customer_coaches_view.dart';
 import 'package:fitness_app/views/customer/customer_workouts_view.dart';
 import 'package:fitness_app/views/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class _CustomerMainViewState extends State<CustomerMainView>
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.forum_outlined),
-          label: 'customer_main_view.chat_tab'.tr(context: context),
+          label: 'customer_main_view.coaches_tab'.tr(context: context),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.person),
@@ -64,7 +64,7 @@ class _CustomerMainViewState extends State<CustomerMainView>
       physics: const NeverScrollableScrollPhysics(),
       children: const [
         CustomerWorkoutsView(),
-        CustomerChatView(),
+        CustomerCoachesView(),
         ProfileView()
       ],
     );

@@ -90,16 +90,19 @@ const _fakeWorkoutsTemplates = [
 ];
 final _fakeWorkouts = [
   Workout(
+    id: 1,
     template: _fakeWorkoutsTemplates[0],
     exercises: _fakeExercises,
     completionDate: DateTime(2024, 7, 21),
   ),
   Workout(
+    id: 2,
     template: _fakeWorkoutsTemplates[1],
     exercises: _fakeExercises,
     completionDate: DateTime(2024, 7, 17),
   ),
   Workout(
+    id: 3,
     template: _fakeWorkoutsTemplates[2],
     exercises: _fakeExercises,
     completionDate: DateTime(2024, 7, 19),

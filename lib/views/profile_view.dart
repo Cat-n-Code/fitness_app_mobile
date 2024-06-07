@@ -52,21 +52,13 @@ class ProfileView extends ConsumerWidget {
     final textTheme = theme.textTheme;
 
     final userValue = ref.watch(currentUserNotifierProvider);
-    final user = userValue.valueOrNull?.toNullable() ??
-        User(
-          id: 1,
-          name: BoneMock.name,
-          email: BoneMock.email,
-          role: Role.customer,
-        );
+    final user = userValue.valueOrNull?.toNullable() ?? User.mock();
 
     final customerValue = ref.watch(currentCustomerNotifierProvider);
-    final customer =
-        customerValue.valueOrNull?.toNullable() ?? const Customer(id: 1);
+    final customer = customerValue.valueOrNull?.toNullable() ?? Customer.mock();
 
     final coachValue = ref.watch(currentCoachNotifierProvider);
-    final coach = coachValue.valueOrNull?.toNullable() ??
-        Coach(id: 1, speciality: CoachSpecialty.adult);
+    final coach = coachValue.valueOrNull?.toNullable() ?? Coach.mock();
 
     return Skeletonizer(
       enabled: userValue.isLoading,
@@ -82,26 +74,55 @@ class ProfileView extends ConsumerWidget {
               style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 4.0),
-            if (user.role == Role.customer) ...[
-              _buildUserGoalField(customer, context, ref),
-              const SizedBox(height: 16.0),
-              Text(
-                'profile_view.fitness_level_label',
-                style: textTheme.labelLarge,
-              ).tr(),
-              const SizedBox(height: 4.0),
-              _buildFitnessLevelChips(customer, ref),
-              const SizedBox(height: 16.0),
-              Text(
-                'profile_view.exercise_preference_label',
-                style: textTheme.labelLarge,
-              ).tr(),
-              const SizedBox(height: 4.0),
-              _buildExercisePreference(customer, ref),
-            ],
-            if (user.role == Role.couch) ...[
-              _buildSpecialty(coach, context, ref)
-            ],
+            if (user.role == Role.customer)
+              Skeletonizer(
+                enabled: customerValue.isLoading,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildUserGoalField(customer, context, ref),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      'profile_view.fitness_level_label',
+                      style: textTheme.labelLarge,
+                    ).tr(),
+                    const SizedBox(height: 4.0),
+                    _buildFitnessLevelChips(customer, ref),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      'profile_view.exercise_preference_label',
+                      style: textTheme.labelLarge,
+                    ).tr(),
+                    const SizedBox(height: 4.0),
+                    _buildExercisePreference(customer, ref),
+                  ],
+                ),
+              ),
+            if (user.role == Role.couch)
+              Skeletonizer(
+                enabled: coachValue.isLoading,
+                child: _buildSpecialty(coach, context, ref),
+              )
+            // if (user.role == Role.customer) ...[
+            //   _buildUserGoalField(customer, context, ref),
+            //   const SizedBox(height: 16.0),
+            //   Text(
+            //     'profile_view.fitness_level_label',
+            //     style: textTheme.labelLarge,
+            //   ).tr(),
+            //   const SizedBox(height: 4.0),
+            //   _buildFitnessLevelChips(customer, ref),
+            //   const SizedBox(height: 16.0),
+            //   Text(
+            //     'profile_view.exercise_preference_label',
+            //     style: textTheme.labelLarge,
+            //   ).tr(),
+            //   const SizedBox(height: 4.0),
+            //   _buildExercisePreference(customer, ref),
+            // ],
+            // if (user.role == Role.couch) ...[
+            //   _buildSpecialty(coach, context, ref)
+            // ],
           ],
         ),
       ),
@@ -189,7 +210,7 @@ class ProfileView extends ConsumerWidget {
                         ),
                       );
                       if (result case Right(value: final error)) {
-                        presentError(error);
+                        presentError(error, widgetRef: ref);
                       }
                     },
                     child: Text(
@@ -228,7 +249,7 @@ class ProfileView extends ConsumerWidget {
           customer.copyWith(goal: goal),
         );
         if (result case Right(value: final error)) {
-          presentError(error);
+          presentError(error, widgetRef: ref);
         }
       },
     );
@@ -247,7 +268,7 @@ class ProfileView extends ConsumerWidget {
           ),
         );
         if (result case Right(value: final error)) {
-          presentError(error);
+          presentError(error, widgetRef: ref);
         }
       },
     );
@@ -278,7 +299,7 @@ class ProfileView extends ConsumerWidget {
           coach.copyWith(speciality: specialty),
         );
         if (result case Right(value: final error)) {
-          presentError(error);
+          presentError(error, widgetRef: ref);
         }
       },
     );

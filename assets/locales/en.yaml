@@ -43,8 +43,10 @@ common:
     other: Other
   coach_specialty:
     kids: Kids
-    adult: Adults
+    adults: Adults
     yoga: Yoga
+  
+  age_value: "{} y.o."
 
 validation:
   field_is_empty: This field is required
@@ -107,11 +109,14 @@ sign_up_profile_view:
 
 customer_main_view:
   workouts_tab: Workouts
-  chat_tab: Chat
+  coaches_tab: Coaches
   profile_tab: Profile
 
 customer_workouts_view:
   title: Workouts For You
+
+customer_coaches_view:
+  title: My Coaches
 
 profile_view:
   title: My Profile
@@ -127,3 +132,6 @@ couch_main_view:
   workouts_tab: Workouts
   exercises_tab: Exercises
   profile_tab: Profile
+
+coach_customers_view:
+  title: My Customers

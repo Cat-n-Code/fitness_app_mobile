@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/providers/scaffold_messenger.dart';
+import 'package:fitness_app/utils/exceptions.dart';
 import 'package:fitness_app/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -227,14 +228,14 @@ class _SignUpProfileViewState extends ConsumerState<SignUpProfileView>
     switch (result) {
       case Left():
         if (mounted) {
-          context.go('/');
+          context.go('/customer');
         }
-      case Right(value: final exception):
-        if (exception.statusCode == HttpStatus.conflict) {
+      case Right(value: final e):
+        if (e case ApiException() when e.statusCode == HttpStatus.conflict) {
           final snackBar = buildInfoSnackBar('errors.same_user_exists'.tr());
           ref.read(scaffoldMessengerProvider)?.showSnackBar(snackBar);
         } else {
-          presentError(exception, widgetRef: ref);
+          presentError(e, widgetRef: ref);
           if (mounted) {
             context.go('/startup');
           }

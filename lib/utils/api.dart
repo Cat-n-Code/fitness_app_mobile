@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -96,6 +97,8 @@ Future<ApiResult<Response>> apiFetch(
     } else {
       return Either.left(response);
     }
+  } on Exception catch (exception) {
+    return Either.right(exception);
   } finally {
     client.close();
   }

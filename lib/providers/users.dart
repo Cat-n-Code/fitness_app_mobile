@@ -13,6 +13,20 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'users.g.dart';
 
+@riverpod
+Future<User> userById(UserByIdRef ref, int id) async {
+  final result = await apiFetch(HttpMethod.get, '/users/$id');
+
+  switch (result) {
+    case Left(value: final response):
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      return User.fromJson(data);
+    case Right(value: final exception):
+      presentError(exception, ref: ref);
+      throw exception;
+  }
+}
+
 @Riverpod(keepAlive: true)
 class CurrentUserNotifier extends _$CurrentUserNotifier {
   @override
@@ -87,12 +101,20 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
 class CurrentCustomerNotifier extends _$CurrentCustomerNotifier {
   @override
   Future<Option<Customer>> build() async {
+    final tokenOption = await ref.watch(authTokenNotifierProvider.future);
+    if (tokenOption.isNone()) {
+      return const Option.none();
+    }
+
     final future = _fetchCurrentCustomer().then((result) {
       switch (result) {
         case Left(value: final customer):
           return customer;
-        case Right(value: final exception):
-          presentError(exception, ref: ref);
+        case Right(value: final e):
+          if (e case ApiException()
+              when e.statusCode != HttpStatus.unauthorized) {
+            presentError(e, ref: ref);
+          }
           return const Option<Customer>.none();
       }
     });
@@ -139,11 +161,11 @@ class CurrentCustomerNotifier extends _$CurrentCustomerNotifier {
           jsonDecode(utf8.decode(response.bodyBytes)),
         );
         return ApiResult.left(Option.of(customer));
-      case Right(value: final exception):
-        if (exception.statusCode == HttpStatus.notFound) {
+      case Right(value: final e):
+        if (e case ApiException() when e.statusCode == HttpStatus.notFound) {
           return ApiResult.left(const Option.none());
         } else {
-          return ApiResult.right(exception);
+          return ApiResult.right(e);
         }
     }
   }
@@ -153,12 +175,20 @@ class CurrentCustomerNotifier extends _$CurrentCustomerNotifier {
 class CurrentCoachNotifier extends _$CurrentCoachNotifier {
   @override
   Future<Option<Coach>> build() async {
+    final tokenOption = await ref.watch(authTokenNotifierProvider.future);
+    if (tokenOption.isNone()) {
+      return const Option.none();
+    }
+
     final future = _fetchCurrentCoach().then((result) {
       switch (result) {
         case Left(value: final coach):
           return coach;
-        case Right(value: final exception):
-          presentError(exception, ref: ref);
+        case Right(value: final e):
+          if (e case ApiException()
+              when e.statusCode != HttpStatus.unauthorized) {
+            presentError(e, ref: ref);
+          }
           return const Option<Coach>.none();
       }
     });
@@ -205,11 +235,11 @@ class CurrentCoachNotifier extends _$CurrentCoachNotifier {
           jsonDecode(utf8.decode(response.bodyBytes)),
         );
         return ApiResult.left(Option.of(coach));
-      case Right(value: final exception):
-        if (exception.statusCode == HttpStatus.notFound) {
+      case Right(value: final e):
+        if (e case ApiException() when e.statusCode == HttpStatus.notFound) {
           return ApiResult.left(const Option.none());
         } else {
-          return ApiResult.right(exception);
+          return ApiResult.right(e);
         }
     }
   }

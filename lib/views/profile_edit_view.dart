@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/providers/scaffold_messenger.dart';
+import 'package:fitness_app/utils/exceptions.dart';
 import 'package:fitness_app/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -90,15 +91,7 @@ class _CustomerProfileEditViewState extends ConsumerState<ProfileEditView> {
 
   Widget _buildBody(TextTheme textTheme) {
     final userValue = ref.watch(currentUserNotifierProvider);
-    final user = userValue.valueOrNull?.toNullable() ??
-        User(
-          id: 1,
-          email: BoneMock.email,
-          name: BoneMock.name,
-          birthDate: DateTime.now(),
-          sex: Sex.male,
-          role: Role.customer,
-        );
+    final user = userValue.valueOrNull?.toNullable() ?? User.mock();
 
     return Skeletonizer(
       enabled: userValue.isLoading,
@@ -218,12 +211,12 @@ class _CustomerProfileEditViewState extends ConsumerState<ProfileEditView> {
       );
       final notifier = ref.read(currentUserNotifierProvider.notifier);
       final result = await notifier.updateUser(newUser);
-      if (result case Right(value: final error)) {
-        if (error.statusCode == HttpStatus.conflict) {
+      if (result case Right(value: final e)) {
+        if (e case ApiException() when e.statusCode == HttpStatus.conflict) {
           final snackBar = buildInfoSnackBar('errors.same_user_exists'.tr());
           ref.read(scaffoldMessengerProvider)?.showSnackBar(snackBar);
         } else {
-          presentError(error);
+          presentError(e, widgetRef: ref);
         }
       }
     }

@@ -27,6 +27,7 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_markdown: ^0.7.1
   riverpod_annotation: ^2.3.5
+  age_calculator: ^1.0.0
 
 dev_dependencies:
   flutter_test:

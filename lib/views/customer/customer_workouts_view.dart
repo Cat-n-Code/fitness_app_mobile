@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/providers/workouts.dart';
-import 'package:fitness_app/widgets/workout_card.dart';
+import 'package:fitness_app/widgets/cards/workout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

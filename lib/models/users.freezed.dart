@@ -263,6 +263,8 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Customer {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int get userId => throw _privateConstructorUsedError;
   UserGoal? get goal => throw _privateConstructorUsedError;
   @JsonKey(name: 'fitness_level')
   FitnessLevel? get level => throw _privateConstructorUsedError;
@@ -281,6 +283,7 @@ abstract class $CustomerCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      @JsonKey(name: 'user_id') int userId,
       UserGoal? goal,
       @JsonKey(name: 'fitness_level') FitnessLevel? level,
       ExercisePreference? preference});
@@ -300,6 +303,7 @@ class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? goal = freezed,
     Object? level = freezed,
     Object? preference = freezed,
@@ -308,6 +312,10 @@ class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as int,
       goal: freezed == goal
           ? _value.goal
@@ -335,6 +343,7 @@ abstract class _$$CustomerImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      @JsonKey(name: 'user_id') int userId,
       UserGoal? goal,
       @JsonKey(name: 'fitness_level') FitnessLevel? level,
       ExercisePreference? preference});
@@ -352,6 +361,7 @@ class __$$CustomerImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? goal = freezed,
     Object? level = freezed,
     Object? preference = freezed,
@@ -360,6 +370,10 @@ class __$$CustomerImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as int,
       goal: freezed == goal
           ? _value.goal
@@ -382,6 +396,7 @@ class __$$CustomerImplCopyWithImpl<$Res>
 class _$CustomerImpl implements _Customer {
   const _$CustomerImpl(
       {required this.id,
+      @JsonKey(name: 'user_id') required this.userId,
       this.goal,
       @JsonKey(name: 'fitness_level') this.level,
       this.preference});
@@ -392,6 +407,9 @@ class _$CustomerImpl implements _Customer {
   @override
   final int id;
   @override
+  @JsonKey(name: 'user_id')
+  final int userId;
+  @override
   final UserGoal? goal;
   @override
   @JsonKey(name: 'fitness_level')
@@ -401,7 +419,7 @@ class _$CustomerImpl implements _Customer {
 
   @override
   String toString() {
-    return 'Customer(id: $id, goal: $goal, level: $level, preference: $preference)';
+    return 'Customer(id: $id, userId: $userId, goal: $goal, level: $level, preference: $preference)';
   }
 
   @override
@@ -410,6 +428,7 @@ class _$CustomerImpl implements _Customer {
         (other.runtimeType == runtimeType &&
             other is _$CustomerImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.goal, goal) || other.goal == goal) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.preference, preference) ||
@@ -418,7 +437,8 @@ class _$CustomerImpl implements _Customer {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, goal, level, preference);
+  int get hashCode =>
+      Object.hash(runtimeType, id, userId, goal, level, preference);
 
   @JsonKey(ignore: true)
   @override
@@ -437,6 +457,7 @@ class _$CustomerImpl implements _Customer {
 abstract class _Customer implements Customer {
   const factory _Customer(
       {required final int id,
+      @JsonKey(name: 'user_id') required final int userId,
       final UserGoal? goal,
       @JsonKey(name: 'fitness_level') final FitnessLevel? level,
       final ExercisePreference? preference}) = _$CustomerImpl;
@@ -446,6 +467,9 @@ abstract class _Customer implements Customer {
 
   @override
   int get id;
+  @override
+  @JsonKey(name: 'user_id')
+  int get userId;
   @override
   UserGoal? get goal;
   @override
@@ -466,6 +490,8 @@ Coach _$CoachFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Coach {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int get userId => throw _privateConstructorUsedError;
   CoachSpecialty get speciality => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -478,7 +504,10 @@ abstract class $CoachCopyWith<$Res> {
   factory $CoachCopyWith(Coach value, $Res Function(Coach) then) =
       _$CoachCopyWithImpl<$Res, Coach>;
   @useResult
-  $Res call({int id, CoachSpecialty speciality});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'user_id') int userId,
+      CoachSpecialty speciality});
 }
 
 /// @nodoc
@@ -495,12 +524,17 @@ class _$CoachCopyWithImpl<$Res, $Val extends Coach>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? speciality = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as int,
       speciality: null == speciality
           ? _value.speciality
@@ -517,7 +551,10 @@ abstract class _$$CoachImplCopyWith<$Res> implements $CoachCopyWith<$Res> {
       __$$CoachImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, CoachSpecialty speciality});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'user_id') int userId,
+      CoachSpecialty speciality});
 }
 
 /// @nodoc
@@ -532,12 +569,17 @@ class __$$CoachImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? userId = null,
     Object? speciality = null,
   }) {
     return _then(_$CoachImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as int,
       speciality: null == speciality
           ? _value.speciality
@@ -550,7 +592,10 @@ class __$$CoachImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CoachImpl implements _Coach {
-  const _$CoachImpl({required this.id, required this.speciality});
+  const _$CoachImpl(
+      {required this.id,
+      @JsonKey(name: 'user_id') required this.userId,
+      required this.speciality});
 
   factory _$CoachImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoachImplFromJson(json);
@@ -558,11 +603,14 @@ class _$CoachImpl implements _Coach {
   @override
   final int id;
   @override
+  @JsonKey(name: 'user_id')
+  final int userId;
+  @override
   final CoachSpecialty speciality;
 
   @override
   String toString() {
-    return 'Coach(id: $id, speciality: $speciality)';
+    return 'Coach(id: $id, userId: $userId, speciality: $speciality)';
   }
 
   @override
@@ -571,13 +619,14 @@ class _$CoachImpl implements _Coach {
         (other.runtimeType == runtimeType &&
             other is _$CoachImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.speciality, speciality) ||
                 other.speciality == speciality));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, speciality);
+  int get hashCode => Object.hash(runtimeType, id, userId, speciality);
 
   @JsonKey(ignore: true)
   @override
@@ -596,12 +645,16 @@ class _$CoachImpl implements _Coach {
 abstract class _Coach implements Coach {
   const factory _Coach(
       {required final int id,
+      @JsonKey(name: 'user_id') required final int userId,
       required final CoachSpecialty speciality}) = _$CoachImpl;
 
   factory _Coach.fromJson(Map<String, dynamic> json) = _$CoachImpl.fromJson;
 
   @override
   int get id;
+  @override
+  @JsonKey(name: 'user_id')
+  int get userId;
   @override
   CoachSpecialty get speciality;
   @override
