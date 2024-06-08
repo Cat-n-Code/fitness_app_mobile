@@ -8,6 +8,7 @@ common:
   dialog_yes: Yes
   profile_edit_tooltip: Edit profile
   logout_tooltip: Log out
+  chat_tooltip: Open chat
 
   logout_dialog_title: LOGOUT
   logout_dialog_body: Are you sure you want to logout?
@@ -107,6 +108,9 @@ sign_up_profile_view:
   fitness_level_title: HOW WOULD YOU RATE YOUR FITNESS LEVEL?
   exercise_preference_title: DO YOU HAVE A SPECIFIC EXERCISE PREFERENCE?
 
+chat_view:
+  attach_tooltip: Attach file
+
 customer_main_view:
   workouts_tab: Workouts
   coaches_tab: Coaches
@@ -135,3 +139,7 @@ couch_main_view:
 
 coach_customers_view:
   title: My Customers
+
+coach_customer_view:
+  workouts_title: Workouts
+  schedule_workout_button: Schedule workout

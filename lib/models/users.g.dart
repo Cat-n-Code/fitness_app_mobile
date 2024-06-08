@@ -29,7 +29,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
 
 const _$RoleEnumMap = {
   Role.customer: 'CUSTOMER',
-  Role.couch: 'COACH',
+  Role.coach: 'COACH',
 };
 
 const _$SexEnumMap = {

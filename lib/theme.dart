@@ -64,6 +64,13 @@ final smallPrimaryButton = FilledButton.styleFrom(
   padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 );
+final iconPrimaryButton = FilledButton.styleFrom(
+  backgroundColor: colorScheme.primary,
+  foregroundColor: colorScheme.onPrimary,
+  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+  minimumSize: const Size(36.0, 36.0),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+);
 final secondaryButton = FilledButton.styleFrom(
   backgroundColor: colorScheme.secondary,
   foregroundColor: colorScheme.onSecondary,

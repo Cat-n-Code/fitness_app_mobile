@@ -6,7 +6,7 @@ part of 'customer.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$customerByIdHash() => r'f4ad5a451619ac32116ab03e8c4d7757da8cebb5';
+String _$customerByIdHash() => r'43363e042466bad1d8e7be5093d55855cc0fcca7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -155,7 +155,7 @@ class _CustomerByIdProviderElement
   int get id => (origin as CustomerByIdProvider).id;
 }
 
-String _$myCustomersHash() => r'22f58db8a759087a5901de7673ebc782fbc371cc';
+String _$myCustomersHash() => r'8f86cb9da2e01a4591580413f2116f9cde07c957';
 
 /// See also [myCustomers].
 @ProviderFor(myCustomers)

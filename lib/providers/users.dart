@@ -15,7 +15,7 @@ part 'users.g.dart';
 
 @riverpod
 Future<User> userById(UserByIdRef ref, int id) async {
-  final result = await apiFetch(HttpMethod.get, '/users/$id');
+  final result = await apiFetch(HttpMethod.get, '/users/id/$id', ref: ref);
 
   switch (result) {
     case Left(value: final response):

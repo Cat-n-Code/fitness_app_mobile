@@ -98,31 +98,11 @@ class ProfileView extends ConsumerWidget {
                   ],
                 ),
               ),
-            if (user.role == Role.couch)
+            if (user.role == Role.coach)
               Skeletonizer(
                 enabled: coachValue.isLoading,
                 child: _buildSpecialty(coach, context, ref),
               )
-            // if (user.role == Role.customer) ...[
-            //   _buildUserGoalField(customer, context, ref),
-            //   const SizedBox(height: 16.0),
-            //   Text(
-            //     'profile_view.fitness_level_label',
-            //     style: textTheme.labelLarge,
-            //   ).tr(),
-            //   const SizedBox(height: 4.0),
-            //   _buildFitnessLevelChips(customer, ref),
-            //   const SizedBox(height: 16.0),
-            //   Text(
-            //     'profile_view.exercise_preference_label',
-            //     style: textTheme.labelLarge,
-            //   ).tr(),
-            //   const SizedBox(height: 4.0),
-            //   _buildExercisePreference(customer, ref),
-            // ],
-            // if (user.role == Role.couch) ...[
-            //   _buildSpecialty(coach, context, ref)
-            // ],
           ],
         ),
       ),

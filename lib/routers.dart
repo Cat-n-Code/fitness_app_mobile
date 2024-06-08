@@ -1,3 +1,5 @@
+import 'package:fitness_app/views/chat_view.dart';
+import 'package:fitness_app/views/coach/coach_customer_view.dart';
 import 'package:fitness_app/views/coach_main_view.dart';
 import 'package:fitness_app/views/customer_main_view.dart';
 import 'package:fitness_app/views/profile_edit_view.dart';
@@ -28,6 +30,17 @@ final router = GoRouter(
       builder: (context, state) => const LoginView(),
     ),
     GoRoute(
+      path: '/chat',
+      builder: (context, state) => ChatView(
+        chatId: state.uri.queryParameters.containsKey('chatId')
+            ? int.parse(state.uri.queryParameters['chatId']!)
+            : null,
+        userId: state.uri.queryParameters.containsKey('userId')
+            ? int.parse(state.uri.queryParameters['userId']!)
+            : null,
+      ),
+    ),
+    GoRoute(
       path: '/customer',
       builder: (context, state) => const CustomerMainView(),
     ),
@@ -42,8 +55,14 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/couch',
+      path: '/coach',
       builder: (context, state) => const CoachMainView(),
+    ),
+    GoRoute(
+      path: '/coach/customer/:id',
+      builder: (context, state) => CoachCustomerView(
+        customerId: int.parse(state.pathParameters['id']!),
+      ),
     ),
   ],
 );

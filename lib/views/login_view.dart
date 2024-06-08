@@ -151,8 +151,8 @@ class _LoginViewBodyState extends ConsumerState<_LoginViewBody> {
           switch (user.toNullable()!.role) {
             case Role.customer:
               context.go('/customer');
-            case Role.couch:
-              context.go('/couch');
+            case Role.coach:
+              context.go('/coach');
           }
         }
       case Right(value: final exception):

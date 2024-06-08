@@ -30,7 +30,7 @@ Future<ApiResult<Response>> apiFetch(
   bool authorize = true,
   Object? body,
   Map<String, String>? headers,
-  Map<String, dynamic>? params,
+  Map<String, String>? params,
   Duration? timeLimit,
 }) async {
   final AppConfig config;
@@ -54,7 +54,8 @@ Future<ApiResult<Response>> apiFetch(
 
   if (tokenOption case None() when authorize) {
     throw StateError(
-        'HTTP get request use authorization, but token is not available');
+      'HTTP get request use authorization, but token is not available',
+    );
   }
 
   final url = config.apiBaseUrl.resolve(path).replace(queryParameters: params);

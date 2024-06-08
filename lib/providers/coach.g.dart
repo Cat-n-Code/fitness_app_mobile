@@ -6,7 +6,7 @@ part of 'coach.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$coachByIdHash() => r'279ad482a6115744ac67ab8a36f2ca48c39111b5';
+String _$coachByIdHash() => r'3ab603d614ce4f39c8d8d0040b02042c00faf8d9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -154,7 +154,7 @@ class _CoachByIdProviderElement extends AutoDisposeFutureProviderElement<Coach>
   int get id => (origin as CoachByIdProvider).id;
 }
 
-String _$myCoachesHash() => r'53cf9fd891579f1dcdec7af61fd1fe890e097aa9';
+String _$myCoachesHash() => r'0efd7e654b6dd18dd31fbc2aa69374fb95bee936';
 
 /// See also [myCoaches].
 @ProviderFor(myCoaches)

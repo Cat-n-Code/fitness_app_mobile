@@ -7,21 +7,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomerCard extends ConsumerWidget {
-  const CustomerCard({super.key, required this.customer, required this.onTap});
+  const CustomerCard({super.key, required this.customer, this.onTap});
 
   final AsyncValue<Customer> customer;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final customer = this.customer.valueOrNull ?? Customer.mock();
-    final user = (this.customer.hasValue
-            ? ref.watch(userByIdProvider(customer.userId)).valueOrNull
-            : null) ??
-        User.mock();
+    final userValue = this.customer.hasValue
+        ? ref.watch(userByIdProvider(customer.userId))
+        : null;
+    final user = userValue?.valueOrNull ?? User.mock();
 
     return Skeletonizer(
-      enabled: !this.customer.hasValue,
+      enabled:
+          !this.customer.hasValue || (userValue != null && !userValue.hasValue),
       child: Skeleton.leaf(child: _buildBody(customer, user, context)),
     );
   }
@@ -32,14 +33,18 @@ class CustomerCard extends ConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     return Material(
-      color: colorScheme.surfaceContainerHigh,
+      color: onTap != null
+          ? colorScheme.surfaceContainerHigh
+          : colorScheme.surface,
       borderRadius: BorderRadius.circular(16.0),
-      elevation: 0.5,
+      elevation: onTap != null ? 0.5 : 0.0,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: onTap != null
+              ? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)
+              : const EdgeInsets.all(0.0),
           child: _buildContent(customer, user, textTheme),
         ),
       ),
@@ -62,7 +67,7 @@ class CustomerCard extends ConsumerWidget {
             ],
           ),
         ),
-        const Icon(Icons.chevron_right),
+        if (onTap != null) const Icon(Icons.chevron_right),
       ],
     );
   }

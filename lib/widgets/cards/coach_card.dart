@@ -15,13 +15,13 @@ class CoachCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final coach = this.coach.valueOrNull ?? Coach.mock();
-    final user = (this.coach.hasValue
-            ? ref.watch(userByIdProvider(coach.userId)).valueOrNull
-            : null) ??
-        User.mock();
+    final userValue =
+        this.coach.hasValue ? ref.watch(userByIdProvider(coach.userId)) : null;
+    final user = userValue?.valueOrNull ?? User.mock();
 
     return Skeletonizer(
-      enabled: !this.coach.hasValue,
+      enabled:
+          !this.coach.hasValue || (userValue != null && !userValue.hasValue),
       child: Skeleton.leaf(child: _buildBody(coach, user, context)),
     );
   }

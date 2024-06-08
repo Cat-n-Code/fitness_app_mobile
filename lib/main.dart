@@ -24,8 +24,8 @@ void main() async {
       switch (user.role) {
         case Role.customer:
           router.go('/customer');
-        case Role.couch:
-          router.go('/couch');
+        case Role.coach:
+          router.go('/coach');
       }
     case None():
       router.go('/startup');

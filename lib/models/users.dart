@@ -10,7 +10,7 @@ enum Role {
   @JsonValue('CUSTOMER')
   customer,
   @JsonValue('COACH')
-  couch;
+  coach;
 }
 
 enum Sex {

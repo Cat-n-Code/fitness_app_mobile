@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/models/users.dart';
+import 'package:fitness_app/providers/customer.dart';
 import 'package:fitness_app/widgets/cards/customer_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CouchCustomersView extends ConsumerWidget {
   const CouchCustomersView({super.key});
@@ -24,35 +26,37 @@ class CouchCustomersView extends ConsumerWidget {
   }
 
   Widget _buildBody(WidgetRef ref) {
-    return ListView(
+    return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 14.0),
-      children: [
-        CustomerCard(
-          customer: AsyncValue.data(Customer.mock()),
-          onTap: () => (),
-        )
-      ],
-    );
-    // return ListView.builder(
-    //   padding: const EdgeInsets.symmetric(horizontal: 14.0),
-    //   itemBuilder: (context, index) {
-    //     final page = index ~/ pageSize;
-    //     final pageIndex = index - page * pageSize;
-    //     final customerValue =
-    //         ref.watch(myCustomersProvider(page, pageSize)).map(
-    //               data: (data) => AsyncValue.data(data.value[pageIndex]),
-    //               error: (error) => AsyncValue<Customer>.error(
-    //                 error,
-    //                 error.stackTrace,
-    //               ),
-    //               loading: (loading) => const AsyncValue<Customer>.loading(),
-    //             );
+      itemBuilder: (context, index) {
+        final page = index ~/ pageSize;
+        final pageIndex = index - page * pageSize;
+        final customerValue =
+            ref.watch(myCustomersProvider(page, pageSize)).map(
+                  data: (data) => pageIndex < data.value.length
+                      ? AsyncValue.data(data.value[pageIndex])
+                      : null,
+                  error: (error) => AsyncValue<Customer>.error(
+                    error,
+                    error.stackTrace,
+                  ),
+                  loading: (loading) => const AsyncValue<Customer>.loading(),
+                );
 
-    //     return Padding(
-    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-    //       child: CustomerCard(customer: customerValue, onTap: () => ()),
-    //     );
-    //   },
-    // );
+        if (customerValue != null) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: CustomerCard(
+              customer: customerValue,
+              onTap: () => context.push(
+                '/coach/customer/${customerValue.value?.id}',
+              ),
+            ),
+          );
+        } else {
+          return null;
+        }
+      },
+    );
   }
 }
