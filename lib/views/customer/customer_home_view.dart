@@ -55,10 +55,6 @@ class CustomerHomeView extends ConsumerWidget {
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar();
-  }
-
   Widget _buildHeader() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

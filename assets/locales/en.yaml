@@ -140,6 +140,7 @@ profile_view:
   goal_label: MY GOAL
   fitness_level_label: MY FITNESS LEVEL
   exercise_preference_label: MY EXERCISE PREFERENCE
+  specialty_field: MY SPECIALTY
   daily_goals_label: My Daily Goals
 
 profile_edit_view:
@@ -153,6 +154,14 @@ couch_main_view:
 
 coach_customers_view:
   title: My Customers
+
+coach_workouts_view:
+  title: Workouts
+  add_workout_tooltip: Create workout
+
+coach_exercises_view:
+  title: Exercises
+  add_exercise_tooltip: Create exercise
 
 coach_customer_view:
   workouts_title: Workouts

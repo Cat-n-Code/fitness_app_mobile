@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class CoachWorkoutsView extends StatelessWidget {
-  const CoachWorkoutsView({super.key});
+class CoachExercisesView extends StatelessWidget {
+  const CoachExercisesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,10 @@ class CoachWorkoutsView extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text('coach_workouts_view.title').tr(),
+      title: const Text('coach_exercises_view.title').tr(),
       actions: [
         Tooltip(
-          message: 'coach_workouts_view.add_workout_tooltip'.tr(
+          message: 'coach_exercises_view.add_exercise_tooltip'.tr(
             context: context,
           ),
           child: IconButton(onPressed: () => (), icon: const Icon(Icons.add)),

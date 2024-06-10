@@ -109,11 +109,17 @@ class ProfileView extends ConsumerWidget {
                   ],
                 ),
               ),
-            if (user.role == Role.coach)
+            if (user.role == Role.coach) ...[
+              Text(
+                'profile_view.specialty_field',
+                style: textTheme.labelLarge,
+              ).tr(),
+              const SizedBox(height: 4.0),
               Skeletonizer(
                 enabled: coachValue.isLoading,
                 child: _buildSpecialty(coach, context, ref),
-              )
+              ),
+            ],
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:fitness_app/views/chat_view.dart';
-import 'package:fitness_app/views/coach/coach_customer_view.dart';
+import 'package:fitness_app/views/coach_customer_view.dart';
 import 'package:fitness_app/views/coach_main_view.dart';
 import 'package:fitness_app/views/customer_main_view.dart';
 import 'package:fitness_app/views/profile_edit_view.dart';

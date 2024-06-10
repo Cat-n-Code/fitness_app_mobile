@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/views/coach/coach_customers_view.dart';
+import 'package:fitness_app/views/coach/coach_exercises_view.dart';
+import 'package:fitness_app/views/coach/coach_workouts_view.dart';
 import 'package:fitness_app/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -67,9 +69,9 @@ class _CoachMainViewState extends ConsumerState<CoachMainView>
       controller: _tabController,
       physics: const NeverScrollableScrollPhysics(),
       children: const [
-        CouchCustomersView(),
-        Scaffold(),
-        Scaffold(),
+        CoachCustomersView(),
+        CoachWorkoutsView(),
+        CoachExercisesView(),
         ProfileView(),
       ],
     );
