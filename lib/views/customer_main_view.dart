@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/views/customer/customer_coaches_view.dart';
-import 'package:fitness_app/views/customer/customer_workouts_view.dart';
+import 'package:fitness_app/views/customer/customer_home_view.dart';
 import 'package:fitness_app/views/profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -43,8 +43,8 @@ class _CustomerMainViewState extends State<CustomerMainView>
       onTap: (index) => _tabController.animateTo(index),
       items: [
         BottomNavigationBarItem(
-          icon: const Icon(Icons.fitness_center),
-          label: 'customer_main_view.workouts_tab'.tr(context: context),
+          icon: const Icon(Icons.home_outlined),
+          label: 'customer_main_view.home_tab'.tr(context: context),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.forum_outlined),
@@ -63,7 +63,7 @@ class _CustomerMainViewState extends State<CustomerMainView>
       controller: _tabController,
       physics: const NeverScrollableScrollPhysics(),
       children: const [
-        CustomerWorkoutsView(),
+        CustomerHomeView(),
         CustomerCoachesView(),
         ProfileView()
       ],

@@ -5,6 +5,7 @@ import 'package:fitness_app/providers/auth.dart';
 import 'package:fitness_app/providers/users.dart';
 import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/error_presenter.dart';
+import 'package:fitness_app/widgets/customer_goals.dart';
 import 'package:fitness_app/widgets/fields/exercise_preferences_field.dart';
 import 'package:fitness_app/widgets/radio_tile.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,7 @@ class ProfileView extends ConsumerWidget {
                       style: primaryTitleTextStyle,
                     ).tr(),
                     const SizedBox(height: 4.0),
-                    _buildGoals(context),
+                    const CustomerGoals(editable: true)
                   ],
                 ),
               ),
@@ -359,37 +360,6 @@ class ProfileView extends ConsumerWidget {
           presentError(error, widgetRef: ref);
         }
       },
-    );
-  }
-
-  Widget _buildGoals(BuildContext context) {
-    return Column(
-      children: [
-        _buildGoalButton(
-          Icons.directions_walk,
-          'common.mock_goals.1'.tr(context: context),
-        ),
-        const SizedBox(height: 8.0),
-        _buildGoalButton(
-          Icons.water_drop_outlined,
-          'common.mock_goals.2'.tr(context: context),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildGoalButton(IconData icon, String name) {
-    return OutlinedButton(
-      onPressed: () => (),
-      style: primaryOutlinedButton,
-      child: Row(
-        children: [
-          Icon(icon),
-          const SizedBox(width: 8.0),
-          Expanded(child: Text(name)),
-          const Icon(Icons.edit),
-        ],
-      ),
     );
   }
 

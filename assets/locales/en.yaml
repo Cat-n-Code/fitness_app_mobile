@@ -118,12 +118,14 @@ chat_view:
   attach_tooltip: Attach file
 
 customer_main_view:
-  workouts_tab: Workouts
+  home_tab: Main
   coaches_tab: Coaches
   profile_tab: Profile
 
-customer_workouts_view:
-  title: Workouts For You
+customer_home_view:
+  title: Home
+  schedule_title: My Schedule
+  workouts_title: Workouts For You
 
 customer_coaches_view:
   title: My Coaches
