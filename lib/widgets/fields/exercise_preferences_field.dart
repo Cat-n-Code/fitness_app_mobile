@@ -22,6 +22,7 @@ class ExercisePreferencesField extends StatelessWidget {
       mainAxisSpacing: 6.0,
       crossAxisSpacing: 6.0,
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: ExercisePreference.values.map(_buildRadioTile).toList(),
     );
   }

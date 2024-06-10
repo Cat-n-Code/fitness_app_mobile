@@ -11,8 +11,8 @@ import 'package:fitness_app/providers/users.dart';
 import 'package:fitness_app/routers.dart';
 
 void main() async {
-  var widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await EasyLocalization.ensureInitialized();
   await dotenv.load();
@@ -31,7 +31,7 @@ void main() async {
       router.go('/startup');
   }
 
-  FlutterNativeSplash.remove();
+  // FlutterNativeSplash.remove();
 
   runApp(
     UncontrolledProviderScope(

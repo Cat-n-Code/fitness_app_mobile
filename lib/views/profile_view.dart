@@ -8,6 +8,7 @@ import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/widgets/fields/exercise_preferences_field.dart';
 import 'package:fitness_app/widgets/radio_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ class ProfileView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: _buildAppBar(context, ref),
-      body: _buildBody(context, ref),
+      body: SingleChildScrollView(child: _buildBody(context, ref)),
       resizeToAvoidBottomInset: false,
     );
   }
@@ -63,23 +64,25 @@ class ProfileView extends ConsumerWidget {
     return Skeletonizer(
       enabled: userValue.isLoading,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildUserCard(user, context, textTheme),
             const SizedBox(height: 16.0),
-            Text(
-              'profile_view.goal_label',
-              style: textTheme.labelLarge,
-            ).tr(),
-            const SizedBox(height: 4.0),
             if (user.role == Role.customer)
               Skeletonizer(
                 enabled: customerValue.isLoading,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    _buildLevelCard(context, textTheme, colorScheme),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      'profile_view.goal_label',
+                      style: textTheme.labelLarge,
+                    ).tr(),
+                    const SizedBox(height: 4.0),
                     _buildUserGoalField(customer, context, ref),
                     const SizedBox(height: 16.0),
                     Text(
@@ -95,6 +98,13 @@ class ProfileView extends ConsumerWidget {
                     ).tr(),
                     const SizedBox(height: 4.0),
                     _buildExercisePreference(customer, ref),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      'profile_view.daily_goals_label',
+                      style: primaryTitleTextStyle,
+                    ).tr(),
+                    const SizedBox(height: 4.0),
+                    _buildGoals(context),
                   ],
                 ),
               ),
@@ -147,10 +157,108 @@ class ProfileView extends ConsumerWidget {
                   ),
                 )
               ],
+              const SizedBox(height: 8.0),
+              Skeleton.unite(
+                child: Row(
+                  children: [
+                    const Icon(Icons.bolt, size: 20.0, color: darkColor),
+                    Text(
+                      ' ${'common.points_value'.tr(
+                        context: context,
+                        args: ['197'],
+                      )}',
+                      style: textStyle,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         )
       ],
+    );
+  }
+
+  Widget _buildLevelCard(
+    BuildContext context,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
+    return SizedBox(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                children: [
+                  MarkdownBody(
+                    data: 'profile_view.motivation_text'.tr(
+                      context: context,
+                      args: ['300', '4'],
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  OutlinedButton(
+                    style: tertiaryOutlinedButton,
+                    onPressed: () => (),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.local_fire_department_outlined),
+                        const Text('profile_view.streaks_button')
+                            .tr(args: ['25'])
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 48.0),
+          _buildLevelProgress(textTheme, colorScheme),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLevelProgress(TextTheme textTheme, ColorScheme colorScheme) {
+    return SizedBox(
+      width: 100.0,
+      height: 100.0,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '3',
+                style: textTheme.bodyLarge!.copyWith(
+                  fontSize: 36.0,
+                  fontWeight: FontWeight.w700,
+                  height: 0.8,
+                  color: colorScheme.primary,
+                ),
+              ),
+              Text(
+                'common.level',
+                style: textTheme.bodyMedium!.copyWith(color: darkColor),
+              ).tr()
+            ],
+          ),
+          CircularProgressIndicator(
+            value: 0.3,
+            color: colorScheme.primary,
+            backgroundColor: colorScheme.surfaceDim,
+            strokeCap: StrokeCap.round,
+            strokeWidth: 8.0,
+            strokeAlign: -1.0,
+          ),
+        ],
+      ),
     );
   }
 
@@ -251,6 +359,37 @@ class ProfileView extends ConsumerWidget {
           presentError(error, widgetRef: ref);
         }
       },
+    );
+  }
+
+  Widget _buildGoals(BuildContext context) {
+    return Column(
+      children: [
+        _buildGoalButton(
+          Icons.directions_walk,
+          'common.mock_goals.1'.tr(context: context),
+        ),
+        const SizedBox(height: 8.0),
+        _buildGoalButton(
+          Icons.water_drop_outlined,
+          'common.mock_goals.2'.tr(context: context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGoalButton(IconData icon, String name) {
+    return OutlinedButton(
+      onPressed: () => (),
+      style: primaryOutlinedButton,
+      child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: 8.0),
+          Expanded(child: Text(name)),
+          const Icon(Icons.edit),
+        ],
+      ),
     );
   }
 

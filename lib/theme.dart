@@ -71,6 +71,13 @@ final iconPrimaryButton = FilledButton.styleFrom(
   minimumSize: const Size(36.0, 36.0),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 );
+final primaryOutlinedButton = OutlinedButton.styleFrom(
+  foregroundColor: darkColor,
+  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0),
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+  side: const BorderSide(color: primaryColor, width: 1.0),
+  textStyle: textTheme.bodyMedium,
+);
 final secondaryButton = FilledButton.styleFrom(
   backgroundColor: colorScheme.secondary,
   foregroundColor: colorScheme.onSecondary,

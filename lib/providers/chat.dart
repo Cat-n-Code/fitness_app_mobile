@@ -53,6 +53,7 @@ Future<List<Message>> chatMessages(
     '/messages/$chatId',
     ref: ref,
     params: {'page': page.toString(), 'size': count.toString()},
+    minTime: Duration.zero,
   );
 
   switch (result) {

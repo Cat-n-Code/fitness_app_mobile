@@ -55,15 +55,11 @@ class _ChatViewState extends ConsumerState<ChatView> {
         }
 
         for (final page in _usedPages) {
-          try {
-            final _ = ref.refresh(chatMessagesProvider(
-              chatValue.value!.id,
-              page,
-              pageSize,
-            ));
-          } on Exception catch (exception) {
-            print(exception);
-          }
+          final _ = ref.refresh(chatMessagesProvider(
+            chatValue.value!.id,
+            page,
+            pageSize,
+          ));
         }
       },
     );

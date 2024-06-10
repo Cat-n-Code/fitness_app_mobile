@@ -32,6 +32,7 @@ Future<ApiResult<Response>> apiFetch(
   Map<String, String>? headers,
   Map<String, String>? params,
   Duration? timeLimit,
+  Duration? minTime,
 }) async {
   final AppConfig config;
   final Locale? locale;
@@ -89,8 +90,11 @@ Future<ApiResult<Response>> apiFetch(
 
   final client = Client();
   try {
-    final streamedResponse =
-        await client.send(request).timeout(timeLimit ?? config.apiTimeLimit);
+    final requestFuture =
+        client.send(request).timeout(timeLimit ?? config.apiTimeLimit);
+
+    await Future.delayed(minTime ?? config.apiMinTime);
+    final streamedResponse = await requestFuture;
     final response = await Response.fromStream(streamedResponse);
 
     if (response.statusCode < 200 || response.statusCode >= 300) {
