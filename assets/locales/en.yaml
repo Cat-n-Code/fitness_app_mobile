@@ -75,6 +75,9 @@ errors:
   invalid_format: Invalid client request format
   same_user_exists: User with given Email already exists
 
+user_card:
+  user_greet: Hello, __{}!__
+
 start_up_view:
   title_1: WELCOME TO
   title_2: Inner Spark

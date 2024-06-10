@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/providers/workouts.dart';
 import 'package:fitness_app/theme.dart';
+import 'package:fitness_app/widgets/cards/user_card.dart';
 import 'package:fitness_app/widgets/cards/workout_card.dart';
 import 'package:fitness_app/widgets/customer_goals.dart';
 import 'package:fitness_app/widgets/mini_calendar.dart';
@@ -25,7 +26,7 @@ class CustomerHomeView extends ConsumerWidget {
         child: ListView.builder(
           padding: EdgeInsets.fromLTRB(24.0, padding.top + 16.0, 24.0, 0.0),
           itemBuilder: (context, index) => switch (index) {
-            0 => _buildTasksCalendar(),
+            0 => _buildHeader(),
             1 => Text(
                 'customer_home_view.workouts_title',
                 style: primaryTitleTextStyle,
@@ -58,10 +59,12 @@ class CustomerHomeView extends ConsumerWidget {
     return AppBar();
   }
 
-  Widget _buildTasksCalendar() {
+  Widget _buildHeader() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const UserCard(),
+        const SizedBox(height: 8.0),
         Text(
           'customer_home_view.schedule_title',
           style: primaryTitleTextStyle,
