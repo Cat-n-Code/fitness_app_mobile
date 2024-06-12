@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fitness_app/models/radio_tile_style.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class RadioTile<T> extends StatelessWidget {
   const RadioTile({
@@ -31,29 +32,31 @@ class RadioTile<T> extends StatelessWidget {
   Widget _buildMaterial(double isSelected, BuildContext context) {
     final style = this.style ?? Theme.of(context).extension<RadioTileStyle>();
 
-    return Material(
-      type: MaterialType.card,
-      color: Color.lerp(style?.normalColor, style?.selectedColor, isSelected),
-      shape: ShapeBorder.lerp(style?.shape, style?.selectedShape, isSelected),
-      clipBehavior: Clip.hardEdge,
-      child: InkResponse(
-        onTap: () => onChanged(value),
-        highlightShape: BoxShape.rectangle,
-        child: Padding(
-          padding: style!.padding,
-          child: IconTheme(
-            data: IconThemeData.lerp(
-              style.iconTheme,
-              style.selectedIconTheme,
-              isSelected,
-            ),
-            child: DefaultTextStyle(
-              style: TextStyle.lerp(
-                style.textStyle,
-                style.selectedTextStyle,
+    return Skeleton.leaf(
+      child: Material(
+        type: MaterialType.card,
+        color: Color.lerp(style?.normalColor, style?.selectedColor, isSelected),
+        shape: ShapeBorder.lerp(style?.shape, style?.selectedShape, isSelected),
+        clipBehavior: Clip.hardEdge,
+        child: InkResponse(
+          onTap: () => onChanged(value),
+          highlightShape: BoxShape.rectangle,
+          child: Padding(
+            padding: style!.padding,
+            child: IconTheme(
+              data: IconThemeData.lerp(
+                style.iconTheme,
+                style.selectedIconTheme,
                 isSelected,
-              )!,
-              child: _buildBody(style),
+              ),
+              child: DefaultTextStyle(
+                style: TextStyle.lerp(
+                  style.textStyle,
+                  style.selectedTextStyle,
+                  isSelected,
+                )!,
+                child: _buildBody(style),
+              ),
             ),
           ),
         ),

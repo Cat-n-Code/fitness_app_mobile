@@ -282,7 +282,7 @@ class _ChatByUserIdProviderElement
   int get userId => (origin as ChatByUserIdProvider).userId;
 }
 
-String _$chatMessagesHash() => r'f8fee3365452bf858a405e1d2c3da198d34cfbed';
+String _$chatMessagesHash() => r'f1e24a7ed9e6cd9954c2a61595022a40a18c5484';
 
 /// See also [chatMessages].
 @ProviderFor(chatMessages)

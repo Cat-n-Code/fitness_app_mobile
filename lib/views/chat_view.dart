@@ -32,7 +32,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
   final _usedPages = <int>{};
   late final Timer _timer;
 
-  bool _isSending = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -128,6 +128,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
           message: 'chat_view.attach_tooltip'.tr(context: context),
           child: IconButton(
             onPressed: () => (),
+            // onPressed: _onFileAttachClicked,
             icon: const Icon(Icons.attach_file),
           ),
         ),
@@ -208,7 +209,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
 
   Widget _buildInputBar(Chat? chat, WidgetRef ref) {
     return Skeletonizer(
-      enabled: _isSending,
+      enabled: _isLoading,
       child: Row(
         children: [
           Expanded(
@@ -245,7 +246,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
     );
 
     setState(() {
-      _isSending = true;
+      _isLoading = true;
       _textController.text = '';
     });
 
@@ -261,7 +262,31 @@ class _ChatViewState extends ConsumerState<ChatView> {
     }
 
     setState(() {
-      _isSending = false;
+      _isLoading = false;
     });
   }
+
+  // void _onFileAttachClicked() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+
+  //   try {
+  //     final result = await FilePicker.platform.pickFiles(
+  //       type: FileType.media,
+  //       withData: false,
+  //       withReadStream: true,
+  //     );
+
+  //     if (result == null) {
+  //       return;
+  //     }
+
+  //     final file = result.files.first;
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
 }

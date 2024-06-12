@@ -26,36 +26,42 @@ class CustomerCoachesView extends ConsumerWidget {
   }
 
   Widget _buildBody(BuildContext context, WidgetRef ref) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
-      itemBuilder: (context, index) {
-        final page = index ~/ pageSize;
-        final pageIndex = index - page * pageSize;
-        final coachValue = ref.watch(myCoachesProvider(page, pageSize)).map(
-              data: (data) => pageIndex < data.value.length
-                  ? AsyncValue.data(data.value[pageIndex])
-                  : null,
-              error: (error) => AsyncValue<Coach>.error(
-                error,
-                error.stackTrace,
-              ),
-              loading: (loading) => const AsyncValue<Coach>.loading(),
-            );
-
-        if (coachValue != null) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: CoachCard(
-              coach: coachValue,
-              onTap: () => context.push(
-                '/chat?userId=${coachValue.valueOrNull?.userId}',
-              ),
-            ),
-          );
-        } else {
-          return null;
-        }
+    return RefreshIndicator.adaptive(
+      onRefresh: () async {
+        ref.invalidate(myCoachesProvider);
+        await ref.read(myCoachesProvider(0, pageSize).future);
       },
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        itemBuilder: (context, index) {
+          final page = index ~/ pageSize;
+          final pageIndex = index - page * pageSize;
+          final coachValue = ref.watch(myCoachesProvider(page, pageSize)).map(
+                data: (data) => pageIndex < data.value.length
+                    ? AsyncValue.data(data.value[pageIndex])
+                    : null,
+                error: (error) => AsyncValue<Coach>.error(
+                  error,
+                  error.stackTrace,
+                ),
+                loading: (loading) => const AsyncValue<Coach>.loading(),
+              );
+
+          if (coachValue != null) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: CoachCard(
+                coach: coachValue,
+                onTap: () => context.push(
+                  '/chat?userId=${coachValue.valueOrNull?.userId}',
+                ),
+              ),
+            );
+          } else {
+            return null;
+          }
+        },
+      ),
     );
   }
 }

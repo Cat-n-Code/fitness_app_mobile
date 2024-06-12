@@ -142,6 +142,29 @@ final primaryRadioTileStyle = RadioTileStyle(
     borderRadius: BorderRadius.circular(20.0),
   ),
 );
+final primaryFilledRadioStyle = RadioTileStyle(
+  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+  normalColor: colorScheme.surfaceDim,
+  selectedColor: primaryColor,
+  radioColor: primaryColor,
+  textStyle: darkTextStyle,
+  selectedTextStyle: darkTextStyle.copyWith(color: Colors.white),
+  iconTheme: darkIconTheme,
+  selectedIconTheme: darkIconTheme.copyWith(color: Colors.white),
+  shape: RoundedRectangleBorder(
+    side: const BorderSide(
+      color: primaryColor,
+      width: 0.0,
+      style: BorderStyle.none,
+      strokeAlign: BorderSide.strokeAlignInside,
+    ),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+  selectedShape: RoundedRectangleBorder(
+    side: const BorderSide(style: BorderStyle.none),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+);
 final secondaryRadioTileStyle = RadioTileStyle(
   padding: const EdgeInsets.all(8.0),
   normalColor: colorScheme.surfaceDim,

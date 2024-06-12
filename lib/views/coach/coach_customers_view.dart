@@ -26,37 +26,43 @@ class CoachCustomersView extends ConsumerWidget {
   }
 
   Widget _buildBody(WidgetRef ref) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
-      itemBuilder: (context, index) {
-        final page = index ~/ pageSize;
-        final pageIndex = index - page * pageSize;
-        final customerValue =
-            ref.watch(myCustomersProvider(page, pageSize)).map(
-                  data: (data) => pageIndex < data.value.length
-                      ? AsyncValue.data(data.value[pageIndex])
-                      : null,
-                  error: (error) => AsyncValue<Customer>.error(
-                    error,
-                    error.stackTrace,
-                  ),
-                  loading: (loading) => const AsyncValue<Customer>.loading(),
-                );
-
-        if (customerValue != null) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: CustomerCard(
-              customer: customerValue,
-              onTap: () => context.push(
-                '/coach/customer/${customerValue.value?.id}',
-              ),
-            ),
-          );
-        } else {
-          return null;
-        }
+    return RefreshIndicator.adaptive(
+      onRefresh: () async {
+        ref.invalidate(myCustomersProvider);
+        await ref.read(myCustomersProvider(0, pageSize).future);
       },
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        itemBuilder: (context, index) {
+          final page = index ~/ pageSize;
+          final pageIndex = index - page * pageSize;
+          final customerValue =
+              ref.watch(myCustomersProvider(page, pageSize)).map(
+                    data: (data) => pageIndex < data.value.length
+                        ? AsyncValue.data(data.value[pageIndex])
+                        : null,
+                    error: (error) => AsyncValue<Customer>.error(
+                      error,
+                      error.stackTrace,
+                    ),
+                    loading: (loading) => const AsyncValue<Customer>.loading(),
+                  );
+
+          if (customerValue != null) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: CustomerCard(
+                customer: customerValue,
+                onTap: () => context.push(
+                  '/coach/customer/${customerValue.value?.id}',
+                ),
+              ),
+            );
+          } else {
+            return null;
+          }
+        },
+      ),
     );
   }
 }

@@ -183,12 +183,12 @@ class _StartupViewTipsState extends State<_StartupViewTips> {
       children: [
         Text(
           'start_up_view.tips.$index.title',
-          style: textTheme.titleMedium,
+          style: textTheme.titleMedium?.copyWith(color: Colors.white),
         ).tr(),
         Text(
           'start_up_view.tips.$index.body',
           textAlign: TextAlign.center,
-          style: textTheme.bodyMedium,
+          style: textTheme.bodyMedium?.copyWith(color: Colors.white),
         ).tr()
       ],
     );

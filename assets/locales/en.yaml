@@ -47,9 +47,15 @@ common:
     adults: Adults
     yoga: Yoga
   
+  date_range:
+    this_week: This week
+    last_week: Last week
+    two_weeks: Two weeks
+  
   level: Level
   points_value: "{} points"
   age_value: "{} y.o."
+  water_value: "{}ml"
 
   mock_goals:
     "1": 10,000 steps
@@ -123,6 +129,7 @@ chat_view:
 customer_main_view:
   home_tab: Main
   coaches_tab: Coaches
+  progress_tab: Progress
   profile_tab: Profile
 
 customer_home_view:
@@ -132,6 +139,19 @@ customer_home_view:
 
 customer_coaches_view:
   title: My Coaches
+
+customer_progress_view:
+  title: My Progress
+  streak_label: "{} days streak"
+  streak_motivation: "Reach your daily goal and earn {} points"
+  steps_tab_label: Steps
+  water_tab_label: Water
+  steps_average_value: |
+    __Average__  
+    __{}__ steps
+  water_average_value: |
+    __Average__  
+    __{}__ ml
 
 profile_view:
   title: My Profile

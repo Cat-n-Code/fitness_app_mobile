@@ -4,5 +4,5 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_key.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GlobalKey<AppState> appKey(AppKeyRef ref) => GlobalKey();

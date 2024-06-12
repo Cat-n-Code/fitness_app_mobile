@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:fitness_app/models/users.dart';
+import 'package:fitness_app/providers/app_key.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +38,7 @@ void main() async {
         supportedLocales: const [Locale('en')],
         fallbackLocale: const Locale('en'),
         assetLoader: const YamlAssetLoader(),
-        child: const App(),
+        child: App(key: container.read(appKeyProvider)),
       ),
     ),
   );

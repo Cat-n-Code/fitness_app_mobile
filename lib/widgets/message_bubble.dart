@@ -71,8 +71,7 @@ class MessageBubble extends ConsumerWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 4.0),
-          Text(message.content)
+          Text(message.content),
         ],
       ),
     );

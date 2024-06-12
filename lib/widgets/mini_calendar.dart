@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/models/radio_tile_style.dart';
+import 'package:fitness_app/theme.dart';
+import 'package:fitness_app/widgets/radio_tile.dart';
 import 'package:flutter/material.dart';
 
 class MiniCalendar extends StatefulWidget {
-  const MiniCalendar({
-    super.key,
-    required this.onWeekdaySelected,
-  });
+  const MiniCalendar({super.key, required this.onWeekdaySelected, this.color});
 
   final void Function(int) onWeekdaySelected;
+  final Color? color;
 
   @override
   State<MiniCalendar> createState() => _MiniCalendarState();
@@ -27,59 +28,46 @@ class _MiniCalendarState extends State<MiniCalendar> {
 
     return SizedBox(
       height: 70.0,
-      child: GridView.count(
-        crossAxisCount: 5,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(0.0),
+      child: Row(
         children: [
           for (var i = -2; i < 3; ++i)
             _buildDayChip(
               DateTime.now().add(Duration(days: i)),
-              i == _selectedWeekday,
+              i,
               theme.textTheme,
-              theme.colorScheme,
-              (b) {
-                setState(() {
-                  _selectedWeekday = i;
-                });
-                if (b) {
-                  widget.onWeekdaySelected(i);
-                }
-              },
             )
         ],
       ),
     );
   }
 
-  Widget _buildDayChip(
-    DateTime date,
-    bool isSelected,
-    TextTheme textTheme,
-    ColorScheme colorScheme,
-    void Function(bool) onSelected,
-  ) {
-    return ChoiceChip(
-      selected: isSelected,
-      showCheckmark: false,
-      onSelected: onSelected,
-      selectedColor: colorScheme.primary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      labelPadding: const EdgeInsets.symmetric(horizontal: 12.0),
-      label: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            date.day.toString(),
-            style: textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+  Widget _buildDayChip(DateTime date, int weekday, TextTheme textTheme) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+        child: RadioTile(
+          value: weekday,
+          groupValue: _selectedWeekday,
+          onChanged: _onWeekdayChanged,
+          addRadio: false,
+          style: primaryFilledRadioStyle.copyWith(selectedColor: widget.color)
+              as RadioTileStyle,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                date.day.toString(),
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+              Text(DateFormat.E().format(date))
+            ],
           ),
-          Text(DateFormat.E().format(date))
-        ],
+        ),
       ),
     );
+  }
+
+  void _onWeekdayChanged(int? weekday) {
+    setState(() => _selectedWeekday = weekday!);
   }
 }
