@@ -18,7 +18,7 @@ Future<List<Workout>> myWorkouts(
 ) async {
   final result = await apiFetch(
     HttpMethod.get,
-    '/workouts/users/current',
+    '/workouts/users/get/me',
     ref: ref,
     params: {'page': page.toString(), 'size': pageSize.toString()},
   );

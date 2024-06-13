@@ -60,6 +60,7 @@ class PhotoUpload with _$PhotoUpload {
   const factory PhotoUpload({
     required int id,
     required String filename,
+    @JsonKey(name: 'full_url') required String url,
   }) = _PhotoUpload;
 
   factory PhotoUpload.fromJson(Map<String, Object?> json) =>

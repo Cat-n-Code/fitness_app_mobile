@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/models/workout.dart';
+import 'package:fitness_app/providers/exercise.dart';
 import 'package:fitness_app/providers/workouts.dart';
 import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/api.dart';
@@ -360,11 +361,10 @@ class _ExerciseTabState extends State<_ExerciseTab> {
           height: 220.0,
           child: PageView(
             controller: _pageController,
-            children: [0, 1, 2]
-                // TODO: real photo
+            children: _exercise.exercise!.photos
                 .map(
                   (u) => Image.network(
-                    'https://placehold.co/600x400/png',
+                    u.url,
                     loadingBuilder: (context, child, loadingProgress) =>
                         Skeletonizer(
                       enabled: loadingProgress != null &&
@@ -378,7 +378,11 @@ class _ExerciseTabState extends State<_ExerciseTab> {
           ),
         ),
         const SizedBox(height: 4.0),
-        PageIndicators(pagesCount: 3, page: _currentPage, color: darkColor),
+        PageIndicators(
+          pagesCount: _exercise.exercise!.photos.length,
+          page: _currentPage,
+          color: darkColor,
+        ),
         const SizedBox(height: 4.0),
         _buildSetsText(theme.colorScheme),
         Expanded(

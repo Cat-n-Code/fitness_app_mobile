@@ -22,6 +22,8 @@ PhotoUpload _$PhotoUploadFromJson(Map<String, dynamic> json) {
 mixin _$PhotoUpload {
   int get id => throw _privateConstructorUsedError;
   String get filename => throw _privateConstructorUsedError;
+  @JsonKey(name: 'full_url')
+  String get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,7 @@ abstract class $PhotoUploadCopyWith<$Res> {
           PhotoUpload value, $Res Function(PhotoUpload) then) =
       _$PhotoUploadCopyWithImpl<$Res, PhotoUpload>;
   @useResult
-  $Res call({int id, String filename});
+  $Res call({int id, String filename, @JsonKey(name: 'full_url') String url});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$PhotoUploadCopyWithImpl<$Res, $Val extends PhotoUpload>
   $Res call({
     Object? id = null,
     Object? filename = null,
+    Object? url = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -62,6 +65,10 @@ class _$PhotoUploadCopyWithImpl<$Res, $Val extends PhotoUpload>
       filename: null == filename
           ? _value.filename
           : filename // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +82,7 @@ abstract class _$$PhotoUploadImplCopyWith<$Res>
       __$$PhotoUploadImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String filename});
+  $Res call({int id, String filename, @JsonKey(name: 'full_url') String url});
 }
 
 /// @nodoc
@@ -91,6 +98,7 @@ class __$$PhotoUploadImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? filename = null,
+    Object? url = null,
   }) {
     return _then(_$PhotoUploadImpl(
       id: null == id
@@ -101,6 +109,10 @@ class __$$PhotoUploadImplCopyWithImpl<$Res>
           ? _value.filename
           : filename // ignore: cast_nullable_to_non_nullable
               as String,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,7 +120,10 @@ class __$$PhotoUploadImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PhotoUploadImpl implements _PhotoUpload {
-  const _$PhotoUploadImpl({required this.id, required this.filename});
+  const _$PhotoUploadImpl(
+      {required this.id,
+      required this.filename,
+      @JsonKey(name: 'full_url') required this.url});
 
   factory _$PhotoUploadImpl.fromJson(Map<String, dynamic> json) =>
       _$$PhotoUploadImplFromJson(json);
@@ -117,10 +132,13 @@ class _$PhotoUploadImpl implements _PhotoUpload {
   final int id;
   @override
   final String filename;
+  @override
+  @JsonKey(name: 'full_url')
+  final String url;
 
   @override
   String toString() {
-    return 'PhotoUpload(id: $id, filename: $filename)';
+    return 'PhotoUpload(id: $id, filename: $filename, url: $url)';
   }
 
   @override
@@ -130,12 +148,13 @@ class _$PhotoUploadImpl implements _PhotoUpload {
             other is _$PhotoUploadImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.filename, filename) ||
-                other.filename == filename));
+                other.filename == filename) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, filename);
+  int get hashCode => Object.hash(runtimeType, id, filename, url);
 
   @JsonKey(ignore: true)
   @override
@@ -153,8 +172,10 @@ class _$PhotoUploadImpl implements _PhotoUpload {
 
 abstract class _PhotoUpload implements PhotoUpload {
   const factory _PhotoUpload(
-      {required final int id,
-      required final String filename}) = _$PhotoUploadImpl;
+          {required final int id,
+          required final String filename,
+          @JsonKey(name: 'full_url') required final String url}) =
+      _$PhotoUploadImpl;
 
   factory _PhotoUpload.fromJson(Map<String, dynamic> json) =
       _$PhotoUploadImpl.fromJson;
@@ -163,6 +184,9 @@ abstract class _PhotoUpload implements PhotoUpload {
   int get id;
   @override
   String get filename;
+  @override
+  @JsonKey(name: 'full_url')
+  String get url;
   @override
   @JsonKey(ignore: true)
   _$$PhotoUploadImplCopyWith<_$PhotoUploadImpl> get copyWith =>

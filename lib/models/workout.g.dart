@@ -10,12 +10,14 @@ _$PhotoUploadImpl _$$PhotoUploadImplFromJson(Map<String, dynamic> json) =>
     _$PhotoUploadImpl(
       id: (json['id'] as num).toInt(),
       filename: json['filename'] as String,
+      url: json['full_url'] as String,
     );
 
 Map<String, dynamic> _$$PhotoUploadImplToJson(_$PhotoUploadImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'filename': instance.filename,
+      'full_url': instance.url,
     };
 
 _$ExerciseTemplateImpl _$$ExerciseTemplateImplFromJson(
