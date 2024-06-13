@@ -97,10 +97,11 @@ final backgroundButton = FilledButton.styleFrom(
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 );
 final onBackgroundButton = FilledButton.styleFrom(
-  backgroundColor: colorScheme.onSurface,
-  foregroundColor: colorScheme.onSurface,
+  backgroundColor: colorScheme.surfaceDim,
+  foregroundColor: darkColor,
   padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 36.0),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+  side: BorderSide.none,
 );
 final darkButton = FilledButton.styleFrom(
   backgroundColor: darkColor,

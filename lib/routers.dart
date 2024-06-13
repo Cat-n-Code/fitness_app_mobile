@@ -1,9 +1,10 @@
 import 'package:fitness_app/views/chat_view.dart';
-import 'package:fitness_app/views/coach_customer_view.dart';
+import 'package:fitness_app/views/customer_view.dart';
 import 'package:fitness_app/views/coach_main_view.dart';
 import 'package:fitness_app/views/customer_main_view.dart';
 import 'package:fitness_app/views/profile_edit_view.dart';
-import 'package:fitness_app/views/customer_workout_view.dart';
+import 'package:fitness_app/views/workout_exercises_view.dart';
+import 'package:fitness_app/views/workout_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitness_app/views/login_view.dart';
 import 'package:fitness_app/views/sign_up_profile_view.dart';
@@ -11,7 +12,6 @@ import 'package:fitness_app/views/sign_up_email_view.dart';
 import 'package:fitness_app/views/startup_view.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/startup',
@@ -45,22 +45,28 @@ final router = GoRouter(
       builder: (context, state) => const CustomerMainView(),
     ),
     GoRoute(
-      path: '/profile/edit',
-      builder: (context, state) => const ProfileEditView(),
-    ),
-    GoRoute(
-      path: '/customer/workout/:id',
-      builder: (context, state) => CustomerWorkoutView(
-        workoutId: int.parse(state.pathParameters['id']!),
-      ),
-    ),
-    GoRoute(
       path: '/coach',
       builder: (context, state) => const CoachMainView(),
     ),
     GoRoute(
-      path: '/coach/customer/:id',
-      builder: (context, state) => CoachCustomerView(
+      path: '/profile/edit',
+      builder: (context, state) => const ProfileEditView(),
+    ),
+    GoRoute(
+      path: '/workout/:id',
+      builder: (context, state) => WorkoutView(
+        workoutId: int.parse(state.pathParameters['id']!),
+      ),
+    ),
+    GoRoute(
+      path: '/workout/:id/exercises',
+      builder: (context, state) => WorkoutExercisesView(
+        workoutId: int.parse(state.pathParameters['id']!),
+      ),
+    ),
+    GoRoute(
+      path: '/customer/:id',
+      builder: (context, state) => CustomerView(
         customerId: int.parse(state.pathParameters['id']!),
       ),
     ),

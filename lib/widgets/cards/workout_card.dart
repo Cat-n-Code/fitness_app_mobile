@@ -1,130 +1,132 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/models/workout.dart';
-import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/widgets/mini_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+enum WorkoutCardType {
+  a(
+    Color.fromARGB(255, 148, 187, 195),
+    Colors.white,
+    'assets/images/workouts/1.png',
+  ),
+  b(
+    Color.fromARGB(255, 222, 234, 185),
+    Color.fromARGB(255, 75, 71, 71),
+    'assets/images/workouts/2.png',
+  ),
+  c(
+    Color.fromARGB(255, 231, 231, 231),
+    Color.fromARGB(255, 75, 71, 71),
+    'assets/images/workouts/3.png',
+  );
+
+  const WorkoutCardType(
+    this.backgroundColor,
+    this.foregroundColor,
+    this.backgroundImage,
+  );
+
+  final Color backgroundColor;
+  final Color foregroundColor;
+  final String backgroundImage;
+
+  static WorkoutCardType fromId(int id) => switch (id % 3) {
+        0 => WorkoutCardType.c,
+        1 => WorkoutCardType.a,
+        _ => WorkoutCardType.b,
+      };
+}
+
 class WorkoutCard extends StatelessWidget {
-  const WorkoutCard({super.key, required this.workout, this.onTap});
+  const WorkoutCard({
+    super.key,
+    required this.type,
+    required this.workout,
+    required this.onTap,
+  });
 
-  static const defaultHeight = 110.0;
+  static const defaultHeight = 150.0;
 
-  final void Function()? onTap;
+  final WorkoutCardType type;
   final AsyncValue<Workout> workout;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    final workout = this.workout.valueOrNull ?? Workout.mock();
+    final workout = this.workout;
 
     return Skeletonizer(
-      enabled: this.workout.isLoading,
+      enabled: !workout.hasValue,
       child: SizedBox(
-        child: Skeleton.leaf(child: _buildBody(workout, context)),
+        height: defaultHeight,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16.0),
+          clipBehavior: Clip.hardEdge,
+          child: workout.hasValue
+              ? _buildBody(workout.asData!.value, context)
+              : const Bone(),
+        ),
       ),
     );
   }
 
   Widget _buildBody(Workout workout, BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final colorScheme = theme.colorScheme;
-    final locale = EasyLocalization.of(context)!.locale;
-    final dateFormat = DateFormat.MMMd(locale.toLanguageTag());
-
     return Stack(
-      fit: StackFit.loose,
+      fit: StackFit.expand,
       children: [
-        Positioned.fill(
-          child: Material(
-            color: colorScheme.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(20.0),
-            elevation: 0.5,
-          ),
-        ),
+        Container(color: type.backgroundColor),
+        Image.asset(type.backgroundImage, alignment: Alignment.centerRight),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-          child: _buildContent(workout, dateFormat, colorScheme, textTheme),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 22.0),
+          child: _buildContent(workout, context),
         ),
-        Positioned.fill(
-          child: Material(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(20.0),
-            type: MaterialType.transparency,
-            child:
-                InkResponse(onTap: onTap, highlightShape: BoxShape.rectangle),
-          ),
+        Material(
+          type: MaterialType.transparency,
+          child: InkResponse(onTap: onTap, highlightShape: BoxShape.rectangle),
         )
       ],
     );
   }
 
-  Widget _buildContent(
-    Workout workout,
-    DateFormat dateFormat,
-    ColorScheme colorScheme,
-    TextTheme textTheme,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _buildProgress(workout, colorScheme, textTheme),
-        const SizedBox(width: 12.0),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(workout.template.name, style: textTheme.titleMedium),
-              Text(
-                workout.template.description,
-                style: textTheme.bodyMedium!.copyWith(
-                  color: darkColor,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              MiniChip(
-                icon: const Icon(Icons.event),
-                text: Text(
-                  dateFormat.format(workout.completionDate),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 16.0),
-        const Icon(Icons.chevron_right, color: darkColor)
-      ],
-    );
-  }
+  Widget _buildContent(Workout workout, BuildContext context) {
+    final locale = EasyLocalization.of(context)!.locale;
+    final dateFormat = DateFormat.MMMd(locale.toLanguageTag()).add_jm();
 
-  Widget _buildProgress(
-    Workout workout,
-    ColorScheme colorScheme,
-    TextTheme textTheme,
-  ) {
-    final progress = workout.progress;
-
-    return SizedBox(
-      width: 64.0,
-      height: 64.0,
-      child: Stack(
-        fit: StackFit.expand,
+    return FractionallySizedBox(
+      widthFactor: 0.7,
+      alignment: Alignment.centerLeft,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(
-            child: Text(
-              '${(progress * 100.0).toStringAsFixed(0)}%',
-              style: textTheme.bodyMedium!.copyWith(color: darkColor),
+          Text(
+            workout.name,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: type.foregroundColor,
             ),
           ),
-          CircularProgressIndicator(
-            value: progress,
-            strokeCap: StrokeCap.round,
-            strokeWidth: 6.0,
-            strokeAlign: -1.0,
-            color: colorScheme.primary,
-            // backgroundColor: darkColor.withAlpha(40),
+          Wrap(
+            runSpacing: 4.0,
+            spacing: 4.0,
+            children: [
+              if (workout.type != null)
+                MiniChip(
+                  icon: const Icon(Icons.location_on),
+                  text: Text(workout.type!.translationKey.tr()),
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: type.foregroundColor,
+                ),
+              if (workout.startTime != null)
+                MiniChip(
+                  icon: const Icon(Icons.event),
+                  text: Text(dateFormat.format(workout.startTime!)),
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: type.foregroundColor,
+                )
+            ],
           )
         ],
       ),

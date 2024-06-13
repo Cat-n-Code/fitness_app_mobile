@@ -14,6 +14,161 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+PhotoUpload _$PhotoUploadFromJson(Map<String, dynamic> json) {
+  return _PhotoUpload.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PhotoUpload {
+  int get id => throw _privateConstructorUsedError;
+  String get filename => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PhotoUploadCopyWith<PhotoUpload> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PhotoUploadCopyWith<$Res> {
+  factory $PhotoUploadCopyWith(
+          PhotoUpload value, $Res Function(PhotoUpload) then) =
+      _$PhotoUploadCopyWithImpl<$Res, PhotoUpload>;
+  @useResult
+  $Res call({int id, String filename});
+}
+
+/// @nodoc
+class _$PhotoUploadCopyWithImpl<$Res, $Val extends PhotoUpload>
+    implements $PhotoUploadCopyWith<$Res> {
+  _$PhotoUploadCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? filename = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      filename: null == filename
+          ? _value.filename
+          : filename // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PhotoUploadImplCopyWith<$Res>
+    implements $PhotoUploadCopyWith<$Res> {
+  factory _$$PhotoUploadImplCopyWith(
+          _$PhotoUploadImpl value, $Res Function(_$PhotoUploadImpl) then) =
+      __$$PhotoUploadImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id, String filename});
+}
+
+/// @nodoc
+class __$$PhotoUploadImplCopyWithImpl<$Res>
+    extends _$PhotoUploadCopyWithImpl<$Res, _$PhotoUploadImpl>
+    implements _$$PhotoUploadImplCopyWith<$Res> {
+  __$$PhotoUploadImplCopyWithImpl(
+      _$PhotoUploadImpl _value, $Res Function(_$PhotoUploadImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? filename = null,
+  }) {
+    return _then(_$PhotoUploadImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      filename: null == filename
+          ? _value.filename
+          : filename // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PhotoUploadImpl implements _PhotoUpload {
+  const _$PhotoUploadImpl({required this.id, required this.filename});
+
+  factory _$PhotoUploadImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PhotoUploadImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String filename;
+
+  @override
+  String toString() {
+    return 'PhotoUpload(id: $id, filename: $filename)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PhotoUploadImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.filename, filename) ||
+                other.filename == filename));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, filename);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PhotoUploadImplCopyWith<_$PhotoUploadImpl> get copyWith =>
+      __$$PhotoUploadImplCopyWithImpl<_$PhotoUploadImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PhotoUploadImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PhotoUpload implements PhotoUpload {
+  const factory _PhotoUpload(
+      {required final int id,
+      required final String filename}) = _$PhotoUploadImpl;
+
+  factory _PhotoUpload.fromJson(Map<String, dynamic> json) =
+      _$PhotoUploadImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String get filename;
+  @override
+  @JsonKey(ignore: true)
+  _$$PhotoUploadImplCopyWith<_$PhotoUploadImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 ExerciseTemplate _$ExerciseTemplateFromJson(Map<String, dynamic> json) {
   return _ExerciseTemplate.fromJson(json);
 }
@@ -21,13 +176,16 @@ ExerciseTemplate _$ExerciseTemplateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ExerciseTemplate {
   int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get muscle => throw _privateConstructorUsedError;
-  String get additionalMuscle => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
-  String get equipment => throw _privateConstructorUsedError;
-  String get difficulty => throw _privateConstructorUsedError;
-  List<String> get photosUrls => throw _privateConstructorUsedError;
+  String? get muscle => throw _privateConstructorUsedError;
+  String? get additionalMuscle => throw _privateConstructorUsedError;
+  ExerciseType? get type => throw _privateConstructorUsedError;
+  String? get equipment => throw _privateConstructorUsedError;
+  ExerciseDifficulty? get difficulty => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  List<PhotoUpload> get photos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,13 +201,15 @@ abstract class $ExerciseTemplateCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
+      @JsonKey(name: 'user_id') int? userId,
       String name,
-      String muscle,
-      String additionalMuscle,
-      String type,
-      String equipment,
-      String difficulty,
-      List<String> photosUrls});
+      String? muscle,
+      String? additionalMuscle,
+      ExerciseType? type,
+      String? equipment,
+      ExerciseDifficulty? difficulty,
+      String? description,
+      List<PhotoUpload> photos});
 }
 
 /// @nodoc
@@ -66,47 +226,57 @@ class _$ExerciseTemplateCopyWithImpl<$Res, $Val extends ExerciseTemplate>
   @override
   $Res call({
     Object? id = freezed,
+    Object? userId = freezed,
     Object? name = null,
-    Object? muscle = null,
-    Object? additionalMuscle = null,
-    Object? type = null,
-    Object? equipment = null,
-    Object? difficulty = null,
-    Object? photosUrls = null,
+    Object? muscle = freezed,
+    Object? additionalMuscle = freezed,
+    Object? type = freezed,
+    Object? equipment = freezed,
+    Object? difficulty = freezed,
+    Object? description = freezed,
+    Object? photos = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      muscle: null == muscle
+      muscle: freezed == muscle
           ? _value.muscle
           : muscle // ignore: cast_nullable_to_non_nullable
-              as String,
-      additionalMuscle: null == additionalMuscle
+              as String?,
+      additionalMuscle: freezed == additionalMuscle
           ? _value.additionalMuscle
           : additionalMuscle // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      equipment: null == equipment
+              as ExerciseType?,
+      equipment: freezed == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
-              as String,
-      difficulty: null == difficulty
+              as String?,
+      difficulty: freezed == difficulty
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
-              as String,
-      photosUrls: null == photosUrls
-          ? _value.photosUrls
-          : photosUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as ExerciseDifficulty?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photos: null == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoUpload>,
     ) as $Val);
   }
 }
@@ -121,13 +291,15 @@ abstract class _$$ExerciseTemplateImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
+      @JsonKey(name: 'user_id') int? userId,
       String name,
-      String muscle,
-      String additionalMuscle,
-      String type,
-      String equipment,
-      String difficulty,
-      List<String> photosUrls});
+      String? muscle,
+      String? additionalMuscle,
+      ExerciseType? type,
+      String? equipment,
+      ExerciseDifficulty? difficulty,
+      String? description,
+      List<PhotoUpload> photos});
 }
 
 /// @nodoc
@@ -142,47 +314,57 @@ class __$$ExerciseTemplateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? userId = freezed,
     Object? name = null,
-    Object? muscle = null,
-    Object? additionalMuscle = null,
-    Object? type = null,
-    Object? equipment = null,
-    Object? difficulty = null,
-    Object? photosUrls = null,
+    Object? muscle = freezed,
+    Object? additionalMuscle = freezed,
+    Object? type = freezed,
+    Object? equipment = freezed,
+    Object? difficulty = freezed,
+    Object? description = freezed,
+    Object? photos = null,
   }) {
     return _then(_$ExerciseTemplateImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      muscle: null == muscle
+      muscle: freezed == muscle
           ? _value.muscle
           : muscle // ignore: cast_nullable_to_non_nullable
-              as String,
-      additionalMuscle: null == additionalMuscle
+              as String?,
+      additionalMuscle: freezed == additionalMuscle
           ? _value.additionalMuscle
           : additionalMuscle // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      equipment: null == equipment
+              as ExerciseType?,
+      equipment: freezed == equipment
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
-              as String,
-      difficulty: null == difficulty
+              as String?,
+      difficulty: freezed == difficulty
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
-              as String,
-      photosUrls: null == photosUrls
-          ? _value._photosUrls
-          : photosUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as ExerciseDifficulty?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photos: null == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoUpload>,
     ));
   }
 }
@@ -192,14 +374,16 @@ class __$$ExerciseTemplateImplCopyWithImpl<$Res>
 class _$ExerciseTemplateImpl implements _ExerciseTemplate {
   const _$ExerciseTemplateImpl(
       {this.id,
+      @JsonKey(name: 'user_id') this.userId,
       required this.name,
-      required this.muscle,
-      required this.additionalMuscle,
-      required this.type,
-      required this.equipment,
-      required this.difficulty,
-      required final List<String> photosUrls})
-      : _photosUrls = photosUrls;
+      this.muscle,
+      this.additionalMuscle,
+      this.type,
+      this.equipment,
+      this.difficulty,
+      this.description,
+      final List<PhotoUpload> photos = const []})
+      : _photos = photos;
 
   factory _$ExerciseTemplateImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExerciseTemplateImplFromJson(json);
@@ -207,28 +391,34 @@ class _$ExerciseTemplateImpl implements _ExerciseTemplate {
   @override
   final int? id;
   @override
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @override
   final String name;
   @override
-  final String muscle;
+  final String? muscle;
   @override
-  final String additionalMuscle;
+  final String? additionalMuscle;
   @override
-  final String type;
+  final ExerciseType? type;
   @override
-  final String equipment;
+  final String? equipment;
   @override
-  final String difficulty;
-  final List<String> _photosUrls;
+  final ExerciseDifficulty? difficulty;
   @override
-  List<String> get photosUrls {
-    if (_photosUrls is EqualUnmodifiableListView) return _photosUrls;
+  final String? description;
+  final List<PhotoUpload> _photos;
+  @override
+  @JsonKey()
+  List<PhotoUpload> get photos {
+    if (_photos is EqualUnmodifiableListView) return _photos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_photosUrls);
+    return EqualUnmodifiableListView(_photos);
   }
 
   @override
   String toString() {
-    return 'ExerciseTemplate(id: $id, name: $name, muscle: $muscle, additionalMuscle: $additionalMuscle, type: $type, equipment: $equipment, difficulty: $difficulty, photosUrls: $photosUrls)';
+    return 'ExerciseTemplate(id: $id, userId: $userId, name: $name, muscle: $muscle, additionalMuscle: $additionalMuscle, type: $type, equipment: $equipment, difficulty: $difficulty, description: $description, photos: $photos)';
   }
 
   @override
@@ -237,6 +427,7 @@ class _$ExerciseTemplateImpl implements _ExerciseTemplate {
         (other.runtimeType == runtimeType &&
             other is _$ExerciseTemplateImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.muscle, muscle) || other.muscle == muscle) &&
             (identical(other.additionalMuscle, additionalMuscle) ||
@@ -246,8 +437,9 @@ class _$ExerciseTemplateImpl implements _ExerciseTemplate {
                 other.equipment == equipment) &&
             (identical(other.difficulty, difficulty) ||
                 other.difficulty == difficulty) &&
-            const DeepCollectionEquality()
-                .equals(other._photosUrls, _photosUrls));
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._photos, _photos));
   }
 
   @JsonKey(ignore: true)
@@ -255,13 +447,15 @@ class _$ExerciseTemplateImpl implements _ExerciseTemplate {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      userId,
       name,
       muscle,
       additionalMuscle,
       type,
       equipment,
       difficulty,
-      const DeepCollectionEquality().hash(_photosUrls));
+      description,
+      const DeepCollectionEquality().hash(_photos));
 
   @JsonKey(ignore: true)
   @override
@@ -281,13 +475,15 @@ class _$ExerciseTemplateImpl implements _ExerciseTemplate {
 abstract class _ExerciseTemplate implements ExerciseTemplate {
   const factory _ExerciseTemplate(
       {final int? id,
+      @JsonKey(name: 'user_id') final int? userId,
       required final String name,
-      required final String muscle,
-      required final String additionalMuscle,
-      required final String type,
-      required final String equipment,
-      required final String difficulty,
-      required final List<String> photosUrls}) = _$ExerciseTemplateImpl;
+      final String? muscle,
+      final String? additionalMuscle,
+      final ExerciseType? type,
+      final String? equipment,
+      final ExerciseDifficulty? difficulty,
+      final String? description,
+      final List<PhotoUpload> photos}) = _$ExerciseTemplateImpl;
 
   factory _ExerciseTemplate.fromJson(Map<String, dynamic> json) =
       _$ExerciseTemplateImpl.fromJson;
@@ -295,19 +491,24 @@ abstract class _ExerciseTemplate implements ExerciseTemplate {
   @override
   int? get id;
   @override
+  @JsonKey(name: 'user_id')
+  int? get userId;
+  @override
   String get name;
   @override
-  String get muscle;
+  String? get muscle;
   @override
-  String get additionalMuscle;
+  String? get additionalMuscle;
   @override
-  String get type;
+  ExerciseType? get type;
   @override
-  String get equipment;
+  String? get equipment;
   @override
-  String get difficulty;
+  ExerciseDifficulty? get difficulty;
   @override
-  List<String> get photosUrls;
+  String? get description;
+  @override
+  List<PhotoUpload> get photos;
   @override
   @JsonKey(ignore: true)
   _$$ExerciseTemplateImplCopyWith<_$ExerciseTemplateImpl> get copyWith =>
@@ -321,9 +522,20 @@ Exercise _$ExerciseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Exercise {
   int? get id => throw _privateConstructorUsedError;
-  ExerciseTemplate get template => throw _privateConstructorUsedError;
-  int get setsCount => throw _privateConstructorUsedError;
-  int get goalSetsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'exercise_id')
+  int get exerciseId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'workout_id')
+  int get workoutId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'num_order')
+  int get order => throw _privateConstructorUsedError;
+  @JsonKey(name: 'num_sets')
+  int? get setsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'num_sets_done')
+  int? get setsDoneCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'num_reps')
+  int? get repeatsCount => throw _privateConstructorUsedError;
+  ExerciseStage get stage => throw _privateConstructorUsedError;
+  ExerciseTemplate? get exercise => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -337,9 +549,17 @@ abstract class $ExerciseCopyWith<$Res> {
       _$ExerciseCopyWithImpl<$Res, Exercise>;
   @useResult
   $Res call(
-      {int? id, ExerciseTemplate template, int setsCount, int goalSetsCount});
+      {int? id,
+      @JsonKey(name: 'exercise_id') int exerciseId,
+      @JsonKey(name: 'workout_id') int workoutId,
+      @JsonKey(name: 'num_order') int order,
+      @JsonKey(name: 'num_sets') int? setsCount,
+      @JsonKey(name: 'num_sets_done') int? setsDoneCount,
+      @JsonKey(name: 'num_reps') int? repeatsCount,
+      ExerciseStage stage,
+      ExerciseTemplate? exercise});
 
-  $ExerciseTemplateCopyWith<$Res> get template;
+  $ExerciseTemplateCopyWith<$Res>? get exercise;
 }
 
 /// @nodoc
@@ -356,35 +576,64 @@ class _$ExerciseCopyWithImpl<$Res, $Val extends Exercise>
   @override
   $Res call({
     Object? id = freezed,
-    Object? template = null,
-    Object? setsCount = null,
-    Object? goalSetsCount = null,
+    Object? exerciseId = null,
+    Object? workoutId = null,
+    Object? order = null,
+    Object? setsCount = freezed,
+    Object? setsDoneCount = freezed,
+    Object? repeatsCount = freezed,
+    Object? stage = null,
+    Object? exercise = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as ExerciseTemplate,
-      setsCount: null == setsCount
+      exerciseId: null == exerciseId
+          ? _value.exerciseId
+          : exerciseId // ignore: cast_nullable_to_non_nullable
+              as int,
+      workoutId: null == workoutId
+          ? _value.workoutId
+          : workoutId // ignore: cast_nullable_to_non_nullable
+              as int,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as int,
+      setsCount: freezed == setsCount
           ? _value.setsCount
           : setsCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      goalSetsCount: null == goalSetsCount
-          ? _value.goalSetsCount
-          : goalSetsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
+      setsDoneCount: freezed == setsDoneCount
+          ? _value.setsDoneCount
+          : setsDoneCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      repeatsCount: freezed == repeatsCount
+          ? _value.repeatsCount
+          : repeatsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as ExerciseStage,
+      exercise: freezed == exercise
+          ? _value.exercise
+          : exercise // ignore: cast_nullable_to_non_nullable
+              as ExerciseTemplate?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ExerciseTemplateCopyWith<$Res> get template {
-    return $ExerciseTemplateCopyWith<$Res>(_value.template, (value) {
-      return _then(_value.copyWith(template: value) as $Val);
+  $ExerciseTemplateCopyWith<$Res>? get exercise {
+    if (_value.exercise == null) {
+      return null;
+    }
+
+    return $ExerciseTemplateCopyWith<$Res>(_value.exercise!, (value) {
+      return _then(_value.copyWith(exercise: value) as $Val);
     });
   }
 }
@@ -398,10 +647,18 @@ abstract class _$$ExerciseImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id, ExerciseTemplate template, int setsCount, int goalSetsCount});
+      {int? id,
+      @JsonKey(name: 'exercise_id') int exerciseId,
+      @JsonKey(name: 'workout_id') int workoutId,
+      @JsonKey(name: 'num_order') int order,
+      @JsonKey(name: 'num_sets') int? setsCount,
+      @JsonKey(name: 'num_sets_done') int? setsDoneCount,
+      @JsonKey(name: 'num_reps') int? repeatsCount,
+      ExerciseStage stage,
+      ExerciseTemplate? exercise});
 
   @override
-  $ExerciseTemplateCopyWith<$Res> get template;
+  $ExerciseTemplateCopyWith<$Res>? get exercise;
 }
 
 /// @nodoc
@@ -416,27 +673,52 @@ class __$$ExerciseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? template = null,
-    Object? setsCount = null,
-    Object? goalSetsCount = null,
+    Object? exerciseId = null,
+    Object? workoutId = null,
+    Object? order = null,
+    Object? setsCount = freezed,
+    Object? setsDoneCount = freezed,
+    Object? repeatsCount = freezed,
+    Object? stage = null,
+    Object? exercise = freezed,
   }) {
     return _then(_$ExerciseImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as ExerciseTemplate,
-      setsCount: null == setsCount
+      exerciseId: null == exerciseId
+          ? _value.exerciseId
+          : exerciseId // ignore: cast_nullable_to_non_nullable
+              as int,
+      workoutId: null == workoutId
+          ? _value.workoutId
+          : workoutId // ignore: cast_nullable_to_non_nullable
+              as int,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as int,
+      setsCount: freezed == setsCount
           ? _value.setsCount
           : setsCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      goalSetsCount: null == goalSetsCount
-          ? _value.goalSetsCount
-          : goalSetsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
+      setsDoneCount: freezed == setsDoneCount
+          ? _value.setsDoneCount
+          : setsDoneCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      repeatsCount: freezed == repeatsCount
+          ? _value.repeatsCount
+          : repeatsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as ExerciseStage,
+      exercise: freezed == exercise
+          ? _value.exercise
+          : exercise // ignore: cast_nullable_to_non_nullable
+              as ExerciseTemplate?,
     ));
   }
 }
@@ -446,9 +728,14 @@ class __$$ExerciseImplCopyWithImpl<$Res>
 class _$ExerciseImpl implements _Exercise {
   const _$ExerciseImpl(
       {this.id,
-      required this.template,
-      required this.setsCount,
-      required this.goalSetsCount});
+      @JsonKey(name: 'exercise_id') required this.exerciseId,
+      @JsonKey(name: 'workout_id') required this.workoutId,
+      @JsonKey(name: 'num_order') required this.order,
+      @JsonKey(name: 'num_sets') this.setsCount,
+      @JsonKey(name: 'num_sets_done') this.setsDoneCount,
+      @JsonKey(name: 'num_reps') this.repeatsCount,
+      required this.stage,
+      this.exercise});
 
   factory _$ExerciseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExerciseImplFromJson(json);
@@ -456,15 +743,31 @@ class _$ExerciseImpl implements _Exercise {
   @override
   final int? id;
   @override
-  final ExerciseTemplate template;
+  @JsonKey(name: 'exercise_id')
+  final int exerciseId;
   @override
-  final int setsCount;
+  @JsonKey(name: 'workout_id')
+  final int workoutId;
   @override
-  final int goalSetsCount;
+  @JsonKey(name: 'num_order')
+  final int order;
+  @override
+  @JsonKey(name: 'num_sets')
+  final int? setsCount;
+  @override
+  @JsonKey(name: 'num_sets_done')
+  final int? setsDoneCount;
+  @override
+  @JsonKey(name: 'num_reps')
+  final int? repeatsCount;
+  @override
+  final ExerciseStage stage;
+  @override
+  final ExerciseTemplate? exercise;
 
   @override
   String toString() {
-    return 'Exercise(id: $id, template: $template, setsCount: $setsCount, goalSetsCount: $goalSetsCount)';
+    return 'Exercise(id: $id, exerciseId: $exerciseId, workoutId: $workoutId, order: $order, setsCount: $setsCount, setsDoneCount: $setsDoneCount, repeatsCount: $repeatsCount, stage: $stage, exercise: $exercise)';
   }
 
   @override
@@ -473,18 +776,26 @@ class _$ExerciseImpl implements _Exercise {
         (other.runtimeType == runtimeType &&
             other is _$ExerciseImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.template, template) ||
-                other.template == template) &&
+            (identical(other.exerciseId, exerciseId) ||
+                other.exerciseId == exerciseId) &&
+            (identical(other.workoutId, workoutId) ||
+                other.workoutId == workoutId) &&
+            (identical(other.order, order) || other.order == order) &&
             (identical(other.setsCount, setsCount) ||
                 other.setsCount == setsCount) &&
-            (identical(other.goalSetsCount, goalSetsCount) ||
-                other.goalSetsCount == goalSetsCount));
+            (identical(other.setsDoneCount, setsDoneCount) ||
+                other.setsDoneCount == setsDoneCount) &&
+            (identical(other.repeatsCount, repeatsCount) ||
+                other.repeatsCount == repeatsCount) &&
+            (identical(other.stage, stage) || other.stage == stage) &&
+            (identical(other.exercise, exercise) ||
+                other.exercise == exercise));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, template, setsCount, goalSetsCount);
+  int get hashCode => Object.hash(runtimeType, id, exerciseId, workoutId, order,
+      setsCount, setsDoneCount, repeatsCount, stage, exercise);
 
   @JsonKey(ignore: true)
   @override
@@ -503,9 +814,14 @@ class _$ExerciseImpl implements _Exercise {
 abstract class _Exercise implements Exercise {
   const factory _Exercise(
       {final int? id,
-      required final ExerciseTemplate template,
-      required final int setsCount,
-      required final int goalSetsCount}) = _$ExerciseImpl;
+      @JsonKey(name: 'exercise_id') required final int exerciseId,
+      @JsonKey(name: 'workout_id') required final int workoutId,
+      @JsonKey(name: 'num_order') required final int order,
+      @JsonKey(name: 'num_sets') final int? setsCount,
+      @JsonKey(name: 'num_sets_done') final int? setsDoneCount,
+      @JsonKey(name: 'num_reps') final int? repeatsCount,
+      required final ExerciseStage stage,
+      final ExerciseTemplate? exercise}) = _$ExerciseImpl;
 
   factory _Exercise.fromJson(Map<String, dynamic> json) =
       _$ExerciseImpl.fromJson;
@@ -513,224 +829,30 @@ abstract class _Exercise implements Exercise {
   @override
   int? get id;
   @override
-  ExerciseTemplate get template;
+  @JsonKey(name: 'exercise_id')
+  int get exerciseId;
   @override
-  int get setsCount;
+  @JsonKey(name: 'workout_id')
+  int get workoutId;
   @override
-  int get goalSetsCount;
+  @JsonKey(name: 'num_order')
+  int get order;
+  @override
+  @JsonKey(name: 'num_sets')
+  int? get setsCount;
+  @override
+  @JsonKey(name: 'num_sets_done')
+  int? get setsDoneCount;
+  @override
+  @JsonKey(name: 'num_reps')
+  int? get repeatsCount;
+  @override
+  ExerciseStage get stage;
+  @override
+  ExerciseTemplate? get exercise;
   @override
   @JsonKey(ignore: true)
   _$$ExerciseImplCopyWith<_$ExerciseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-WorkoutTemplate _$WorkoutTemplateFromJson(Map<String, dynamic> json) {
-  return _WorkoutTemplate.fromJson(json);
-}
-
-/// @nodoc
-mixin _$WorkoutTemplate {
-  int? get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  List<ExerciseTemplate> get exercises => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WorkoutTemplateCopyWith<WorkoutTemplate> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WorkoutTemplateCopyWith<$Res> {
-  factory $WorkoutTemplateCopyWith(
-          WorkoutTemplate value, $Res Function(WorkoutTemplate) then) =
-      _$WorkoutTemplateCopyWithImpl<$Res, WorkoutTemplate>;
-  @useResult
-  $Res call(
-      {int? id,
-      String name,
-      String description,
-      List<ExerciseTemplate> exercises});
-}
-
-/// @nodoc
-class _$WorkoutTemplateCopyWithImpl<$Res, $Val extends WorkoutTemplate>
-    implements $WorkoutTemplateCopyWith<$Res> {
-  _$WorkoutTemplateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = null,
-    Object? description = null,
-    Object? exercises = null,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      exercises: null == exercises
-          ? _value.exercises
-          : exercises // ignore: cast_nullable_to_non_nullable
-              as List<ExerciseTemplate>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$WorkoutTemplateImplCopyWith<$Res>
-    implements $WorkoutTemplateCopyWith<$Res> {
-  factory _$$WorkoutTemplateImplCopyWith(_$WorkoutTemplateImpl value,
-          $Res Function(_$WorkoutTemplateImpl) then) =
-      __$$WorkoutTemplateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      String name,
-      String description,
-      List<ExerciseTemplate> exercises});
-}
-
-/// @nodoc
-class __$$WorkoutTemplateImplCopyWithImpl<$Res>
-    extends _$WorkoutTemplateCopyWithImpl<$Res, _$WorkoutTemplateImpl>
-    implements _$$WorkoutTemplateImplCopyWith<$Res> {
-  __$$WorkoutTemplateImplCopyWithImpl(
-      _$WorkoutTemplateImpl _value, $Res Function(_$WorkoutTemplateImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = null,
-    Object? description = null,
-    Object? exercises = null,
-  }) {
-    return _then(_$WorkoutTemplateImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      exercises: null == exercises
-          ? _value._exercises
-          : exercises // ignore: cast_nullable_to_non_nullable
-              as List<ExerciseTemplate>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WorkoutTemplateImpl implements _WorkoutTemplate {
-  const _$WorkoutTemplateImpl(
-      {this.id,
-      required this.name,
-      required this.description,
-      required final List<ExerciseTemplate> exercises})
-      : _exercises = exercises;
-
-  factory _$WorkoutTemplateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WorkoutTemplateImplFromJson(json);
-
-  @override
-  final int? id;
-  @override
-  final String name;
-  @override
-  final String description;
-  final List<ExerciseTemplate> _exercises;
-  @override
-  List<ExerciseTemplate> get exercises {
-    if (_exercises is EqualUnmodifiableListView) return _exercises;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exercises);
-  }
-
-  @override
-  String toString() {
-    return 'WorkoutTemplate(id: $id, name: $name, description: $description, exercises: $exercises)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WorkoutTemplateImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            const DeepCollectionEquality()
-                .equals(other._exercises, _exercises));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
-      const DeepCollectionEquality().hash(_exercises));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WorkoutTemplateImplCopyWith<_$WorkoutTemplateImpl> get copyWith =>
-      __$$WorkoutTemplateImplCopyWithImpl<_$WorkoutTemplateImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WorkoutTemplateImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _WorkoutTemplate implements WorkoutTemplate {
-  const factory _WorkoutTemplate(
-      {final int? id,
-      required final String name,
-      required final String description,
-      required final List<ExerciseTemplate> exercises}) = _$WorkoutTemplateImpl;
-
-  factory _WorkoutTemplate.fromJson(Map<String, dynamic> json) =
-      _$WorkoutTemplateImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String get name;
-  @override
-  String get description;
-  @override
-  List<ExerciseTemplate> get exercises;
-  @override
-  @JsonKey(ignore: true)
-  _$$WorkoutTemplateImplCopyWith<_$WorkoutTemplateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -741,9 +863,19 @@ Workout _$WorkoutFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Workout {
   int? get id => throw _privateConstructorUsedError;
-  WorkoutTemplate get template => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coach_id')
+  int? get coachId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'customer_id')
+  int? get customerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chat_id')
+  int? get chatId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type_connection')
+  WorkoutType? get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'time_start')
+  DateTime? get startTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'exercise_workouts')
   List<Exercise> get exercises => throw _privateConstructorUsedError;
-  DateTime get completionDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -757,11 +889,13 @@ abstract class $WorkoutCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      WorkoutTemplate template,
-      List<Exercise> exercises,
-      DateTime completionDate});
-
-  $WorkoutTemplateCopyWith<$Res> get template;
+      @JsonKey(name: 'coach_id') int? coachId,
+      @JsonKey(name: 'customer_id') int? customerId,
+      @JsonKey(name: 'chat_id') int? chatId,
+      String name,
+      @JsonKey(name: 'type_connection') WorkoutType? type,
+      @JsonKey(name: 'time_start') DateTime? startTime,
+      @JsonKey(name: 'exercise_workouts') List<Exercise> exercises});
 }
 
 /// @nodoc
@@ -778,36 +912,48 @@ class _$WorkoutCopyWithImpl<$Res, $Val extends Workout>
   @override
   $Res call({
     Object? id = freezed,
-    Object? template = null,
+    Object? coachId = freezed,
+    Object? customerId = freezed,
+    Object? chatId = freezed,
+    Object? name = null,
+    Object? type = freezed,
+    Object? startTime = freezed,
     Object? exercises = null,
-    Object? completionDate = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as WorkoutTemplate,
+      coachId: freezed == coachId
+          ? _value.coachId
+          : coachId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      customerId: freezed == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      chatId: freezed == chatId
+          ? _value.chatId
+          : chatId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WorkoutType?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       exercises: null == exercises
           ? _value.exercises
           : exercises // ignore: cast_nullable_to_non_nullable
               as List<Exercise>,
-      completionDate: null == completionDate
-          ? _value.completionDate
-          : completionDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $WorkoutTemplateCopyWith<$Res> get template {
-    return $WorkoutTemplateCopyWith<$Res>(_value.template, (value) {
-      return _then(_value.copyWith(template: value) as $Val);
-    });
   }
 }
 
@@ -820,12 +966,13 @@ abstract class _$$WorkoutImplCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      WorkoutTemplate template,
-      List<Exercise> exercises,
-      DateTime completionDate});
-
-  @override
-  $WorkoutTemplateCopyWith<$Res> get template;
+      @JsonKey(name: 'coach_id') int? coachId,
+      @JsonKey(name: 'customer_id') int? customerId,
+      @JsonKey(name: 'chat_id') int? chatId,
+      String name,
+      @JsonKey(name: 'type_connection') WorkoutType? type,
+      @JsonKey(name: 'time_start') DateTime? startTime,
+      @JsonKey(name: 'exercise_workouts') List<Exercise> exercises});
 }
 
 /// @nodoc
@@ -840,27 +987,47 @@ class __$$WorkoutImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? template = null,
+    Object? coachId = freezed,
+    Object? customerId = freezed,
+    Object? chatId = freezed,
+    Object? name = null,
+    Object? type = freezed,
+    Object? startTime = freezed,
     Object? exercises = null,
-    Object? completionDate = null,
   }) {
     return _then(_$WorkoutImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as WorkoutTemplate,
+      coachId: freezed == coachId
+          ? _value.coachId
+          : coachId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      customerId: freezed == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      chatId: freezed == chatId
+          ? _value.chatId
+          : chatId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WorkoutType?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       exercises: null == exercises
           ? _value._exercises
           : exercises // ignore: cast_nullable_to_non_nullable
               as List<Exercise>,
-      completionDate: null == completionDate
-          ? _value.completionDate
-          : completionDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -870,9 +1037,14 @@ class __$$WorkoutImplCopyWithImpl<$Res>
 class _$WorkoutImpl extends _Workout {
   const _$WorkoutImpl(
       {this.id,
-      required this.template,
-      required final List<Exercise> exercises,
-      required this.completionDate})
+      @JsonKey(name: 'coach_id') this.coachId,
+      @JsonKey(name: 'customer_id') this.customerId,
+      @JsonKey(name: 'chat_id') this.chatId,
+      required this.name,
+      @JsonKey(name: 'type_connection') this.type,
+      @JsonKey(name: 'time_start') this.startTime,
+      @JsonKey(name: 'exercise_workouts')
+      final List<Exercise> exercises = const []})
       : _exercises = exercises,
         super._();
 
@@ -882,9 +1054,25 @@ class _$WorkoutImpl extends _Workout {
   @override
   final int? id;
   @override
-  final WorkoutTemplate template;
+  @JsonKey(name: 'coach_id')
+  final int? coachId;
+  @override
+  @JsonKey(name: 'customer_id')
+  final int? customerId;
+  @override
+  @JsonKey(name: 'chat_id')
+  final int? chatId;
+  @override
+  final String name;
+  @override
+  @JsonKey(name: 'type_connection')
+  final WorkoutType? type;
+  @override
+  @JsonKey(name: 'time_start')
+  final DateTime? startTime;
   final List<Exercise> _exercises;
   @override
+  @JsonKey(name: 'exercise_workouts')
   List<Exercise> get exercises {
     if (_exercises is EqualUnmodifiableListView) return _exercises;
     // ignore: implicit_dynamic_type
@@ -892,11 +1080,8 @@ class _$WorkoutImpl extends _Workout {
   }
 
   @override
-  final DateTime completionDate;
-
-  @override
   String toString() {
-    return 'Workout(id: $id, template: $template, exercises: $exercises, completionDate: $completionDate)';
+    return 'Workout(id: $id, coachId: $coachId, customerId: $customerId, chatId: $chatId, name: $name, type: $type, startTime: $startTime, exercises: $exercises)';
   }
 
   @override
@@ -905,18 +1090,22 @@ class _$WorkoutImpl extends _Workout {
         (other.runtimeType == runtimeType &&
             other is _$WorkoutImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.template, template) ||
-                other.template == template) &&
+            (identical(other.coachId, coachId) || other.coachId == coachId) &&
+            (identical(other.customerId, customerId) ||
+                other.customerId == customerId) &&
+            (identical(other.chatId, chatId) || other.chatId == chatId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
             const DeepCollectionEquality()
-                .equals(other._exercises, _exercises) &&
-            (identical(other.completionDate, completionDate) ||
-                other.completionDate == completionDate));
+                .equals(other._exercises, _exercises));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, template,
-      const DeepCollectionEquality().hash(_exercises), completionDate);
+  int get hashCode => Object.hash(runtimeType, id, coachId, customerId, chatId,
+      name, type, startTime, const DeepCollectionEquality().hash(_exercises));
 
   @JsonKey(ignore: true)
   @override
@@ -934,10 +1123,15 @@ class _$WorkoutImpl extends _Workout {
 
 abstract class _Workout extends Workout {
   const factory _Workout(
-      {final int? id,
-      required final WorkoutTemplate template,
-      required final List<Exercise> exercises,
-      required final DateTime completionDate}) = _$WorkoutImpl;
+          {final int? id,
+          @JsonKey(name: 'coach_id') final int? coachId,
+          @JsonKey(name: 'customer_id') final int? customerId,
+          @JsonKey(name: 'chat_id') final int? chatId,
+          required final String name,
+          @JsonKey(name: 'type_connection') final WorkoutType? type,
+          @JsonKey(name: 'time_start') final DateTime? startTime,
+          @JsonKey(name: 'exercise_workouts') final List<Exercise> exercises}) =
+      _$WorkoutImpl;
   const _Workout._() : super._();
 
   factory _Workout.fromJson(Map<String, dynamic> json) = _$WorkoutImpl.fromJson;
@@ -945,11 +1139,25 @@ abstract class _Workout extends Workout {
   @override
   int? get id;
   @override
-  WorkoutTemplate get template;
+  @JsonKey(name: 'coach_id')
+  int? get coachId;
   @override
+  @JsonKey(name: 'customer_id')
+  int? get customerId;
+  @override
+  @JsonKey(name: 'chat_id')
+  int? get chatId;
+  @override
+  String get name;
+  @override
+  @JsonKey(name: 'type_connection')
+  WorkoutType? get type;
+  @override
+  @JsonKey(name: 'time_start')
+  DateTime? get startTime;
+  @override
+  @JsonKey(name: 'exercise_workouts')
   List<Exercise> get exercises;
-  @override
-  DateTime get completionDate;
   @override
   @JsonKey(ignore: true)
   _$$WorkoutImplCopyWith<_$WorkoutImpl> get copyWith =>

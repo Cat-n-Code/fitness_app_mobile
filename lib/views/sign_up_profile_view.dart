@@ -69,7 +69,7 @@ class _SignUpProfileViewState extends ConsumerState<SignUpProfileView>
     final notifier = ref.watch(userRegistrationNotifierProvider.notifier);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 96.0, 16.0, 24.0),
+      padding: const EdgeInsets.fromLTRB(24.0, 48.0, 24.0, 43.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,

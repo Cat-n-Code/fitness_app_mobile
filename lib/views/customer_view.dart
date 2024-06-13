@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CoachCustomerView extends ConsumerWidget {
-  const CoachCustomerView({super.key, required this.customerId});
+class CustomerView extends ConsumerWidget {
+  const CustomerView({super.key, required this.customerId});
 
   final int customerId;
 
@@ -59,13 +59,18 @@ class CoachCustomerView extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'coach_customer_view.workouts_title',
+                    'customer_view.workouts_title',
                     style: primaryTitleTextStyle,
                   ).tr(),
-                  FilledButton.icon(
-                    onPressed: () => (),
-                    style: iconPrimaryButton,
-                    label: const Icon(Icons.add),
+                  Tooltip(
+                    message: 'customer_view.schedule_workout_tooltip'.tr(
+                      context: context,
+                    ),
+                    child: FilledButton.icon(
+                      onPressed: () => (),
+                      style: iconPrimaryButton,
+                      label: const Icon(Icons.add),
+                    ),
                   )
                 ],
               ),

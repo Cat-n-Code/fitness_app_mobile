@@ -50,13 +50,14 @@ flutter:
     - assets/locales/
     - assets/images/
     - assets/images/avatars/
+    - assets/images/workouts/
 
 icons_launcher:
   image_path: assets/icons/icon-512x512.png
   platforms:
     android:
       enable: true
-      adaptive_background_color: "#B2E01E"
+      adaptive_background_image: assets/icons/icon-background-512x512.png
       adaptive_foreground_image: assets/icons/icon-foreground-512x512.png
     ios:
       enable: true
@@ -65,6 +66,4 @@ flutter_native_splash:
   color: "#FEFEFE"
   
   android_12:
-    image: assets/icons/icon-foreground-512x512.png
-    icon_background_color: "#B2E01E"
     color: "#FEFEFE"

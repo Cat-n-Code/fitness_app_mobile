@@ -4,8 +4,10 @@ common:
   skip_button: SKIP
   continue_button: CONTINUE
   save_button: SAVE
+  start_button: GET STARTED
   dialog_no: No
   dialog_yes: Yes
+  dialog_send: Send
   profile_edit_tooltip: Edit profile
   logout_tooltip: Log out
   chat_tooltip: Open chat
@@ -46,6 +48,24 @@ common:
     kids: Kids
     adults: Adults
     yoga: Yoga
+
+  exercise_type:
+    base: Base
+    isolated: Isolated
+  exercise_difficulty:
+    beginner: Beginner
+    middle: Middle
+    professional: Professional
+  exercise_stage:
+    warm_up: Warm up
+    main: Main workout
+    cool_down: Cool-down
+  no_equipment: No equipment
+  not_available: N/A
+
+  workout_type:
+    online: Online
+    offline: In person
   
   date_range:
     this_week: This week
@@ -183,6 +203,20 @@ coach_exercises_view:
   title: Exercises
   add_exercise_tooltip: Create exercise
 
-coach_customer_view:
+customer_view:
   workouts_title: Workouts
-  schedule_workout_button: Schedule workout
+  schedule_workout_tooltip: Schedule workout
+
+workout_view:
+  exercise_count_value: "{} exercises"
+  details_title: Workout details
+  chat_button: Ask your question in the chat
+
+workout_exercises_view:
+  sets_reps_count_value: "{} SETS OF {} REPS"
+  sets_value: "{} SETS"
+  reps_value: "{} REPS"
+  completed_sets: Completed sets
+  rate_dialog_title: Did you like this workout?
+  rate_dialog_body: Give a star for your coach
+  rate_dialog_later: Later
