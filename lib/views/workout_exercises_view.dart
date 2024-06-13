@@ -383,7 +383,7 @@ class _ExerciseTabState extends State<_ExerciseTab> {
         _buildSetsText(theme.colorScheme),
         Expanded(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: _exercise.setsCount != null
                 ? [
                     const SizedBox(height: 16.0),

@@ -92,6 +92,7 @@ class _LoginViewBodyState extends ConsumerState<_LoginViewBody> {
             keyboardType: TextInputType.emailAddress,
             validator: compositeValidator([nonEmptyValidator, emailValidator]),
             enabled: !_isLoading,
+            onFieldSubmitted: (text) => _onSubmitted(),
           ),
           const SizedBox(height: 16.0),
           Text(
@@ -104,6 +105,7 @@ class _LoginViewBodyState extends ConsumerState<_LoginViewBody> {
             obscureText: true,
             validator: passwordValidator,
             enabled: !_isLoading,
+            onFieldSubmitted: (text) => _onSubmitted(),
           ),
           const SizedBox(height: 8.0),
           if (_errorTextKey != null)
