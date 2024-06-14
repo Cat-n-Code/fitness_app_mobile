@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/views/customer/customer_coaches_view.dart';
+import 'package:fitness_app/views/customer/customer_diary_view.dart';
 import 'package:fitness_app/views/customer/customer_home_view.dart';
 import 'package:fitness_app/views/customer/customer_progress_view.dart';
-import 'package:fitness_app/views/profile_view.dart';
+import 'package:fitness_app/views/customer/customer_shop_view.dart';
 import 'package:flutter/material.dart';
 
 class CustomerMainView extends StatefulWidget {
@@ -22,7 +23,7 @@ class _CustomerMainViewState extends State<CustomerMainView>
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     _tabController.index = _currentTabIndex;
     _tabController.addListener(() => setState(() {
           _currentTabIndex = _tabController.index;
@@ -56,8 +57,12 @@ class _CustomerMainViewState extends State<CustomerMainView>
           label: 'customer_main_view.progress_tab'.tr(context: context),
         ),
         BottomNavigationBarItem(
-          icon: const Icon(Icons.person),
-          label: 'customer_main_view.profile_tab'.tr(context: context),
+          icon: const Icon(Icons.auto_stories),
+          label: 'customer_main_view.diary_tab'.tr(context: context),
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.shopping_bag_outlined),
+          label: 'customer_main_view.shop_tab'.tr(context: context),
         ),
       ],
     );
@@ -71,7 +76,8 @@ class _CustomerMainViewState extends State<CustomerMainView>
         CustomerHomeView(),
         CustomerCoachesView(),
         CustomerProgressView(),
-        ProfileView()
+        CustomerDiaryView(),
+        CustomerShopView(),
       ],
     );
   }

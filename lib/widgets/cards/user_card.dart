@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class UserCard extends ConsumerWidget {
-  const UserCard({super.key});
+  const UserCard({super.key, this.onTap});
+
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,17 +20,22 @@ class UserCard extends ConsumerWidget {
 
     return Skeletonizer(
       enabled: userValue.isLoading,
-      child: InkWell(
+      child: Material(
         borderRadius: BorderRadius.circular(16.0),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 4.0, 32.0, 4.0),
-          child: SizedBox(
-            height: 72.0,
-            child: _buildContent(
-              user,
-              context,
-              theme.textTheme,
-              theme.colorScheme,
+        clipBehavior: Clip.hardEdge,
+        elevation: 2.0,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 32.0, 4.0),
+            child: SizedBox(
+              height: 72.0,
+              child: _buildContent(
+                user,
+                context,
+                theme.textTheme,
+                theme.colorScheme,
+              ),
             ),
           ),
         ),
@@ -52,8 +59,10 @@ class UserCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildLabel(user, context, textTheme),
-              const SizedBox(height: 4.0),
-              _buildSubLabel(user, colorScheme)
+              if (user.role == Role.customer) ...[
+                const SizedBox(height: 4.0),
+                _buildSubLabel(user, colorScheme),
+              ],
             ],
           ),
         )

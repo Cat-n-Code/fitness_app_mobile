@@ -51,6 +51,9 @@ flutter:
     - assets/images/
     - assets/images/avatars/
     - assets/images/workouts/
+    - assets/images/shop/
+    - assets/images/shop/items/
+    - assets/images/moods/
 
 icons_launcher:
   image_path: assets/icons/icon-512x512.png

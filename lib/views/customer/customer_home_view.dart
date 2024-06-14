@@ -19,17 +19,17 @@ class CustomerHomeView extends ConsumerWidget {
       // appBar: _buildAppBar(),
       body: WorkoutsList(
         padding: EdgeInsets.fromLTRB(24.0, padding.top + 16.0, 24.0, 0.0),
-        header: _buildHeader(),
+        header: _buildHeader(context),
         onTap: (workout) => context.push('/workout/${workout.id!}'),
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const UserCard(),
+        UserCard(onTap: () => context.push('/profile')),
         const SizedBox(height: 8.0),
         Text(
           'customer_home_view.schedule_title',

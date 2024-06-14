@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fitness_app/models/workout.dart';
-import 'package:fitness_app/providers/exercise.dart';
 import 'package:fitness_app/providers/workouts.dart';
 import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/api.dart';

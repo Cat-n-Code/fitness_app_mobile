@@ -222,6 +222,9 @@ final outlinedPrimaryInputDecoration = InputDecorationTheme(
     horizontal: 16.0,
   ),
 );
+final searchInputDecoration = const InputDecoration(
+  prefixIcon: Icon(Icons.search),
+).applyDefaults(primaryInputDecoration);
 
 final themeData = ThemeData(
   colorScheme: colorScheme,
