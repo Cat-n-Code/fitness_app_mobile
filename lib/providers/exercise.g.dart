@@ -6,7 +6,7 @@ part of 'exercise.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myExercisesHash() => r'be3144183bb634b6c412e8600b9bb5360961dbae';
+String _$myExercisesHash() => r'4faecf7d3f4e8d44a467425622f4a94345e754c2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,10 +42,12 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
   MyExercisesProvider call(
     int page,
     int pageSize,
+    String? nameParam,
   ) {
     return MyExercisesProvider(
       page,
       pageSize,
+      nameParam,
     );
   }
 
@@ -56,6 +58,7 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
     return call(
       provider.page,
       provider.pageSize,
+      provider.nameParam,
     );
   }
 
@@ -81,11 +84,13 @@ class MyExercisesProvider
   MyExercisesProvider(
     int page,
     int pageSize,
+    String? nameParam,
   ) : this._internal(
           (ref) => myExercises(
             ref as MyExercisesRef,
             page,
             pageSize,
+            nameParam,
           ),
           from: myExercisesProvider,
           name: r'myExercisesProvider',
@@ -98,6 +103,7 @@ class MyExercisesProvider
               MyExercisesFamily._allTransitiveDependencies,
           page: page,
           pageSize: pageSize,
+          nameParam: nameParam,
         );
 
   MyExercisesProvider._internal(
@@ -109,10 +115,12 @@ class MyExercisesProvider
     required super.from,
     required this.page,
     required this.pageSize,
+    required this.nameParam,
   }) : super.internal();
 
   final int page;
   final int pageSize;
+  final String? nameParam;
 
   @override
   Override overrideWith(
@@ -129,6 +137,7 @@ class MyExercisesProvider
         debugGetCreateSourceHash: null,
         page: page,
         pageSize: pageSize,
+        nameParam: nameParam,
       ),
     );
   }
@@ -142,7 +151,8 @@ class MyExercisesProvider
   bool operator ==(Object other) {
     return other is MyExercisesProvider &&
         other.page == page &&
-        other.pageSize == pageSize;
+        other.pageSize == pageSize &&
+        other.nameParam == nameParam;
   }
 
   @override
@@ -150,6 +160,7 @@ class MyExercisesProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
     hash = _SystemHash.combine(hash, pageSize.hashCode);
+    hash = _SystemHash.combine(hash, nameParam.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -161,6 +172,9 @@ mixin MyExercisesRef on AutoDisposeFutureProviderRef<List<ExerciseTemplate>> {
 
   /// The parameter `pageSize` of this provider.
   int get pageSize;
+
+  /// The parameter `nameParam` of this provider.
+  String? get nameParam;
 }
 
 class _MyExercisesProviderElement
@@ -172,6 +186,8 @@ class _MyExercisesProviderElement
   int get page => (origin as MyExercisesProvider).page;
   @override
   int get pageSize => (origin as MyExercisesProvider).pageSize;
+  @override
+  String? get nameParam => (origin as MyExercisesProvider).nameParam;
 }
 
 String _$exerciseNotifierHash() => r'965d58d99ea6b6b120e3e3c148f5636810df6a0b';

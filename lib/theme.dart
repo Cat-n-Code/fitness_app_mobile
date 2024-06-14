@@ -27,7 +27,10 @@ final colorScheme = ColorScheme.fromSeed(
   scrim: darkColor.withAlpha(25),
 );
 
-final textTheme = GoogleFonts.interTextTheme();
+final textTheme = GoogleFonts.interTextTheme().apply(
+  bodyColor: darkColor,
+  displayColor: darkColor,
+);
 final darkTextStyle = textTheme.bodyMedium!.copyWith(color: darkColor);
 final titleTextStyle = textTheme.titleLarge!.copyWith(
   fontSize: 36.0,

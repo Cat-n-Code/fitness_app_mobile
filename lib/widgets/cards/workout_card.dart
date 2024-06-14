@@ -47,7 +47,7 @@ class WorkoutCard extends StatelessWidget {
     required this.onTap,
   });
 
-  static const defaultHeight = 150.0;
+  static const defaultHeight = 160.0;
 
   final WorkoutCardType type;
   final AsyncValue<Workout> workout;
@@ -62,7 +62,7 @@ class WorkoutCard extends StatelessWidget {
       child: SizedBox(
         height: defaultHeight,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(20.0),
           clipBehavior: Clip.hardEdge,
           child: workout.hasValue
               ? _buildBody(workout.asData!.value, context)
@@ -103,10 +103,7 @@ class WorkoutCard extends StatelessWidget {
         children: [
           Text(
             workout.name,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: type.foregroundColor,
-            ),
+            style: TextStyle(fontSize: 20.0, color: type.foregroundColor),
           ),
           Wrap(
             runSpacing: 4.0,

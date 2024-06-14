@@ -16,19 +16,25 @@ Future<List<ExerciseTemplate>> myExercises(
   MyExercisesRef ref,
   int page,
   int pageSize,
+  String? nameParam,
 ) async {
   final result = await apiFetch(
     HttpMethod.get,
     '/exercises/users/current',
     ref: ref,
-    params: {'page': page.toString(), 'size': pageSize.toString()},
+    params: {
+      'page': page.toString(),
+      'size': pageSize.toString(),
+      if (nameParam != null) 'name': nameParam,
+    },
   );
 
   switch (result) {
     case Left(value: final response):
       final data = jsonDecode(utf8.decode(response.bodyBytes));
-      final list = data as List<Map<String, Object?>>;
-      final page = list.map((d) => ExerciseTemplate.fromJson(d)).toList();
+      final page = (data as List)
+          .map((d) => ExerciseTemplate.fromJson(d as Map<String, Object?>))
+          .toList();
       return page;
     case Right(value: final exception):
       presentError(exception, ref: ref);

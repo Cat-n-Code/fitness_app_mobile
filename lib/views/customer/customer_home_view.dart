@@ -3,7 +3,7 @@ import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/widgets/cards/user_card.dart';
 import 'package:fitness_app/widgets/customer_goals.dart';
 import 'package:fitness_app/widgets/mini_calendar.dart';
-import 'package:fitness_app/widgets/workouts_list.dart';
+import 'package:fitness_app/widgets/lists/workouts_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:fitness_app/models/chat.dart';
 import 'package:fitness_app/models/users.dart';
 import 'package:fitness_app/providers/chat.dart';
@@ -127,8 +128,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
         Tooltip(
           message: 'chat_view.attach_tooltip'.tr(context: context),
           child: IconButton(
-            onPressed: () => (),
-            // onPressed: _onFileAttachClicked,
+            onPressed: _onFileAttachClicked,
             icon: const Icon(Icons.attach_file),
           ),
         ),
@@ -266,27 +266,25 @@ class _ChatViewState extends ConsumerState<ChatView> {
     });
   }
 
-  // void _onFileAttachClicked() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
+  void _onFileAttachClicked() async {
+    setState(() {
+      _isLoading = true;
+    });
 
-  //   try {
-  //     final result = await FilePicker.platform.pickFiles(
-  //       type: FileType.media,
-  //       withData: false,
-  //       withReadStream: true,
-  //     );
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.media,
+        withData: false,
+        withReadStream: true,
+      );
 
-  //     if (result == null) {
-  //       return;
-  //     }
-
-  //     final file = result.files.first;
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
+      if (result == null) {
+        return;
+      }
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 }

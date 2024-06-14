@@ -54,7 +54,7 @@ class CoachCustomersView extends ConsumerWidget {
               child: CustomerCard(
                 customer: customerValue,
                 onTap: () => context.push(
-                  '/coach/customer/${customerValue.value?.id}',
+                  '/customer/${customerValue.value?.id}',
                 ),
               ),
             );

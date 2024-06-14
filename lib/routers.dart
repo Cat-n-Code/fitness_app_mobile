@@ -2,6 +2,7 @@ import 'package:fitness_app/views/chat_view.dart';
 import 'package:fitness_app/views/customer_view.dart';
 import 'package:fitness_app/views/coach_main_view.dart';
 import 'package:fitness_app/views/customer_main_view.dart';
+import 'package:fitness_app/views/exercise_template_view.dart';
 import 'package:fitness_app/views/profile_edit_view.dart';
 import 'package:fitness_app/views/profile_view.dart';
 import 'package:fitness_app/views/workout_exercises_view.dart';
@@ -56,6 +57,14 @@ final router = GoRouter(
     GoRoute(
       path: '/profile/edit',
       builder: (context, state) => const ProfileEditView(),
+    ),
+    GoRoute(
+      path: '/exercise_template',
+      builder: (context, state) => ExerciseTemplateView(
+        exerciseId: state.uri.queryParameters.containsKey('id')
+            ? int.parse(state.uri.queryParameters['id']!)
+            : null,
+      ),
     ),
     GoRoute(
       path: '/workout/:id',
