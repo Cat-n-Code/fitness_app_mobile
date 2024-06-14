@@ -17,6 +17,10 @@ Future<List<ExerciseTemplate>> myExercises(
   int page,
   int pageSize,
   String? nameParam,
+  String? muscleParam,
+  String? equipmentParam,
+  ExerciseType? typeParam,
+  ExerciseDifficulty? difficultyParam,
 ) async {
   final result = await apiFetch(
     HttpMethod.get,
@@ -26,6 +30,10 @@ Future<List<ExerciseTemplate>> myExercises(
       'page': page.toString(),
       'size': pageSize.toString(),
       if (nameParam != null) 'name': nameParam,
+      if (muscleParam != null) 'muscle': muscleParam,
+      if (equipmentParam != null) 'equipment': equipmentParam,
+      if (typeParam != null) 'type': typeParam.jsonValue,
+      if (difficultyParam != null) 'difficulty': difficultyParam.jsonValue,
     },
   );
 

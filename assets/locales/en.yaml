@@ -5,6 +5,7 @@ common:
   continue_button: CONTINUE
   save_button: SAVE
   start_button: GET STARTED
+  filter_button: Filter
   dialog_no: No
   dialog_yes: Yes
   dialog_send: Send
@@ -124,6 +125,12 @@ user_card:
 customer_card:
   user_name_value: "{}, {} y.o."
   progress_label: "Training plan completed:"
+
+exercises_list:
+  muscle_filter_label: Muscle group
+  equipment_filter_label: Equipment
+  type_filter_label: Type
+  difficulty_filter_label: Difficulty
 
 start_up_view:
   title_1: WELCOME TO

@@ -29,6 +29,11 @@ class ExercisesList extends ConsumerStatefulWidget {
 class _ExercisesListState extends ConsumerState<ExercisesList> {
   final _textController = TextEditingController();
   String? _searchText;
+  String? _muscleFilter;
+  String? _equipmentFilter;
+  ExerciseType? _typeFilter;
+  ExerciseDifficulty? _difficultyFilter;
+  bool _isFilterShowed = false;
 
   @override
   void initState() {
@@ -45,48 +50,177 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
+      body: RefreshIndicator.adaptive(
+        onRefresh: () async {
+          ref.invalidate(myExercisesProvider);
+          await ref.read(
+            myExercisesProvider(
+              0,
+              ExercisesList.pageSize,
+              _searchText,
+              _muscleFilter,
+              _equipmentFilter,
+              _typeFilter,
+              _difficultyFilter,
+            ).future,
+          );
+        },
+        child: CustomScrollView(
+          slivers: [
+            _buildAppBar(context),
+            _buildBody(),
+          ],
+        ),
+      ),
       resizeToAvoidBottomInset: false,
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: TextField(
-        decoration: searchInputDecoration,
-        controller: _textController,
+  SliverAppBar _buildAppBar(BuildContext context) {
+    final theme = Theme.of(context);
+    final padding = MediaQuery.viewPaddingOf(context);
+    final textTheme = theme.textTheme;
+
+    return SliverAppBar(
+      snap: true,
+      floating: true,
+      pinned: false,
+      expandedHeight: _isFilterShowed ? 424.0 + padding.top : 104.0,
+      flexibleSpace: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16.0, padding.top, 16.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: searchInputDecoration,
+                      controller: _textController,
+                    ),
+                  ),
+                  if (widget.hasAddButton)
+                    Tooltip(
+                      message: 'common.add_exercise_tooltip'.tr(
+                        context: context,
+                      ),
+                      child: IconButton(
+                        onPressed: widget.onAddTap,
+                        icon: const Icon(Icons.add),
+                      ),
+                    )
+                ],
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                children: [
+                  FilledButton(
+                    onPressed: () => setState(
+                      () => _isFilterShowed = !_isFilterShowed,
+                    ),
+                    style: smallPrimaryButton,
+                    child: Row(
+                      children: [
+                        const Text('common.filter_button').tr(),
+                        const SizedBox(width: 4.0),
+                        Icon(
+                          _isFilterShowed
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                'exercises_list.muscle_filter_label',
+                style: textTheme.labelMedium,
+              ).tr(),
+              TextField(
+                onChanged: (s) => setState(() {
+                  s = s.trim();
+                  _muscleFilter = s.isNotEmpty ? s : null;
+                }),
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                'exercises_list.equipment_filter_label',
+                style: textTheme.labelMedium,
+              ).tr(),
+              TextField(
+                onChanged: (s) => setState(() {
+                  s = s.trim();
+                  _equipmentFilter = s.isNotEmpty ? s : null;
+                }),
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                'exercises_list.type_filter_label',
+                style: textTheme.labelMedium,
+              ).tr(),
+              Wrap(
+                runSpacing: 8.0,
+                spacing: 8.0,
+                children: ExerciseType.values
+                    .map(
+                      (d) => ChoiceChip(
+                        label: Text(d.translationKey).tr(),
+                        selected: _typeFilter == d,
+                        onSelected: (value) => setState(
+                          () => _typeFilter = value ? d : null,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16.0),
+              Text(
+                'exercises_list.difficulty_filter_label',
+                style: textTheme.labelMedium,
+              ).tr(),
+              Wrap(
+                runSpacing: 8.0,
+                spacing: 8.0,
+                children: ExerciseDifficulty.values
+                    .map(
+                      (d) => ChoiceChip(
+                        label: Text(d.translationKey).tr(),
+                        selected: _difficultyFilter == d,
+                        onSelected: (value) => setState(
+                          () => _difficultyFilter = value ? d : null,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
+          ),
+        ),
       ),
-      actions: [
-        if (widget.hasAddButton)
-          Tooltip(
-            message: 'common.add_exercise_tooltip'.tr(
-              context: context,
-            ),
-            child: IconButton(
-              onPressed: widget.onAddTap,
-              icon: const Icon(Icons.add),
-            ),
-          )
-      ],
     );
   }
 
   Widget _buildBody() {
-    return RefreshIndicator.adaptive(
-      onRefresh: () async {
-        ref.invalidate(myExercisesProvider);
-        await ref.read(
-          myExercisesProvider(0, ExercisesList.pageSize, _searchText).future,
-        );
-      },
-      child: ListView.builder(
-        padding: widget.padding,
+    return SliverPadding(
+      padding: widget.padding ?? const EdgeInsets.all(0.0),
+      sliver: SliverList.builder(
         itemBuilder: (context, index) {
           final page = index ~/ ExercisesList.pageSize;
           final pageIndex = index - page * ExercisesList.pageSize;
           final exercises = ref.watch(
-            myExercisesProvider(page, ExercisesList.pageSize, _searchText),
+            myExercisesProvider(
+              page,
+              ExercisesList.pageSize,
+              _searchText,
+              _muscleFilter,
+              _equipmentFilter,
+              _typeFilter,
+              _difficultyFilter,
+            ),
           );
           final exercise = exercises.map(
             data: (data) => pageIndex < data.value.length

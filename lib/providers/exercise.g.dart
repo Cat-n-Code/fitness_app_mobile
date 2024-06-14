@@ -6,7 +6,7 @@ part of 'exercise.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myExercisesHash() => r'4faecf7d3f4e8d44a467425622f4a94345e754c2';
+String _$myExercisesHash() => r'd4a1e6a8802165531d5be555108f1dcb643d2b59';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,11 +43,19 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
     int page,
     int pageSize,
     String? nameParam,
+    String? muscleParam,
+    String? equipmentParam,
+    ExerciseType? typeParam,
+    ExerciseDifficulty? difficultyParam,
   ) {
     return MyExercisesProvider(
       page,
       pageSize,
       nameParam,
+      muscleParam,
+      equipmentParam,
+      typeParam,
+      difficultyParam,
     );
   }
 
@@ -59,6 +67,10 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
       provider.page,
       provider.pageSize,
       provider.nameParam,
+      provider.muscleParam,
+      provider.equipmentParam,
+      provider.typeParam,
+      provider.difficultyParam,
     );
   }
 
@@ -85,12 +97,20 @@ class MyExercisesProvider
     int page,
     int pageSize,
     String? nameParam,
+    String? muscleParam,
+    String? equipmentParam,
+    ExerciseType? typeParam,
+    ExerciseDifficulty? difficultyParam,
   ) : this._internal(
           (ref) => myExercises(
             ref as MyExercisesRef,
             page,
             pageSize,
             nameParam,
+            muscleParam,
+            equipmentParam,
+            typeParam,
+            difficultyParam,
           ),
           from: myExercisesProvider,
           name: r'myExercisesProvider',
@@ -104,6 +124,10 @@ class MyExercisesProvider
           page: page,
           pageSize: pageSize,
           nameParam: nameParam,
+          muscleParam: muscleParam,
+          equipmentParam: equipmentParam,
+          typeParam: typeParam,
+          difficultyParam: difficultyParam,
         );
 
   MyExercisesProvider._internal(
@@ -116,11 +140,19 @@ class MyExercisesProvider
     required this.page,
     required this.pageSize,
     required this.nameParam,
+    required this.muscleParam,
+    required this.equipmentParam,
+    required this.typeParam,
+    required this.difficultyParam,
   }) : super.internal();
 
   final int page;
   final int pageSize;
   final String? nameParam;
+  final String? muscleParam;
+  final String? equipmentParam;
+  final ExerciseType? typeParam;
+  final ExerciseDifficulty? difficultyParam;
 
   @override
   Override overrideWith(
@@ -138,6 +170,10 @@ class MyExercisesProvider
         page: page,
         pageSize: pageSize,
         nameParam: nameParam,
+        muscleParam: muscleParam,
+        equipmentParam: equipmentParam,
+        typeParam: typeParam,
+        difficultyParam: difficultyParam,
       ),
     );
   }
@@ -152,7 +188,11 @@ class MyExercisesProvider
     return other is MyExercisesProvider &&
         other.page == page &&
         other.pageSize == pageSize &&
-        other.nameParam == nameParam;
+        other.nameParam == nameParam &&
+        other.muscleParam == muscleParam &&
+        other.equipmentParam == equipmentParam &&
+        other.typeParam == typeParam &&
+        other.difficultyParam == difficultyParam;
   }
 
   @override
@@ -161,6 +201,10 @@ class MyExercisesProvider
     hash = _SystemHash.combine(hash, page.hashCode);
     hash = _SystemHash.combine(hash, pageSize.hashCode);
     hash = _SystemHash.combine(hash, nameParam.hashCode);
+    hash = _SystemHash.combine(hash, muscleParam.hashCode);
+    hash = _SystemHash.combine(hash, equipmentParam.hashCode);
+    hash = _SystemHash.combine(hash, typeParam.hashCode);
+    hash = _SystemHash.combine(hash, difficultyParam.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -175,6 +219,18 @@ mixin MyExercisesRef on AutoDisposeFutureProviderRef<List<ExerciseTemplate>> {
 
   /// The parameter `nameParam` of this provider.
   String? get nameParam;
+
+  /// The parameter `muscleParam` of this provider.
+  String? get muscleParam;
+
+  /// The parameter `equipmentParam` of this provider.
+  String? get equipmentParam;
+
+  /// The parameter `typeParam` of this provider.
+  ExerciseType? get typeParam;
+
+  /// The parameter `difficultyParam` of this provider.
+  ExerciseDifficulty? get difficultyParam;
 }
 
 class _MyExercisesProviderElement
@@ -188,6 +244,15 @@ class _MyExercisesProviderElement
   int get pageSize => (origin as MyExercisesProvider).pageSize;
   @override
   String? get nameParam => (origin as MyExercisesProvider).nameParam;
+  @override
+  String? get muscleParam => (origin as MyExercisesProvider).muscleParam;
+  @override
+  String? get equipmentParam => (origin as MyExercisesProvider).equipmentParam;
+  @override
+  ExerciseType? get typeParam => (origin as MyExercisesProvider).typeParam;
+  @override
+  ExerciseDifficulty? get difficultyParam =>
+      (origin as MyExercisesProvider).difficultyParam;
 }
 
 String _$exerciseNotifierHash() => r'965d58d99ea6b6b120e3e3c148f5636810df6a0b';

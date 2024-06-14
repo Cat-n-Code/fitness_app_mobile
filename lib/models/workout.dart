@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -7,27 +5,26 @@ import 'package:skeletonizer/skeletonizer.dart';
 part 'workout.freezed.dart';
 part 'workout.g.dart';
 
+@JsonEnum(valueField: 'jsonValue')
 enum ExerciseType {
-  @JsonValue('Базовое')
-  base('common.exercise_type.base'),
-  @JsonValue('Изолирующее')
-  isolated('common.exercise_type.isolated');
+  base('Базовое', 'common.exercise_type.base'),
+  isolated('Изолирующее', 'common.exercise_type.isolated');
 
-  const ExerciseType(this.translationKey);
+  const ExerciseType(this.jsonValue, this.translationKey);
 
+  final String jsonValue;
   final String translationKey;
 }
 
+@JsonEnum(valueField: 'jsonValue')
 enum ExerciseDifficulty {
-  @JsonValue('Начинающий')
-  beginner('common.exercise_difficulty.beginner'),
-  @JsonValue('Средний')
-  middle('common.exercise_difficulty.middle'),
-  @JsonValue('Профессионал')
-  professional('common.exercise_difficulty.professional');
+  beginner('Начинающий', 'common.exercise_difficulty.beginner'),
+  middle('Средний', 'common.exercise_difficulty.middle'),
+  professional('Профессионал', 'common.exercise_difficulty.professional');
 
-  const ExerciseDifficulty(this.translationKey);
+  const ExerciseDifficulty(this.jsonValue, this.translationKey);
 
+  final String jsonValue;
   final String translationKey;
 }
 
