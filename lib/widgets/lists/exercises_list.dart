@@ -184,6 +184,10 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                         (d) => ChoiceChip(
                           label: Text(d.translationKey).tr(),
                           selected: _typeFilter == d,
+                          labelStyle: TextStyle(
+                              color: _typeFilter == d
+                                  ? colorScheme.onPrimary
+                                  : null),
                           onSelected: (value) => setState(
                             () => _typeFilter = value ? d : null,
                           ),
@@ -204,6 +208,10 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                         (d) => ChoiceChip(
                           label: Text(d.translationKey).tr(),
                           selected: _difficultyFilter == d,
+                          labelStyle: TextStyle(
+                              color: _difficultyFilter == d
+                                  ? colorScheme.onPrimary
+                                  : null),
                           onSelected: (value) => setState(
                             () => _difficultyFilter = value ? d : null,
                           ),

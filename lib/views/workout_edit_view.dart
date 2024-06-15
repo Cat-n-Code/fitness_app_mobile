@@ -19,10 +19,16 @@ import 'package:http/http.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class WorkoutEditView extends ConsumerStatefulWidget {
-  const WorkoutEditView({super.key, this.workoutId, this.customerId});
+  const WorkoutEditView({
+    super.key,
+    this.workoutId,
+    this.customerId,
+    this.onSaved,
+  });
 
   final int? workoutId;
   final int? customerId;
+  final void Function(Workout workout)? onSaved;
 
   @override
   ConsumerState<WorkoutEditView> createState() => _WorkoutEditViewState();
@@ -212,6 +218,9 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
                   child: ChoiceChip(
                     label: Text(t.translationKey).tr(),
                     selected: _workoutType == t,
+                    labelStyle: _workoutType == t
+                        ? TextStyle(color: colorScheme.onPrimary)
+                        : null,
                     onSelected: _isEditable
                         ? (b) => setState(
                               () => _workoutType = b ? t : null,
@@ -611,6 +620,10 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
       });
     } finally {
       setState(() => _isLoading = false);
+    }
+
+    if (widget.onSaved != null) {
+      widget.onSaved!(_workout);
     }
   }
 

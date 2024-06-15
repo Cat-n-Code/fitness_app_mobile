@@ -153,6 +153,7 @@ final router = GoRouter(
       builder: (context, state) => WorkoutEditView(
         customerId: int.parse(state.pathParameters['customerId']!),
         workoutId: int.parse(state.pathParameters['workoutId']!),
+        onSaved: (workout) => context.pop(workout),
       ),
     ),
   ],

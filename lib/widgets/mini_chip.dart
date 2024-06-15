@@ -38,7 +38,7 @@ class MiniChip extends StatelessWidget {
             if (icon != null) ...[
               IconTheme(
                 data: IconThemeData(
-                  color: foregroundColor ?? darkColor,
+                  color: foregroundColor ?? colorScheme.onPrimary,
                   size: 18.0,
                 ),
                 child: icon,
@@ -46,8 +46,9 @@ class MiniChip extends StatelessWidget {
               const SizedBox(width: 4.0),
             ],
             DefaultTextStyle(
-              style:
-                  theme.textTheme.bodyMedium!.copyWith(color: foregroundColor),
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: foregroundColor ?? colorScheme.onPrimary,
+              ),
               child: text,
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fitness_app/models/workout.dart';
 import 'package:fitness_app/providers/exercise.dart';
 import 'package:fitness_app/providers/users.dart';
+import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/api.dart';
 import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/utils/result.dart';
@@ -201,6 +202,9 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
                   child: ChoiceChip(
                     label: Text(d.translationKey).tr(),
                     selected: d == _exercise.difficulty,
+                    labelStyle: d == _exercise.difficulty
+                        ? TextStyle(color: colorScheme.onPrimary)
+                        : null,
                     onSelected: _isEditable
                         ? (b) => setState(
                               () => _exercise =
@@ -229,6 +233,9 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
                   child: ChoiceChip(
                     label: Text(d.translationKey).tr(),
                     selected: d == _exercise.type,
+                    labelStyle: d == _exercise.type
+                        ? TextStyle(color: colorScheme.onPrimary)
+                        : null,
                     onSelected: _isEditable
                         ? (b) => setState(() =>
                             _exercise = _exercise.copyWith(type: b ? d : null))
