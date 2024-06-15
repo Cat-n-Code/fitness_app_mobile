@@ -262,7 +262,7 @@ class _MyExerciseTemplatesProviderElement
       (origin as MyExerciseTemplatesProvider).difficultyParam;
 }
 
-String _$exerciseByIdHash() => r'614f51c60e45aebcdcfccbbe7afb610a8d1b1e75';
+String _$exerciseByIdHash() => r'd0912bc81993938813924d438a321f3479304064';
 
 /// See also [exerciseById].
 @ProviderFor(exerciseById)

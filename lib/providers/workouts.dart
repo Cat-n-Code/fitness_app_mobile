@@ -42,6 +42,36 @@ Future<List<Workout>> myWorkouts(
 }
 
 @riverpod
+Future<List<Workout>> userWorkouts(
+  UserWorkoutsRef ref,
+  int userId,
+  int page,
+  int pageSize,
+) async {
+  final result = await apiFetch(
+    HttpMethod.get,
+    '/workouts/users/$userId',
+    ref: ref,
+    params: {
+      'page': page.toString(),
+      'size': pageSize.toString(),
+    },
+  );
+
+  switch (result) {
+    case Left(value: final response):
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      final workouts = (data as List)
+          .map((d) => Workout.fromJson(d as Map<String, Object?>))
+          .toList();
+      return workouts;
+    case Right(value: final exception):
+      presentError(exception, ref: ref);
+      throw exception;
+  }
+}
+
+@riverpod
 class WorkoutNotifier extends _$WorkoutNotifier {
   @override
   Future<Option<Workout>> build(int id) async {
@@ -61,16 +91,4 @@ class WorkoutNotifier extends _$WorkoutNotifier {
         throw exception;
     }
   }
-
-  // Future<ApiResult<Workout>> updateWorkout(Workout workout) async {
-  //   final oldWorkout = state.valueOrNull?.toNullable();
-  //   if (oldWorkout == null) {
-  //     throw StateError('Invalid notifier state');
-  //   }
-
-  //   final body = jsonEncode(workout.toJson());
-  //   final result = await apiFetch(Http, path)
-  // }
-
-  // Future<ApiResult<Unit>> deleteWorkout() async {}
 }

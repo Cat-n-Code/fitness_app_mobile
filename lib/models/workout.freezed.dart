@@ -749,7 +749,7 @@ class __$$ExerciseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ExerciseImpl implements _Exercise {
+class _$ExerciseImpl extends _Exercise {
   const _$ExerciseImpl(
       {this.id,
       @JsonKey(name: 'exercise_id') required this.exerciseId,
@@ -759,7 +759,8 @@ class _$ExerciseImpl implements _Exercise {
       @JsonKey(name: 'num_sets_done') this.setsDoneCount,
       @JsonKey(name: 'num_reps') this.repeatsCount,
       required this.stage,
-      this.exercise});
+      this.exercise})
+      : super._();
 
   factory _$ExerciseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExerciseImplFromJson(json);
@@ -835,7 +836,7 @@ class _$ExerciseImpl implements _Exercise {
   }
 }
 
-abstract class _Exercise implements Exercise {
+abstract class _Exercise extends Exercise {
   const factory _Exercise(
       {final int? id,
       @JsonKey(name: 'exercise_id') required final int exerciseId,
@@ -846,6 +847,7 @@ abstract class _Exercise implements Exercise {
       @JsonKey(name: 'num_reps') final int? repeatsCount,
       required final ExerciseStage stage,
       final ExerciseTemplate? exercise}) = _$ExerciseImpl;
+  const _Exercise._() : super._();
 
   factory _Exercise.fromJson(Map<String, dynamic> json) =
       _$ExerciseImpl.fromJson;

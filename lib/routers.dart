@@ -11,6 +11,7 @@ import 'package:fitness_app/views/workout_edit_view.dart';
 import 'package:fitness_app/views/workout_exercises_view.dart';
 import 'package:fitness_app/views/workout_view.dart';
 import 'package:fitness_app/widgets/lists/exercises_list.dart';
+import 'package:fitness_app/widgets/lists/workouts_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitness_app/views/login_view.dart';
 import 'package:fitness_app/views/sign_up_profile_view.dart';
@@ -129,6 +130,29 @@ final router = GoRouter(
       path: '/customer/:id',
       builder: (context, state) => CustomerView(
         customerId: int.parse(state.pathParameters['id']!),
+      ),
+    ),
+    GoRoute(
+      path: '/customer/:id/workouts',
+      builder: (context, state) => WorkoutsList(
+        hasAddButton: false,
+        hasSearchInput: true,
+        onTap: (workout) async {
+          final customerId = int.parse(state.pathParameters['id']!);
+          final result = await context.push(
+            '/customer/$customerId/workout/${workout.id!}/add',
+          );
+          if (result != null && context.mounted) {
+            context.pop(result);
+          }
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/customer/:customerId/workout/:workoutId/add',
+      builder: (context, state) => WorkoutEditView(
+        customerId: int.parse(state.pathParameters['customerId']!),
+        workoutId: int.parse(state.pathParameters['workoutId']!),
       ),
     ),
   ],

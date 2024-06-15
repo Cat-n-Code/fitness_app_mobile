@@ -1,19 +1,20 @@
 import 'package:fitness_app/widgets/lists/exercises_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CoachExercisesView extends StatelessWidget {
+class CoachExercisesView extends ConsumerWidget {
   const CoachExercisesView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: _buildBody(context),
+      body: _buildBody(context, ref),
       resizeToAvoidBottomInset: false,
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, WidgetRef ref) {
     return ExercisesList(
       hasAddButton: true,
       hasSearchInput: true,

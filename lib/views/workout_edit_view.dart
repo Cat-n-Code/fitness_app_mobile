@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/models/users.dart';
 import 'package:fitness_app/models/workout.dart';
 import 'package:fitness_app/providers/users.dart';
 import 'package:fitness_app/providers/workouts.dart';
@@ -18,9 +19,10 @@ import 'package:http/http.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class WorkoutEditView extends ConsumerStatefulWidget {
-  const WorkoutEditView({super.key, this.workoutId});
+  const WorkoutEditView({super.key, this.workoutId, this.customerId});
 
   final int? workoutId;
+  final int? customerId;
 
   @override
   ConsumerState<WorkoutEditView> createState() => _WorkoutEditViewState();
@@ -83,6 +85,13 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
                 ? dateFormat.format(_workout.startTime!)
                 : '';
             _exercisesByStage = _workout.sortedExercises;
+
+            if (widget.customerId != null) {
+              _workout = _workout.copyWith(
+                id: null,
+                customerId: widget.customerId,
+              );
+            }
           });
         },
       );
@@ -178,7 +187,8 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
             children: [
               const SizedBox(height: 32.0),
               FilledButton(
-                onPressed: _onSaved,
+                onPressed:
+                    _isEditable || widget.customerId != null ? _onSaved : null,
                 child: const Text('common.save_button').tr(),
               ),
               const SizedBox(height: 16.0),
@@ -441,7 +451,7 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
       return;
     }
 
-    _exercisesByStage[result.stage]!.insert(0, result);
+    setState(() => _exercisesByStage[result.stage]!.insert(0, result));
   }
 
   void _onExerciseEdited(Exercise exercise, int index) async {
@@ -496,14 +506,16 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
   void _onSaved() async {
     setState(() => _isLoading = true);
 
+    final coach = await ref.read(currentCoachNotifierProvider.future);
+
     final body = jsonEncode(
-      _workout
-          .copyWith(
-            name: _nameController.text,
-            type: _workoutType,
-            startTime: _startTime,
-          )
-          .toJson(),
+      _workout.copyWith(
+        name: _nameController.text,
+        type: _workoutType,
+        startTime: _startTime,
+        coachId: (coach as Some<Coach>).value.id,
+        exercises: [],
+      ).toJson(),
     );
     final ApiResult<Response> result;
     if (_workout.id == null) {
@@ -553,10 +565,16 @@ class _WorkoutEditViewState extends ConsumerState<WorkoutEditView> {
       for (var (index, exercise)
           in _exercisesByStage.entries.expand((t) => t.value.indexed)) {
         final body = jsonEncode(
-          exercise.copyWith(workoutId: _workout.id!, order: index).toJson(),
+          exercise
+              .copyWith(
+                id: widget.customerId == null ? exercise.id : null,
+                workoutId: _workout.id!,
+                order: index,
+              )
+              .toJson(),
         );
         final ApiResult<Response> response;
-        if (exercise.id == null) {
+        if (exercise.id == null || widget.customerId != null) {
           response = await apiFetch(
             HttpMethod.post,
             '/workouts/exercises',

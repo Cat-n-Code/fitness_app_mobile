@@ -98,6 +98,8 @@ class ExerciseTemplate with _$ExerciseTemplate {
 
 @freezed
 class Exercise with _$Exercise {
+  const Exercise._();
+
   const factory Exercise({
     int? id,
     @JsonKey(name: 'exercise_id') required int exerciseId,
@@ -124,6 +126,9 @@ class Exercise with _$Exercise {
         stage: ExerciseStage.warmup,
         exercise: ExerciseTemplate.mock(),
       );
+
+  double get progress =>
+      setsCount == null ? 1.0 : (setsDoneCount ?? 0.0) / setsCount!;
 }
 
 @freezed

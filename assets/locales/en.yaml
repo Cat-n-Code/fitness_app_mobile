@@ -130,6 +130,13 @@ customer_card:
   user_name_value: "{}, {} y.o."
   progress_label: "Training plan completed:"
 
+customer_workout_card:
+  edit_tooltip: Edit workout
+  show_details_button: Show details
+  hide_details_button: Hide details
+  total_percentage: "Total completion percentage: "
+  chat_button: Comments
+
 exercises_list:
   muscle_filter_label: Muscle group
   equipment_filter_label: Equipment

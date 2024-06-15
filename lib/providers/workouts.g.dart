@@ -188,6 +188,168 @@ class _MyWorkoutsProviderElement
   String? get nameParam => (origin as MyWorkoutsProvider).nameParam;
 }
 
+String _$userWorkoutsHash() => r'1fda8bddf6dca486b8470875431bbc4b01450dd8';
+
+/// See also [userWorkouts].
+@ProviderFor(userWorkouts)
+const userWorkoutsProvider = UserWorkoutsFamily();
+
+/// See also [userWorkouts].
+class UserWorkoutsFamily extends Family<AsyncValue<List<Workout>>> {
+  /// See also [userWorkouts].
+  const UserWorkoutsFamily();
+
+  /// See also [userWorkouts].
+  UserWorkoutsProvider call(
+    int userId,
+    int page,
+    int pageSize,
+  ) {
+    return UserWorkoutsProvider(
+      userId,
+      page,
+      pageSize,
+    );
+  }
+
+  @override
+  UserWorkoutsProvider getProviderOverride(
+    covariant UserWorkoutsProvider provider,
+  ) {
+    return call(
+      provider.userId,
+      provider.page,
+      provider.pageSize,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'userWorkoutsProvider';
+}
+
+/// See also [userWorkouts].
+class UserWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
+  /// See also [userWorkouts].
+  UserWorkoutsProvider(
+    int userId,
+    int page,
+    int pageSize,
+  ) : this._internal(
+          (ref) => userWorkouts(
+            ref as UserWorkoutsRef,
+            userId,
+            page,
+            pageSize,
+          ),
+          from: userWorkoutsProvider,
+          name: r'userWorkoutsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$userWorkoutsHash,
+          dependencies: UserWorkoutsFamily._dependencies,
+          allTransitiveDependencies:
+              UserWorkoutsFamily._allTransitiveDependencies,
+          userId: userId,
+          page: page,
+          pageSize: pageSize,
+        );
+
+  UserWorkoutsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+    required this.page,
+    required this.pageSize,
+  }) : super.internal();
+
+  final int userId;
+  final int page;
+  final int pageSize;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Workout>> Function(UserWorkoutsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UserWorkoutsProvider._internal(
+        (ref) => create(ref as UserWorkoutsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+        page: page,
+        pageSize: pageSize,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Workout>> createElement() {
+    return _UserWorkoutsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserWorkoutsProvider &&
+        other.userId == userId &&
+        other.page == page &&
+        other.pageSize == pageSize;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+    hash = _SystemHash.combine(hash, pageSize.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UserWorkoutsRef on AutoDisposeFutureProviderRef<List<Workout>> {
+  /// The parameter `userId` of this provider.
+  int get userId;
+
+  /// The parameter `page` of this provider.
+  int get page;
+
+  /// The parameter `pageSize` of this provider.
+  int get pageSize;
+}
+
+class _UserWorkoutsProviderElement
+    extends AutoDisposeFutureProviderElement<List<Workout>>
+    with UserWorkoutsRef {
+  _UserWorkoutsProviderElement(super.provider);
+
+  @override
+  int get userId => (origin as UserWorkoutsProvider).userId;
+  @override
+  int get page => (origin as UserWorkoutsProvider).page;
+  @override
+  int get pageSize => (origin as UserWorkoutsProvider).pageSize;
+}
+
 String _$workoutNotifierHash() => r'71a69c7331db734dbbb0c047321f7dec1e5e2303';
 
 abstract class _$WorkoutNotifier
