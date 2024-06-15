@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:fitness_app/models/workout.dart';
+import 'package:fitness_app/providers/workouts.dart';
 import 'package:fitness_app/utils/api.dart';
 import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/utils/exceptions.dart';
@@ -12,8 +13,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'exercise.g.dart';
 
 @riverpod
-Future<List<ExerciseTemplate>> myExercises(
-  MyExercisesRef ref,
+Future<List<ExerciseTemplate>> myExerciseTemplates(
+  MyExerciseTemplatesRef ref,
   int page,
   int pageSize,
   String? nameParam,
@@ -51,7 +52,7 @@ Future<List<ExerciseTemplate>> myExercises(
 }
 
 @riverpod
-class ExerciseNotifier extends _$ExerciseNotifier {
+class ExerciseTemplateNotifier extends _$ExerciseTemplateNotifier {
   @override
   Future<Option<ExerciseTemplate>> build(int id) async {
     final result = await apiFetch(HttpMethod.get, '/exercises/$id', ref: ref);
@@ -96,27 +97,16 @@ class ExerciseNotifier extends _$ExerciseNotifier {
         return ApiResult.right(exception);
     }
   }
+}
 
-  Future<ApiResult<Unit>> deleteExercise() async {
-    final exercise = state.valueOrNull?.toNullable();
-    if (exercise == null) {
-      throw StateError('Invalid notifier state');
-    }
-
-    state = const AsyncValue.loading();
-
-    final result = await apiFetch(
-      HttpMethod.delete,
-      '/exercises/${exercise.id}',
-      ref: ref,
-    );
-    switch (result) {
-      case Left():
-        state = const AsyncValue.data(Option.none());
-        return ApiResult.left(unit);
-      case Right(value: final exception):
-        state = AsyncValue.data(Option.of(exercise));
-        return ApiResult.right(exception);
-    }
-  }
+@riverpod
+Future<Option<Exercise>> exerciseById(
+  ExerciseByIdRef ref,
+  int workoutId,
+  int id,
+) async {
+  final workout = await ref.watch(workoutNotifierProvider(workoutId).future);
+  return workout.flatMap(
+    (w) => w.exercises.filter((e) => e.id == id).firstOption,
+  );
 }

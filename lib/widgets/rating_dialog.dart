@@ -24,7 +24,7 @@ class RatingDialog extends StatefulWidget {
 }
 
 class _RatingDialogState extends State<RatingDialog> {
-  int _rating = 4;
+  int _rating = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _RatingDialogState extends State<RatingDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var i = 0; i < 5; ++i)
+            for (var i = 1; i <= 5; ++i)
               IconButton(
                 onPressed: () => setState(() => _rating = i),
                 icon: Icon(

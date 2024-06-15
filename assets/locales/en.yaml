@@ -14,6 +14,7 @@ common:
   chat_tooltip: Open chat
   delete_tooltip: Delete
   add_exercise_tooltip: Create exercise
+  add_workout_tooltip: Create workout
 
   logout_dialog_title: LOGOUT
   logout_dialog_body: Are you sure you want to logout?
@@ -118,6 +119,9 @@ errors:
   internal_error: Server side error happened
   invalid_format: Invalid client request format
   same_user_exists: User with given Email already exists
+  invalid_number_format: Value must be valid number
+  too_big_number: Value must be less or equal than {}
+  too_small_number: Value must be greater or equal to {}
 
 user_card:
   user_greet: Hello, __{}!__
@@ -240,6 +244,7 @@ profile_view:
   exercise_preference_label: MY EXERCISE PREFERENCE
   specialty_field: MY SPECIALTY
   daily_goals_label: My Daily Goals
+  rating_field: RATING
 
 profile_edit_view:
   title: Edit profile
@@ -276,6 +281,21 @@ workout_view:
   exercise_count_value: "{} exercises"
   details_title: Workout details
   chat_button: Ask your question in the chat
+
+workout_edit_view:
+  name_label: Name
+  type_label: Type
+  start_time_label: Start time
+  details_title: Workout details
+  add_exercise_tooltip: Add exercise
+  delete_dialog_title: Delete workout
+  delete_dialog_body: Are you sure you want to delete this workout? This action is irreversible!
+  remove_exercise_dialog_title: Remove exercise
+  remove_exercise_dialog_body: Are you sure you want to remove exercise "{}" from list?
+
+exercise_view:
+  sets_label: Sets count
+  reps_label: Reps count
 
 workout_exercises_view:
   sets_reps_count_value: "{} SETS OF {} REPS"

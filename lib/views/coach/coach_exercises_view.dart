@@ -15,12 +15,12 @@ class CoachExercisesView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return ExercisesList(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       hasAddButton: true,
+      hasSearchInput: true,
       onTap: (exercise) => context.push(
-        '/exercise_template?id=${exercise.id}',
+        '/exercise_template/${exercise.id}/edit',
       ),
-      onAddTap: () => context.push('/exercise_template'),
+      onAddTap: () => context.push('/exercise_template/create'),
     );
   }
 }

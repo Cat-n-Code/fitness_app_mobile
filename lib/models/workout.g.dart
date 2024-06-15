@@ -69,7 +69,7 @@ _$ExerciseImpl _$$ExerciseImplFromJson(Map<String, dynamic> json) =>
     _$ExerciseImpl(
       id: (json['id'] as num?)?.toInt(),
       exerciseId: (json['exercise_id'] as num).toInt(),
-      workoutId: (json['workout_id'] as num).toInt(),
+      workoutId: (json['workout_id'] as num?)?.toInt(),
       order: (json['num_order'] as num).toInt(),
       setsCount: (json['num_sets'] as num?)?.toInt(),
       setsDoneCount: (json['num_sets_done'] as num?)?.toInt(),

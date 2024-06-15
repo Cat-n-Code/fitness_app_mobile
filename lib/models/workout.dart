@@ -101,7 +101,7 @@ class Exercise with _$Exercise {
   const factory Exercise({
     int? id,
     @JsonKey(name: 'exercise_id') required int exerciseId,
-    @JsonKey(name: 'workout_id') required int workoutId,
+    @JsonKey(name: 'workout_id') int? workoutId,
     @JsonKey(name: 'num_order') required int order,
     @JsonKey(name: 'num_sets') int? setsCount,
     @JsonKey(name: 'num_sets_done') int? setsDoneCount,

@@ -13,12 +13,8 @@ class CustomerHomeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final padding = MediaQuery.viewPaddingOf(context);
-
     return Scaffold(
-      // appBar: _buildAppBar(),
       body: WorkoutsList(
-        padding: EdgeInsets.fromLTRB(24.0, padding.top + 16.0, 24.0, 0.0),
         header: _buildHeader(context),
         onTap: (workout) => context.push('/workout/${workout.id!}'),
       ),
@@ -26,9 +22,12 @@ class CustomerHomeView extends ConsumerWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final padding = MediaQuery.viewPaddingOf(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: padding.top ),
         UserCard(onTap: () => context.push('/profile')),
         const SizedBox(height: 8.0),
         Text(

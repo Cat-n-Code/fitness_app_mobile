@@ -6,7 +6,7 @@ part of 'workouts.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myWorkoutsHash() => r'a5e2218888335767ca9ec9cd0e317c3008fef43b';
+String _$myWorkoutsHash() => r'3e1ef9059da28f5dde19ef1deb0e214e65b0adf2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,10 +42,12 @@ class MyWorkoutsFamily extends Family<AsyncValue<List<Workout>>> {
   MyWorkoutsProvider call(
     int page,
     int pageSize,
+    String? nameParam,
   ) {
     return MyWorkoutsProvider(
       page,
       pageSize,
+      nameParam,
     );
   }
 
@@ -56,6 +58,7 @@ class MyWorkoutsFamily extends Family<AsyncValue<List<Workout>>> {
     return call(
       provider.page,
       provider.pageSize,
+      provider.nameParam,
     );
   }
 
@@ -80,11 +83,13 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
   MyWorkoutsProvider(
     int page,
     int pageSize,
+    String? nameParam,
   ) : this._internal(
           (ref) => myWorkouts(
             ref as MyWorkoutsRef,
             page,
             pageSize,
+            nameParam,
           ),
           from: myWorkoutsProvider,
           name: r'myWorkoutsProvider',
@@ -97,6 +102,7 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
               MyWorkoutsFamily._allTransitiveDependencies,
           page: page,
           pageSize: pageSize,
+          nameParam: nameParam,
         );
 
   MyWorkoutsProvider._internal(
@@ -108,10 +114,12 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
     required super.from,
     required this.page,
     required this.pageSize,
+    required this.nameParam,
   }) : super.internal();
 
   final int page;
   final int pageSize;
+  final String? nameParam;
 
   @override
   Override overrideWith(
@@ -128,6 +136,7 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
         debugGetCreateSourceHash: null,
         page: page,
         pageSize: pageSize,
+        nameParam: nameParam,
       ),
     );
   }
@@ -141,7 +150,8 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
   bool operator ==(Object other) {
     return other is MyWorkoutsProvider &&
         other.page == page &&
-        other.pageSize == pageSize;
+        other.pageSize == pageSize &&
+        other.nameParam == nameParam;
   }
 
   @override
@@ -149,6 +159,7 @@ class MyWorkoutsProvider extends AutoDisposeFutureProvider<List<Workout>> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, page.hashCode);
     hash = _SystemHash.combine(hash, pageSize.hashCode);
+    hash = _SystemHash.combine(hash, nameParam.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -160,6 +171,9 @@ mixin MyWorkoutsRef on AutoDisposeFutureProviderRef<List<Workout>> {
 
   /// The parameter `pageSize` of this provider.
   int get pageSize;
+
+  /// The parameter `nameParam` of this provider.
+  String? get nameParam;
 }
 
 class _MyWorkoutsProviderElement
@@ -170,6 +184,8 @@ class _MyWorkoutsProviderElement
   int get page => (origin as MyWorkoutsProvider).page;
   @override
   int get pageSize => (origin as MyWorkoutsProvider).pageSize;
+  @override
+  String? get nameParam => (origin as MyWorkoutsProvider).nameParam;
 }
 
 String _$workoutNotifierHash() => r'71a69c7331db734dbbb0c047321f7dec1e5e2303';

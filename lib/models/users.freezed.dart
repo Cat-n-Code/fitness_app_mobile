@@ -493,6 +493,7 @@ mixin _$Coach {
   @JsonKey(name: 'user_id')
   int get userId => throw _privateConstructorUsedError;
   CoachSpecialty get speciality => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -507,7 +508,8 @@ abstract class $CoachCopyWith<$Res> {
   $Res call(
       {int id,
       @JsonKey(name: 'user_id') int userId,
-      CoachSpecialty speciality});
+      CoachSpecialty speciality,
+      double rating});
 }
 
 /// @nodoc
@@ -526,6 +528,7 @@ class _$CoachCopyWithImpl<$Res, $Val extends Coach>
     Object? id = null,
     Object? userId = null,
     Object? speciality = null,
+    Object? rating = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -540,6 +543,10 @@ class _$CoachCopyWithImpl<$Res, $Val extends Coach>
           ? _value.speciality
           : speciality // ignore: cast_nullable_to_non_nullable
               as CoachSpecialty,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -554,7 +561,8 @@ abstract class _$$CoachImplCopyWith<$Res> implements $CoachCopyWith<$Res> {
   $Res call(
       {int id,
       @JsonKey(name: 'user_id') int userId,
-      CoachSpecialty speciality});
+      CoachSpecialty speciality,
+      double rating});
 }
 
 /// @nodoc
@@ -571,6 +579,7 @@ class __$$CoachImplCopyWithImpl<$Res>
     Object? id = null,
     Object? userId = null,
     Object? speciality = null,
+    Object? rating = null,
   }) {
     return _then(_$CoachImpl(
       id: null == id
@@ -585,6 +594,10 @@ class __$$CoachImplCopyWithImpl<$Res>
           ? _value.speciality
           : speciality // ignore: cast_nullable_to_non_nullable
               as CoachSpecialty,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -595,7 +608,8 @@ class _$CoachImpl implements _Coach {
   const _$CoachImpl(
       {required this.id,
       @JsonKey(name: 'user_id') required this.userId,
-      required this.speciality});
+      required this.speciality,
+      required this.rating});
 
   factory _$CoachImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoachImplFromJson(json);
@@ -607,10 +621,12 @@ class _$CoachImpl implements _Coach {
   final int userId;
   @override
   final CoachSpecialty speciality;
+  @override
+  final double rating;
 
   @override
   String toString() {
-    return 'Coach(id: $id, userId: $userId, speciality: $speciality)';
+    return 'Coach(id: $id, userId: $userId, speciality: $speciality, rating: $rating)';
   }
 
   @override
@@ -621,12 +637,13 @@ class _$CoachImpl implements _Coach {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.speciality, speciality) ||
-                other.speciality == speciality));
+                other.speciality == speciality) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, speciality);
+  int get hashCode => Object.hash(runtimeType, id, userId, speciality, rating);
 
   @JsonKey(ignore: true)
   @override
@@ -646,7 +663,8 @@ abstract class _Coach implements Coach {
   const factory _Coach(
       {required final int id,
       @JsonKey(name: 'user_id') required final int userId,
-      required final CoachSpecialty speciality}) = _$CoachImpl;
+      required final CoachSpecialty speciality,
+      required final double rating}) = _$CoachImpl;
 
   factory _Coach.fromJson(Map<String, dynamic> json) = _$CoachImpl.fromJson;
 
@@ -657,6 +675,8 @@ abstract class _Coach implements Coach {
   int get userId;
   @override
   CoachSpecialty get speciality;
+  @override
+  double get rating;
   @override
   @JsonKey(ignore: true)
   _$$CoachImplCopyWith<_$CoachImpl> get copyWith =>

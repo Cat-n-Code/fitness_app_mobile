@@ -17,10 +17,7 @@ import 'package:http/http.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ExerciseTemplateView extends ConsumerStatefulWidget {
-  const ExerciseTemplateView({
-    super.key,
-    required this.exerciseId,
-  });
+  const ExerciseTemplateView({super.key, this.exerciseId});
 
   final int? exerciseId;
 
@@ -49,7 +46,9 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
       _isLoading = false;
       _isEditable = true;
     } else {
-      ref.read(exerciseNotifierProvider(widget.exerciseId!).future).then(
+      ref
+          .read(exerciseTemplateNotifierProvider(widget.exerciseId!).future)
+          .then(
         (value) async {
           final user = await ref.read(currentUserNotifierProvider.future);
           setState(() {
@@ -114,7 +113,7 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
           children: [
             Text(
               'exercise_template_view.name_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             Skeleton.shade(
@@ -128,14 +127,14 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
             const SizedBox(height: 8.0),
             Text(
               'exercise_template_view.difficulty_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             _buildDifficultyChips(),
             const SizedBox(height: 8.0),
             Text(
               'exercise_template_view.equipment_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             Skeleton.shade(
@@ -148,7 +147,7 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
             const SizedBox(height: 8.0),
             Text(
               'exercise_template_view.muscle_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             Skeleton.shade(
@@ -161,7 +160,7 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
             const SizedBox(height: 8.0),
             Text(
               'exercise_template_view.additional_muscle_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             Skeleton.shade(
@@ -174,7 +173,7 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
             const SizedBox(height: 8.0),
             Text(
               'exercise_template_view.type_label',
-              style: textTheme.labelMedium,
+              style: textTheme.labelLarge,
             ).tr(),
             const SizedBox(height: 8.0),
             _buildTypeChips(),
@@ -203,8 +202,10 @@ class _ExerciseViewState extends ConsumerState<ExerciseTemplateView> {
                     label: Text(d.translationKey).tr(),
                     selected: d == _exercise.difficulty,
                     onSelected: _isEditable
-                        ? (b) => setState(() => _exercise =
-                            _exercise.copyWith(difficulty: b ? d : null))
+                        ? (b) => setState(
+                              () => _exercise =
+                                  _exercise.copyWith(difficulty: b ? d : null),
+                            )
                         : null,
                   ),
                 ),

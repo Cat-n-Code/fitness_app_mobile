@@ -151,6 +151,7 @@ class Coach with _$Coach {
     required int id,
     @JsonKey(name: 'user_id') required int userId,
     required CoachSpecialty speciality,
+    required double rating,
   }) = _Coach;
 
   factory Coach.fromJson(Map<String, Object?> json) => _$CoachFromJson(json);
@@ -159,6 +160,7 @@ class Coach with _$Coach {
         id: 1,
         userId: 1,
         speciality: CoachSpecialty.adult,
+        rating: 4,
       );
 }
 

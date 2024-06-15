@@ -52,6 +52,7 @@ class ProfileView extends ConsumerWidget {
   Widget _buildBody(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     final userValue = ref.watch(currentUserNotifierProvider);
     final user = userValue.valueOrNull?.toNullable() ?? User.mock();
@@ -109,17 +110,27 @@ class ProfileView extends ConsumerWidget {
                   ],
                 ),
               ),
-            if (user.role == Role.coach) ...[
-              Text(
-                'profile_view.specialty_field',
-                style: textTheme.labelLarge,
-              ).tr(),
-              const SizedBox(height: 4.0),
+            if (user.role == Role.coach)
               Skeletonizer(
                 enabled: coachValue.isLoading,
-                child: _buildSpecialty(coach, context, ref),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'profile_view.rating_field',
+                      style: textTheme.labelLarge,
+                    ).tr(),
+                    _buildRating(coach, colorScheme),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      'profile_view.specialty_field',
+                      style: textTheme.labelLarge,
+                    ).tr(),
+                    const SizedBox(height: 4.0),
+                    _buildSpecialty(coach, context, ref),
+                  ],
+                ),
               ),
-            ],
           ],
         ),
       ),
@@ -369,34 +380,68 @@ class ProfileView extends ConsumerWidget {
     );
   }
 
-  Widget _buildSpecialty(Coach coach, BuildContext context, WidgetRef ref) {
-    return DropdownMenu(
-      initialSelection: coach.speciality,
-      inputDecorationTheme: outlinedPrimaryInputDecoration,
-      expandedInsets: EdgeInsets.zero,
-      dropdownMenuEntries: CoachSpecialty.values
-          .map(
-            (specialty) => DropdownMenuEntry(
-              value: specialty,
-              label: specialty.translationKey.tr(context: context),
+  Widget _buildRating(Coach coach, ColorScheme colorScheme) {
+    return Skeleton.shade(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          for (var i = 1; i <= 5; ++i)
+            Icon(
+              Icons.star,
+              size: 46.0,
+              color: i <= coach.rating
+                  ? colorScheme.primary
+                  : colorScheme.surfaceDim,
+            ),
+          Expanded(
+            child: Skeleton.replace(
+              replacement: const Bone.text(
+                words: 1,
+                textAlign: TextAlign.right,
+                fontSize: 24.0,
+              ),
+              child: Text(
+                coach.rating.toStringAsFixed(1),
+                textAlign: TextAlign.right,
+                style: const TextStyle(fontSize: 24.0),
+              ),
             ),
           )
-          .toList(),
-      onSelected: (specialty) async {
-        if (specialty == null) {
-          return;
-        }
+        ],
+      ),
+    );
+  }
 
-        final notifier = ref.read(
-          currentCoachNotifierProvider.notifier,
-        );
-        final result = await notifier.updateCoach(
-          coach.copyWith(speciality: specialty),
-        );
-        if (result case Right(value: final error)) {
-          presentError(error, widgetRef: ref);
-        }
-      },
+  Widget _buildSpecialty(Coach coach, BuildContext context, WidgetRef ref) {
+    return Skeleton.shade(
+      child: DropdownMenu(
+        initialSelection: coach.speciality,
+        inputDecorationTheme: outlinedPrimaryInputDecoration,
+        expandedInsets: EdgeInsets.zero,
+        dropdownMenuEntries: CoachSpecialty.values
+            .map(
+              (specialty) => DropdownMenuEntry(
+                value: specialty,
+                label: specialty.translationKey.tr(context: context),
+              ),
+            )
+            .toList(),
+        onSelected: (specialty) async {
+          if (specialty == null) {
+            return;
+          }
+
+          final notifier = ref.read(
+            currentCoachNotifierProvider.notifier,
+          );
+          final result = await notifier.updateCoach(
+            coach.copyWith(speciality: specialty),
+          );
+          if (result case Right(value: final error)) {
+            presentError(error, widgetRef: ref);
+          }
+        },
+      ),
     );
   }
 

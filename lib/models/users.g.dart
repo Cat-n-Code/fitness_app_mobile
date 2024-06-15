@@ -83,6 +83,7 @@ _$CoachImpl _$$CoachImplFromJson(Map<String, dynamic> json) => _$CoachImpl(
       id: (json['id'] as num).toInt(),
       userId: (json['user_id'] as num).toInt(),
       speciality: $enumDecode(_$CoachSpecialtyEnumMap, json['speciality']),
+      rating: (json['rating'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$CoachImplToJson(_$CoachImpl instance) =>
@@ -90,6 +91,7 @@ Map<String, dynamic> _$$CoachImplToJson(_$CoachImpl instance) =>
       'id': instance.id,
       'user_id': instance.userId,
       'speciality': _$CoachSpecialtyEnumMap[instance.speciality]!,
+      'rating': instance.rating,
     };
 
 const _$CoachSpecialtyEnumMap = {

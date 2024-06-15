@@ -113,20 +113,6 @@ class ExerciseTemplateCard extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 foregroundColor: type.foregroundColor,
               ),
-            // if (workout.type != null)
-            //   MiniChip(
-            //     icon: const Icon(Icons.location_on),
-            //     text: Text(workout.type!.translationKey.tr()),
-            //     backgroundColor: Colors.transparent,
-            //     foregroundColor: type.foregroundColor,
-            //   ),
-            // if (workout.startTime != null)
-            //   MiniChip(
-            //     icon: const Icon(Icons.event),
-            //     text: Text(dateFormat.format(workout.startTime!)),
-            //     backgroundColor: Colors.transparent,
-            //     foregroundColor: type.foregroundColor,
-            //   )
           ],
         )
       ],

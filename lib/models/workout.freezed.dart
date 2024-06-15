@@ -549,7 +549,7 @@ mixin _$Exercise {
   @JsonKey(name: 'exercise_id')
   int get exerciseId => throw _privateConstructorUsedError;
   @JsonKey(name: 'workout_id')
-  int get workoutId => throw _privateConstructorUsedError;
+  int? get workoutId => throw _privateConstructorUsedError;
   @JsonKey(name: 'num_order')
   int get order => throw _privateConstructorUsedError;
   @JsonKey(name: 'num_sets')
@@ -575,7 +575,7 @@ abstract class $ExerciseCopyWith<$Res> {
   $Res call(
       {int? id,
       @JsonKey(name: 'exercise_id') int exerciseId,
-      @JsonKey(name: 'workout_id') int workoutId,
+      @JsonKey(name: 'workout_id') int? workoutId,
       @JsonKey(name: 'num_order') int order,
       @JsonKey(name: 'num_sets') int? setsCount,
       @JsonKey(name: 'num_sets_done') int? setsDoneCount,
@@ -601,7 +601,7 @@ class _$ExerciseCopyWithImpl<$Res, $Val extends Exercise>
   $Res call({
     Object? id = freezed,
     Object? exerciseId = null,
-    Object? workoutId = null,
+    Object? workoutId = freezed,
     Object? order = null,
     Object? setsCount = freezed,
     Object? setsDoneCount = freezed,
@@ -618,10 +618,10 @@ class _$ExerciseCopyWithImpl<$Res, $Val extends Exercise>
           ? _value.exerciseId
           : exerciseId // ignore: cast_nullable_to_non_nullable
               as int,
-      workoutId: null == workoutId
+      workoutId: freezed == workoutId
           ? _value.workoutId
           : workoutId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       order: null == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -673,7 +673,7 @@ abstract class _$$ExerciseImplCopyWith<$Res>
   $Res call(
       {int? id,
       @JsonKey(name: 'exercise_id') int exerciseId,
-      @JsonKey(name: 'workout_id') int workoutId,
+      @JsonKey(name: 'workout_id') int? workoutId,
       @JsonKey(name: 'num_order') int order,
       @JsonKey(name: 'num_sets') int? setsCount,
       @JsonKey(name: 'num_sets_done') int? setsDoneCount,
@@ -698,7 +698,7 @@ class __$$ExerciseImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? exerciseId = null,
-    Object? workoutId = null,
+    Object? workoutId = freezed,
     Object? order = null,
     Object? setsCount = freezed,
     Object? setsDoneCount = freezed,
@@ -715,10 +715,10 @@ class __$$ExerciseImplCopyWithImpl<$Res>
           ? _value.exerciseId
           : exerciseId // ignore: cast_nullable_to_non_nullable
               as int,
-      workoutId: null == workoutId
+      workoutId: freezed == workoutId
           ? _value.workoutId
           : workoutId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       order: null == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -753,7 +753,7 @@ class _$ExerciseImpl implements _Exercise {
   const _$ExerciseImpl(
       {this.id,
       @JsonKey(name: 'exercise_id') required this.exerciseId,
-      @JsonKey(name: 'workout_id') required this.workoutId,
+      @JsonKey(name: 'workout_id') this.workoutId,
       @JsonKey(name: 'num_order') required this.order,
       @JsonKey(name: 'num_sets') this.setsCount,
       @JsonKey(name: 'num_sets_done') this.setsDoneCount,
@@ -771,7 +771,7 @@ class _$ExerciseImpl implements _Exercise {
   final int exerciseId;
   @override
   @JsonKey(name: 'workout_id')
-  final int workoutId;
+  final int? workoutId;
   @override
   @JsonKey(name: 'num_order')
   final int order;
@@ -839,7 +839,7 @@ abstract class _Exercise implements Exercise {
   const factory _Exercise(
       {final int? id,
       @JsonKey(name: 'exercise_id') required final int exerciseId,
-      @JsonKey(name: 'workout_id') required final int workoutId,
+      @JsonKey(name: 'workout_id') final int? workoutId,
       @JsonKey(name: 'num_order') required final int order,
       @JsonKey(name: 'num_sets') final int? setsCount,
       @JsonKey(name: 'num_sets_done') final int? setsDoneCount,
@@ -857,7 +857,7 @@ abstract class _Exercise implements Exercise {
   int get exerciseId;
   @override
   @JsonKey(name: 'workout_id')
-  int get workoutId;
+  int? get workoutId;
   @override
   @JsonKey(name: 'num_order')
   int get order;

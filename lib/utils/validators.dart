@@ -61,3 +61,31 @@ String? passwordValidator(String? input) {
 
   return null;
 }
+
+FormFieldValidator<String> integerValidator({int? min, int? max}) {
+  return (input) {
+    if (input == null) {
+      return null;
+    }
+
+    input = input.trim();
+    if (input.isEmpty) {
+      return null;
+    }
+
+    final i = int.tryParse(input);
+    if (i == null) {
+      return 'validation.invalid_number_format'.tr();
+    }
+
+    if (min != null && i < min) {
+      return 'validation.too_small_number'.tr(args: [min.toString()]);
+    }
+
+    if (max != null && i > max) {
+      return 'validation.too_big_number'.tr(args: [max.toString()]);
+    }
+
+    return null;
+  };
+}

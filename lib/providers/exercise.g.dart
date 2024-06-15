@@ -6,7 +6,8 @@ part of 'exercise.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myExercisesHash() => r'd4a1e6a8802165531d5be555108f1dcb643d2b59';
+String _$myExerciseTemplatesHash() =>
+    r'afe57e266c46a66bd186c49453e36ec570eb8eca';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,17 +30,18 @@ class _SystemHash {
   }
 }
 
-/// See also [myExercises].
-@ProviderFor(myExercises)
-const myExercisesProvider = MyExercisesFamily();
+/// See also [myExerciseTemplates].
+@ProviderFor(myExerciseTemplates)
+const myExerciseTemplatesProvider = MyExerciseTemplatesFamily();
 
-/// See also [myExercises].
-class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
-  /// See also [myExercises].
-  const MyExercisesFamily();
+/// See also [myExerciseTemplates].
+class MyExerciseTemplatesFamily
+    extends Family<AsyncValue<List<ExerciseTemplate>>> {
+  /// See also [myExerciseTemplates].
+  const MyExerciseTemplatesFamily();
 
-  /// See also [myExercises].
-  MyExercisesProvider call(
+  /// See also [myExerciseTemplates].
+  MyExerciseTemplatesProvider call(
     int page,
     int pageSize,
     String? nameParam,
@@ -48,7 +50,7 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
     ExerciseType? typeParam,
     ExerciseDifficulty? difficultyParam,
   ) {
-    return MyExercisesProvider(
+    return MyExerciseTemplatesProvider(
       page,
       pageSize,
       nameParam,
@@ -60,8 +62,8 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
   }
 
   @override
-  MyExercisesProvider getProviderOverride(
-    covariant MyExercisesProvider provider,
+  MyExerciseTemplatesProvider getProviderOverride(
+    covariant MyExerciseTemplatesProvider provider,
   ) {
     return call(
       provider.page,
@@ -86,14 +88,14 @@ class MyExercisesFamily extends Family<AsyncValue<List<ExerciseTemplate>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'myExercisesProvider';
+  String? get name => r'myExerciseTemplatesProvider';
 }
 
-/// See also [myExercises].
-class MyExercisesProvider
+/// See also [myExerciseTemplates].
+class MyExerciseTemplatesProvider
     extends AutoDisposeFutureProvider<List<ExerciseTemplate>> {
-  /// See also [myExercises].
-  MyExercisesProvider(
+  /// See also [myExerciseTemplates].
+  MyExerciseTemplatesProvider(
     int page,
     int pageSize,
     String? nameParam,
@@ -102,8 +104,8 @@ class MyExercisesProvider
     ExerciseType? typeParam,
     ExerciseDifficulty? difficultyParam,
   ) : this._internal(
-          (ref) => myExercises(
-            ref as MyExercisesRef,
+          (ref) => myExerciseTemplates(
+            ref as MyExerciseTemplatesRef,
             page,
             pageSize,
             nameParam,
@@ -112,15 +114,15 @@ class MyExercisesProvider
             typeParam,
             difficultyParam,
           ),
-          from: myExercisesProvider,
-          name: r'myExercisesProvider',
+          from: myExerciseTemplatesProvider,
+          name: r'myExerciseTemplatesProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$myExercisesHash,
-          dependencies: MyExercisesFamily._dependencies,
+                  : _$myExerciseTemplatesHash,
+          dependencies: MyExerciseTemplatesFamily._dependencies,
           allTransitiveDependencies:
-              MyExercisesFamily._allTransitiveDependencies,
+              MyExerciseTemplatesFamily._allTransitiveDependencies,
           page: page,
           pageSize: pageSize,
           nameParam: nameParam,
@@ -130,7 +132,7 @@ class MyExercisesProvider
           difficultyParam: difficultyParam,
         );
 
-  MyExercisesProvider._internal(
+  MyExerciseTemplatesProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -156,12 +158,13 @@ class MyExercisesProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<ExerciseTemplate>> Function(MyExercisesRef provider) create,
+    FutureOr<List<ExerciseTemplate>> Function(MyExerciseTemplatesRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MyExercisesProvider._internal(
-        (ref) => create(ref as MyExercisesRef),
+      override: MyExerciseTemplatesProvider._internal(
+        (ref) => create(ref as MyExerciseTemplatesRef),
         from: from,
         name: null,
         dependencies: null,
@@ -180,12 +183,12 @@ class MyExercisesProvider
 
   @override
   AutoDisposeFutureProviderElement<List<ExerciseTemplate>> createElement() {
-    return _MyExercisesProviderElement(this);
+    return _MyExerciseTemplatesProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MyExercisesProvider &&
+    return other is MyExerciseTemplatesProvider &&
         other.page == page &&
         other.pageSize == pageSize &&
         other.nameParam == nameParam &&
@@ -210,7 +213,8 @@ class MyExercisesProvider
   }
 }
 
-mixin MyExercisesRef on AutoDisposeFutureProviderRef<List<ExerciseTemplate>> {
+mixin MyExerciseTemplatesRef
+    on AutoDisposeFutureProviderRef<List<ExerciseTemplate>> {
   /// The parameter `page` of this provider.
   int get page;
 
@@ -233,31 +237,181 @@ mixin MyExercisesRef on AutoDisposeFutureProviderRef<List<ExerciseTemplate>> {
   ExerciseDifficulty? get difficultyParam;
 }
 
-class _MyExercisesProviderElement
+class _MyExerciseTemplatesProviderElement
     extends AutoDisposeFutureProviderElement<List<ExerciseTemplate>>
-    with MyExercisesRef {
-  _MyExercisesProviderElement(super.provider);
+    with MyExerciseTemplatesRef {
+  _MyExerciseTemplatesProviderElement(super.provider);
 
   @override
-  int get page => (origin as MyExercisesProvider).page;
+  int get page => (origin as MyExerciseTemplatesProvider).page;
   @override
-  int get pageSize => (origin as MyExercisesProvider).pageSize;
+  int get pageSize => (origin as MyExerciseTemplatesProvider).pageSize;
   @override
-  String? get nameParam => (origin as MyExercisesProvider).nameParam;
+  String? get nameParam => (origin as MyExerciseTemplatesProvider).nameParam;
   @override
-  String? get muscleParam => (origin as MyExercisesProvider).muscleParam;
+  String? get muscleParam =>
+      (origin as MyExerciseTemplatesProvider).muscleParam;
   @override
-  String? get equipmentParam => (origin as MyExercisesProvider).equipmentParam;
+  String? get equipmentParam =>
+      (origin as MyExerciseTemplatesProvider).equipmentParam;
   @override
-  ExerciseType? get typeParam => (origin as MyExercisesProvider).typeParam;
+  ExerciseType? get typeParam =>
+      (origin as MyExerciseTemplatesProvider).typeParam;
   @override
   ExerciseDifficulty? get difficultyParam =>
-      (origin as MyExercisesProvider).difficultyParam;
+      (origin as MyExerciseTemplatesProvider).difficultyParam;
 }
 
-String _$exerciseNotifierHash() => r'965d58d99ea6b6b120e3e3c148f5636810df6a0b';
+String _$exerciseByIdHash() => r'614f51c60e45aebcdcfccbbe7afb610a8d1b1e75';
 
-abstract class _$ExerciseNotifier
+/// See also [exerciseById].
+@ProviderFor(exerciseById)
+const exerciseByIdProvider = ExerciseByIdFamily();
+
+/// See also [exerciseById].
+class ExerciseByIdFamily extends Family<AsyncValue<Option<Exercise>>> {
+  /// See also [exerciseById].
+  const ExerciseByIdFamily();
+
+  /// See also [exerciseById].
+  ExerciseByIdProvider call(
+    int workoutId,
+    int id,
+  ) {
+    return ExerciseByIdProvider(
+      workoutId,
+      id,
+    );
+  }
+
+  @override
+  ExerciseByIdProvider getProviderOverride(
+    covariant ExerciseByIdProvider provider,
+  ) {
+    return call(
+      provider.workoutId,
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'exerciseByIdProvider';
+}
+
+/// See also [exerciseById].
+class ExerciseByIdProvider extends AutoDisposeFutureProvider<Option<Exercise>> {
+  /// See also [exerciseById].
+  ExerciseByIdProvider(
+    int workoutId,
+    int id,
+  ) : this._internal(
+          (ref) => exerciseById(
+            ref as ExerciseByIdRef,
+            workoutId,
+            id,
+          ),
+          from: exerciseByIdProvider,
+          name: r'exerciseByIdProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$exerciseByIdHash,
+          dependencies: ExerciseByIdFamily._dependencies,
+          allTransitiveDependencies:
+              ExerciseByIdFamily._allTransitiveDependencies,
+          workoutId: workoutId,
+          id: id,
+        );
+
+  ExerciseByIdProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.workoutId,
+    required this.id,
+  }) : super.internal();
+
+  final int workoutId;
+  final int id;
+
+  @override
+  Override overrideWith(
+    FutureOr<Option<Exercise>> Function(ExerciseByIdRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ExerciseByIdProvider._internal(
+        (ref) => create(ref as ExerciseByIdRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        workoutId: workoutId,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Option<Exercise>> createElement() {
+    return _ExerciseByIdProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ExerciseByIdProvider &&
+        other.workoutId == workoutId &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, workoutId.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ExerciseByIdRef on AutoDisposeFutureProviderRef<Option<Exercise>> {
+  /// The parameter `workoutId` of this provider.
+  int get workoutId;
+
+  /// The parameter `id` of this provider.
+  int get id;
+}
+
+class _ExerciseByIdProviderElement
+    extends AutoDisposeFutureProviderElement<Option<Exercise>>
+    with ExerciseByIdRef {
+  _ExerciseByIdProviderElement(super.provider);
+
+  @override
+  int get workoutId => (origin as ExerciseByIdProvider).workoutId;
+  @override
+  int get id => (origin as ExerciseByIdProvider).id;
+}
+
+String _$exerciseTemplateNotifierHash() =>
+    r'b02a8fa2714ebb21e628080b32a21e31885f402d';
+
+abstract class _$ExerciseTemplateNotifier
     extends BuildlessAutoDisposeAsyncNotifier<Option<ExerciseTemplate>> {
   late final int id;
 
@@ -266,28 +420,28 @@ abstract class _$ExerciseNotifier
   );
 }
 
-/// See also [ExerciseNotifier].
-@ProviderFor(ExerciseNotifier)
-const exerciseNotifierProvider = ExerciseNotifierFamily();
+/// See also [ExerciseTemplateNotifier].
+@ProviderFor(ExerciseTemplateNotifier)
+const exerciseTemplateNotifierProvider = ExerciseTemplateNotifierFamily();
 
-/// See also [ExerciseNotifier].
-class ExerciseNotifierFamily
+/// See also [ExerciseTemplateNotifier].
+class ExerciseTemplateNotifierFamily
     extends Family<AsyncValue<Option<ExerciseTemplate>>> {
-  /// See also [ExerciseNotifier].
-  const ExerciseNotifierFamily();
+  /// See also [ExerciseTemplateNotifier].
+  const ExerciseTemplateNotifierFamily();
 
-  /// See also [ExerciseNotifier].
-  ExerciseNotifierProvider call(
+  /// See also [ExerciseTemplateNotifier].
+  ExerciseTemplateNotifierProvider call(
     int id,
   ) {
-    return ExerciseNotifierProvider(
+    return ExerciseTemplateNotifierProvider(
       id,
     );
   }
 
   @override
-  ExerciseNotifierProvider getProviderOverride(
-    covariant ExerciseNotifierProvider provider,
+  ExerciseTemplateNotifierProvider getProviderOverride(
+    covariant ExerciseTemplateNotifierProvider provider,
   ) {
     return call(
       provider.id,
@@ -306,30 +460,31 @@ class ExerciseNotifierFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'exerciseNotifierProvider';
+  String? get name => r'exerciseTemplateNotifierProvider';
 }
 
-/// See also [ExerciseNotifier].
-class ExerciseNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    ExerciseNotifier, Option<ExerciseTemplate>> {
-  /// See also [ExerciseNotifier].
-  ExerciseNotifierProvider(
+/// See also [ExerciseTemplateNotifier].
+class ExerciseTemplateNotifierProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<ExerciseTemplateNotifier,
+        Option<ExerciseTemplate>> {
+  /// See also [ExerciseTemplateNotifier].
+  ExerciseTemplateNotifierProvider(
     int id,
   ) : this._internal(
-          () => ExerciseNotifier()..id = id,
-          from: exerciseNotifierProvider,
-          name: r'exerciseNotifierProvider',
+          () => ExerciseTemplateNotifier()..id = id,
+          from: exerciseTemplateNotifierProvider,
+          name: r'exerciseTemplateNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$exerciseNotifierHash,
-          dependencies: ExerciseNotifierFamily._dependencies,
+                  : _$exerciseTemplateNotifierHash,
+          dependencies: ExerciseTemplateNotifierFamily._dependencies,
           allTransitiveDependencies:
-              ExerciseNotifierFamily._allTransitiveDependencies,
+              ExerciseTemplateNotifierFamily._allTransitiveDependencies,
           id: id,
         );
 
-  ExerciseNotifierProvider._internal(
+  ExerciseTemplateNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -343,7 +498,7 @@ class ExerciseNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   FutureOr<Option<ExerciseTemplate>> runNotifierBuild(
-    covariant ExerciseNotifier notifier,
+    covariant ExerciseTemplateNotifier notifier,
   ) {
     return notifier.build(
       id,
@@ -351,10 +506,10 @@ class ExerciseNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  Override overrideWith(ExerciseNotifier Function() create) {
+  Override overrideWith(ExerciseTemplateNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: ExerciseNotifierProvider._internal(
+      override: ExerciseTemplateNotifierProvider._internal(
         () => create()..id = id,
         from: from,
         name: null,
@@ -367,14 +522,14 @@ class ExerciseNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<ExerciseNotifier,
+  AutoDisposeAsyncNotifierProviderElement<ExerciseTemplateNotifier,
       Option<ExerciseTemplate>> createElement() {
-    return _ExerciseNotifierProviderElement(this);
+    return _ExerciseTemplateNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ExerciseNotifierProvider && other.id == id;
+    return other is ExerciseTemplateNotifierProvider && other.id == id;
   }
 
   @override
@@ -386,19 +541,19 @@ class ExerciseNotifierProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 }
 
-mixin ExerciseNotifierRef
+mixin ExerciseTemplateNotifierRef
     on AutoDisposeAsyncNotifierProviderRef<Option<ExerciseTemplate>> {
   /// The parameter `id` of this provider.
   int get id;
 }
 
-class _ExerciseNotifierProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<ExerciseNotifier,
-        Option<ExerciseTemplate>> with ExerciseNotifierRef {
-  _ExerciseNotifierProviderElement(super.provider);
+class _ExerciseTemplateNotifierProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<ExerciseTemplateNotifier,
+        Option<ExerciseTemplate>> with ExerciseTemplateNotifierRef {
+  _ExerciseTemplateNotifierProviderElement(super.provider);
 
   @override
-  int get id => (origin as ExerciseNotifierProvider).id;
+  int get id => (origin as ExerciseTemplateNotifierProvider).id;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

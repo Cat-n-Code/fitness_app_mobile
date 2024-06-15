@@ -52,7 +52,7 @@ final secondaryTitleTextStyle = textTheme.titleLarge!.copyWith(
   color: secondaryColor,
 );
 
-const iconTheme = IconThemeData(color: Colors.black);
+const iconTheme = IconThemeData(color: darkColor);
 const darkIconTheme = IconThemeData(color: darkColor);
 
 final primaryButton = FilledButton.styleFrom(

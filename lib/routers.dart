@@ -1,12 +1,16 @@
+import 'package:fitness_app/models/workout.dart';
 import 'package:fitness_app/views/chat_view.dart';
 import 'package:fitness_app/views/customer_view.dart';
 import 'package:fitness_app/views/coach_main_view.dart';
 import 'package:fitness_app/views/customer_main_view.dart';
 import 'package:fitness_app/views/exercise_template_view.dart';
+import 'package:fitness_app/views/exercise_view.dart';
 import 'package:fitness_app/views/profile_edit_view.dart';
 import 'package:fitness_app/views/profile_view.dart';
+import 'package:fitness_app/views/workout_edit_view.dart';
 import 'package:fitness_app/views/workout_exercises_view.dart';
 import 'package:fitness_app/views/workout_view.dart';
+import 'package:fitness_app/widgets/lists/exercises_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitness_app/views/login_view.dart';
 import 'package:fitness_app/views/sign_up_profile_view.dart';
@@ -59,11 +63,54 @@ final router = GoRouter(
       builder: (context, state) => const ProfileEditView(),
     ),
     GoRoute(
-      path: '/exercise_template',
+      path: '/exercise_template/create',
+      builder: (context, state) => const ExerciseTemplateView(),
+    ),
+    GoRoute(
+      path: '/exercise_template/:id/edit',
       builder: (context, state) => ExerciseTemplateView(
-        exerciseId: state.uri.queryParameters.containsKey('id')
-            ? int.parse(state.uri.queryParameters['id']!)
-            : null,
+        exerciseId: int.parse(state.pathParameters['id']!),
+      ),
+    ),
+    GoRoute(
+      path: '/workout/exercises',
+      builder: (context, state) => ExercisesList(
+        hasAddButton: false,
+        hasSearchInput: true,
+        onTap: (template) async {
+          final exercise = await context.push(
+            '/workout/exercise/add?exerciseTemplateId=${template.id}',
+          );
+          if (exercise != null && context.mounted) {
+            context.pop(exercise);
+          }
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/workout/exercise/add',
+      builder: (context, state) => ExerciseView(
+        exerciseTemplateId: int.parse(
+          state.uri.queryParameters['exerciseTemplateId']!,
+        ),
+        onSaved: (exercise) => context.pop(exercise),
+      ),
+    ),
+    GoRoute(
+      path: '/workout/exercise/edit',
+      builder: (context, state) => ExerciseView(
+        exercise: state.extra as Exercise,
+        onSaved: (exercise) => context.pop(exercise),
+      ),
+    ),
+    GoRoute(
+      path: '/workout/create',
+      builder: (context, state) => const WorkoutEditView(),
+    ),
+    GoRoute(
+      path: '/workout/:id/edit',
+      builder: (context, state) => WorkoutEditView(
+        workoutId: int.parse(state.pathParameters['id']!),
       ),
     ),
     GoRoute(

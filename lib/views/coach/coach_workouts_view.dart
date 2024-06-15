@@ -1,5 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/widgets/lists/workouts_list.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CoachWorkoutsView extends StatelessWidget {
   const CoachWorkoutsView({super.key});
@@ -7,21 +8,12 @@ class CoachWorkoutsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(context),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      title: const Text('coach_workouts_view.title').tr(),
-      actions: [
-        Tooltip(
-          message: 'coach_workouts_view.add_workout_tooltip'.tr(
-            context: context,
-          ),
-          child: IconButton(onPressed: () => (), icon: const Icon(Icons.add)),
-        )
-      ],
+      body: WorkoutsList(
+        hasAddButton: true,
+        hasSearchInput: true,
+        onTap: (workout) => context.push('/workout/${workout.id!}/edit'),
+        onAddTap: () => context.push('/workout/create'),
+      ),
     );
   }
 }
