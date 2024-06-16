@@ -105,6 +105,9 @@ validation:
   field_too_short: Minimum field length is {}
   invalid_email: Invalid email address
   invalid_date_format: Invalid date format
+  invalid_number_format: Value must be valid number
+  too_big_number: Value must be less or equal than {}
+  too_small_number: Value must be greater or equal to {}
 
 errors:
   unknown_error: Unknown error happened
@@ -119,9 +122,6 @@ errors:
   internal_error: Server side error happened
   invalid_format: Invalid client request format
   same_user_exists: User with given Email already exists
-  invalid_number_format: Value must be valid number
-  too_big_number: Value must be less or equal than {}
-  too_small_number: Value must be greater or equal to {}
 
 user_card:
   user_greet: Hello, __{}!__

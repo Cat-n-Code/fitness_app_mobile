@@ -149,7 +149,7 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                 ),
               ],
               if (_isFilterShowed) ...[
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
                 Text(
                   'exercises_list.muscle_filter_label',
                   style: textTheme.labelMedium,
@@ -160,7 +160,7 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                     _muscleFilter = s.isNotEmpty ? s : null;
                   }),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
                 Text(
                   'exercises_list.equipment_filter_label',
                   style: textTheme.labelMedium,
@@ -171,7 +171,7 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                     _equipmentFilter = s.isNotEmpty ? s : null;
                   }),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
                 Text(
                   'exercises_list.type_filter_label',
                   style: textTheme.labelMedium,
@@ -195,14 +195,13 @@ class _ExercisesListState extends ConsumerState<ExercisesList> {
                       )
                       .toList(),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 8.0),
                 Text(
                   'exercises_list.difficulty_filter_label',
                   style: textTheme.labelMedium,
                 ).tr(),
                 Wrap(
-                  runSpacing: 8.0,
-                  spacing: 8.0,
+                  spacing: 4.0,
                   children: ExerciseDifficulty.values
                       .map(
                         (d) => ChoiceChip(

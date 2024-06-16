@@ -76,7 +76,7 @@ class ExerciseTemplateCard extends StatelessWidget {
             ),
             if (exercise.muscle != null)
               SizedBox(
-                width: 108.0,
+                width: 120.0,
                 child: Text(
                   exercise.muscle!,
                   textAlign: TextAlign.right,

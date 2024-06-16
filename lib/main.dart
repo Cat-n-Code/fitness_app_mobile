@@ -35,7 +35,7 @@ void main() async {
       container: container,
       child: EasyLocalization(
         path: 'assets/locales',
-        supportedLocales: const [Locale('en')],
+        supportedLocales: const [Locale('en'), Locale('ru')],
         fallbackLocale: const Locale('en'),
         assetLoader: const YamlAssetLoader(),
         child: App(key: container.read(appKeyProvider)),

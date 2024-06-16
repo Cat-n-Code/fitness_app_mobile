@@ -52,18 +52,21 @@ class _RatingDialogState extends State<RatingDialog> {
       children: [
         widget.body,
         const SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var i = 1; i <= 5; ++i)
-              IconButton(
-                onPressed: () => setState(() => _rating = i),
-                icon: Icon(
-                  Icons.star,
-                  color: i <= _rating ? colorScheme.primary : darkColor,
-                ),
-              )
-          ],
+        SizedBox(
+          height: 40.0,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              for (var i = 1; i <= 5; ++i)
+                IconButton(
+                  onPressed: () => setState(() => _rating = i),
+                  icon: Icon(
+                    Icons.star,
+                    color: i <= _rating ? colorScheme.primary : darkColor,
+                  ),
+                )
+            ],
+          ),
         ),
       ],
     );

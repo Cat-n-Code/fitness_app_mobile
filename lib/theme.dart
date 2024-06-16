@@ -58,7 +58,7 @@ const darkIconTheme = IconThemeData(color: darkColor);
 final primaryButton = FilledButton.styleFrom(
   backgroundColor: colorScheme.primary,
   foregroundColor: colorScheme.onPrimary,
-  padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 36.0),
+  padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 );
 final smallPrimaryButton = FilledButton.styleFrom(
@@ -81,10 +81,10 @@ final primaryOutlinedButton = OutlinedButton.styleFrom(
   side: const BorderSide(color: primaryColor, width: 1.0),
   textStyle: textTheme.bodyMedium,
 );
-final secondaryButton = FilledButton.styleFrom(
+final secondaryButton = FilledButton.styleFrom( 
   backgroundColor: colorScheme.secondary,
   foregroundColor: colorScheme.onSecondary,
-  padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 36.0),
+  padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 );
 final tertiaryOutlinedButton = OutlinedButton.styleFrom(

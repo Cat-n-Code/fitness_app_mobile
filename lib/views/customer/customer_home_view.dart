@@ -27,7 +27,7 @@ class CustomerHomeView extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: padding.top ),
+        SizedBox(height: padding.top + 16.0),
         UserCard(onTap: () => context.push('/profile')),
         const SizedBox(height: 8.0),
         Text(

@@ -45,7 +45,7 @@ class CustomerCard extends ConsumerWidget {
         onTap: onTap,
         child: Padding(
           padding: onTap != null
-              ? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0)
+              ? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0)
               : const EdgeInsets.all(0.0),
           child: _buildContent(customer, user, textTheme, colorScheme),
         ),
@@ -63,8 +63,8 @@ class CustomerCard extends ConsumerWidget {
       children: [
         Row(
           children: [
-            CircleAvatar(backgroundImage: user.photo, radius: 44.0),
-            const SizedBox(width: 16.0),
+            CircleAvatar(backgroundImage: user.photo, radius: 38.0),
+            const SizedBox(width: 8.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,0 +1,312 @@
+common:
+  login_button: ВОЙТИ
+  sign_up_button: РЕГИСТРАЦИЯ
+  skip_button: ПРОПУСТИТЬ
+  continue_button: ПРОДОЛЖИТЬ
+  save_button: СОХРАНИТЬ
+  start_button: НАЧАТЬ
+  filter_button: Фильтр
+  dialog_no: Нет
+  dialog_yes: Да
+  dialog_send: Отправить
+  profile_edit_tooltip: Изменить профиль
+  logout_tooltip: Выйти
+  chat_tooltip: Открыть чат
+  delete_tooltip: Удалить
+  add_exercise_tooltip: Создать упражнение
+  add_workout_tooltip: Создать тренировку
+
+  logout_dialog_title: ВЫХОД ИЗ ПРОФИЛЯ
+  logout_dialog_body: Вы уверены, что хотите выйти из своего профиля?
+  
+  name_field_label: Имя
+  email_field_label: Электронная почта
+  password_field_label: Пароль
+  repeat_password_field_labeL: Повторите пароль
+  birth_date_field_label: Дата рождения
+  sex_field_label: Пол
+
+  tos_disclaimer: Продолжая, вы соглашаетесь принять наши Условия предоставления услуг и Политику конфиденциальности
+  
+  sex:
+    male: Мужчина
+    female: Женщина
+  goals:
+    be_active: Я хочу быть активным(ой)
+    be_strong: Я хочу быть сильным(ой)
+    lose_weight: Я хочу сбросить вес
+  fitness_levels:
+    novice: Новичок
+    beginner: Начинающий
+    intermediate: Средний
+    advanced: Продвинутый
+    athlete: Атлет
+  exercise_preferences:
+    jogging: Бег
+    walking: Ходьба
+    weightlift: Поднятие тяжестей
+    cardio: Кардио
+    yoga: Йога
+    other: Другое
+  coach_specialty:
+    kids: Дети
+    adults: Взрослые
+    yoga: Йога
+
+  exercise_type:
+    base: Базовое
+    isolated: Изолирующее
+  exercise_difficulty:
+    beginner: Начинающий
+    middle: Средний
+    professional: Профессиональный
+  exercise_stage:
+    warm_up: Разминка
+    main: Основная часть
+    cool_down: Заминка
+  no_equipment: Нет оборудования
+  not_available: Н/Д
+
+  workout_type:
+    online: Онлайн
+    offline: Очно
+  
+  date_range:
+    this_week: Эта неделя
+    last_week: Прошлая неделя
+    two_weeks: Две недели
+  
+  level: Уровень
+  points_value: "{} очков"
+  age_value: "{} лет"
+  water_value: "{} мл"
+
+  mock_goals:
+    "1": 10,000 шагов
+    "2": 1,500 мл воды
+  
+  moods:
+    angry: Злой(ая)
+    sad: Грустный(ая)
+    neutral: Нейтральный
+    calm: Спокойный(ая)
+    excited: Воодушевленный(ая)
+  mood_reasons:
+    "1": Семья
+    "2": Самооценка
+    "3": Работа
+    "4": Погода
+    "5": Сон
+    "6": Питание
+    "7": Общество
+
+validation:
+  field_is_empty: Это поле необходимо для заполнения
+  field_too_short: Минимальная длина поля {}
+  invalid_email: Неверный адрес электронной почты
+  invalid_date_format: Неверный формат даты времени
+  invalid_number_format: Значение должно быть числом
+  too_big_number: Значение должно быть меньше или равно {}
+  too_small_number: Значение должно быть больше или равно {}
+
+errors:
+  unknown_error: Произошла неизвестная ошибка
+  network_error: Невозможно установить соединение
+  timeout_error: Превышено время ожидания
+  bad_request: Неверный формат запроса
+  unauthorized: Не удалось авторизоваться
+  invalid_credentials: Почта или пароль указаны неверно
+  forbidden: Доступ запрещен
+  not_found: Запрашиваемые данные не найдены
+  conflict: Произошел конфликт во время выполнения запроса
+  internal_error: Ошибка со стороны сервера
+  invalid_format: Неверный формат запроса
+  same_user_exists: Пользователь с указанной почтой уже существует
+
+user_card:
+  user_greet: Добро пожаловать, __{}!__
+
+customer_card:
+  user_name_value: "{}, {} лет"
+  progress_label: "Тренировочный план выполнен на "
+
+customer_workout_card:
+  edit_tooltip: Изменить тренировку
+  show_details_button: Показать информацию
+  hide_details_button: Спрятать информацию
+  total_percentage: "Общий процент выполнения: "
+  chat_button: Комментарии
+
+exercises_list:
+  muscle_filter_label: Группа мышц
+  equipment_filter_label: Инвентарь
+  type_filter_label: Тип
+  difficulty_filter_label: Сложность
+
+start_up_view:
+  title_1: ДОБРО ПОЖАЛОВАТЬ В
+  title_2: Inner Spark
+  tips:
+    "0":
+      title: ТРЕНИРОВКИ
+      body: >
+        Ощутите внутреннюю силу, отправляясь в путешествие к самопознанию
+        благодаря бодрящим тренировкам. Подпитывайте свое тело и находите гармонию во всем
+        движении.
+    "1":
+      title: МЕДИТАЦИИ
+      body: >
+        В спокойном убежище своего разума найдите утешение и безмятежность. Пусть
+        каждый вдох будет напоминанием о вашем внутреннем свете.
+    "2":
+      title: ТРЕКЕР НАСТРОЕНИЯ
+      body: >
+        Следите за ритмом своих эмоций, потому что они - волны, которые формируют
+        ваше путешествие.
+
+login_view:
+  title: ВОЙТИ
+
+sign_up_email_view:
+  title: РЕГИСТРАЦИЯ ЧЕРЕЗ ПОЧТУ
+  name_field_label: ВАШЕ ИМЯ
+  email_field_label: ВАШ АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ
+  password_field_label: ВАШ ПАРОЛЬ
+
+sign_up_profile_view:
+  goal_title: КАКОВА ВАША ЦЕЛЬ В ФИТНЕСЕ?
+  sex_title: ВАШ ПОЛ?
+  birth_date_title: КОГДА ВАШ ДЕНЬ РОЖДЕНИЯ?
+  fitness_level_title: КАК БЫ ВЫ ОЦЕНИЛИ СВОЙ УРОВЕНЬ ФИЗИЧЕСКОЙ ПОДГОТОВКИ?
+  exercise_preference_title: ЕСТЬ ЛИ У ВАС КАКИЕ-ТО ОСОБЫЕ ПРЕДПОЧТЕНИЯ В УПРАЖНЕНИЯХ?
+
+chat_view:
+  attach_tooltip: Прикрепить файл
+
+customer_main_view:
+  home_tab: Главная
+  coaches_tab: Тренеры
+  progress_tab: Прогресс
+  profile_tab: Профиль
+  diary_tab: Дневник
+  shop_tab: Магазин
+
+customer_home_view:
+  title: Главная
+  schedule_title: Мое расписание
+  workouts_title: Ваши тренировки
+
+customer_coaches_view:
+  title: Мои Тренеры
+
+customer_progress_view:
+  title: Мой Прогресс
+  streak_label: "{} дней стриков"
+  streak_motivation: "Выполните свою ежедневную цель и заработайте {} очков"
+  steps_tab_label: Шаги
+  water_tab_label: Вода
+  steps_average_value: |
+    __В среднем__  
+    __{}__ шагов
+  water_average_value: |
+    __В среднем__  
+    __{}__ мл.
+
+customer_diary_view:
+  title: Трекер Настроения
+  state_title: Как бы вы описали свое настроение?
+  state_description: Выберите настроение, которое в наибольшей степени отражает то, что вы чувствуете в данный момент.
+  reason_title: По какой причине ты так себя чувствуешь?
+  reason_description: Выберите причины, которые связывают ваши эмоции
+  add_title: Вы хотите что-нибудь добавить?
+  add_description: Добавляйте свои заметки к любой мысли, которая отражает ваше настроение
+  record_button: ЗАПИСАТЬ ГОЛОСОВУЮ ЗАМЕТКУ
+
+customer_shop_view:
+  title: Фитнес-магазин
+  categories_title: Категории
+  categories:
+    "0": Одежда
+    "1": Обувь
+    "2": Сумки
+    "3": Инвентарь
+  hot_selling_title: Горячая распродажа
+  recommends_title: Ваши рекомендации
+  items:
+    "0": Гантели
+    "1": Ковриг для йоги
+    "2": Chuck 70 Vintage
+    "3": Foam Roller
+    "4": Скакалка
+    "5": Ковриг для йоги
+
+profile_view:
+  title: Мой Профиль
+  motivation_text: Заработайте еще __{}__ очков, чтобы достичь __{}__ уровня
+  streaks_button: "{} дней стриков"
+  goal_label: МОЯ ЦЕЛЬ
+  fitness_level_label: МОЙ УРОВЕНЬ ФИЗИЧЕСКОЙ ПОДГОТОВКИ
+  exercise_preference_label: МОИ ПРЕДПОЧТЕНИЯ
+  specialty_field: МОЯ СПЕЦИАЛЬНОСТЬ
+  daily_goals_label: Мои ежедневные цели
+  rating_field: РЕЙТИНГ
+
+profile_edit_view:
+  title: Изменить профиль
+
+couch_main_view:
+  customer_tab: Клиенты
+  workouts_tab: Тренировки
+  exercises_tab: Упражнения
+  profile_tab: Профиль
+
+coach_customers_view:
+  title: Мои клиенты
+
+coach_exercises_view:
+  title: Упражнения
+  add_exercise_tooltip: Создать упражнение
+
+customer_view:
+  workouts_title: Тренировки
+  schedule_workout_tooltip: Запланировать тренировку
+
+exercise_template_view:
+  attach_tooltip: Прикрепить фото
+  name_label: Название
+  difficulty_label: Сложность
+  equipment_label: Инвентарь
+  muscle_label: Группа мышц
+  additional_muscle_label: Доп. группа мышц
+  type_label: Тип
+  delete_dialog_title: Удалить упражнение
+  delete_dialog_body: Вы уверены, что хотите удалить это упражнение? Это действие необратимо!
+
+workout_view:
+  exercise_count_value: "{} упражнений"
+  details_title: Подробности тренировки
+  chat_button: Задайте свой вопрос в чате
+
+workout_edit_view:
+  name_label: Название
+  type_label: Тип
+  start_time_label: Время начала
+  details_title: Подробности тренировки
+  add_exercise_tooltip: Добавить упражнение
+  delete_dialog_title: Удалить тренировку
+  delete_dialog_body: Вы уверены, что хотите удалить эту тренировку? Это действие необратимо!
+  remove_exercise_dialog_title: Удалить упражнение
+  remove_exercise_dialog_body: Вы уверены, что хотите удалить упражнение "{}" из списка?
+
+exercise_view:
+  sets_label: Кол-во подходов
+  reps_label: Кол-во повторение
+
+workout_exercises_view:
+  sets_reps_count_value: "{} ПОДХОДОВ ПО {} ПОВТОРЕНИЙ"
+  sets_value: "{} ПОДХОДОВ"
+  reps_value: "{} ПОВТОРЕНИЙ"
+  completed_sets: Выполнено подходов
+  rate_dialog_title: Понравилась ли вам эта тренировка?
+  rate_dialog_body: Поставьте оценку своему тренеру
+  rate_dialog_later: Позже

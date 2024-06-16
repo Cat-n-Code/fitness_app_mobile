@@ -92,7 +92,7 @@ class _CustomerShopViewState extends State<CustomerShopView> {
 
   Widget _buildCategory(int index, IconData icon, String name) {
     return SizedBox(
-      width: 120.0,
+      width: 128.0,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: RadioTile(

@@ -76,7 +76,7 @@ class _WorkoutExercisesViewState extends ConsumerState<WorkoutExercisesView>
       body: Skeletonizer(
         enabled: !_workoutValue.hasValue,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 43.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
           child: Skeleton.replace(
             child: _buildBody(theme.textTheme, theme.colorScheme),
           ),
@@ -122,7 +122,7 @@ class _WorkoutExercisesViewState extends ConsumerState<WorkoutExercisesView>
             ],
           ),
         ),
-        const SizedBox(height: 32.0),
+        const SizedBox(height: 16.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -355,9 +355,9 @@ class _ExerciseTabState extends State<_ExerciseTab> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildHeader(textTheme),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 8.0),
         SizedBox(
-          height: 220.0,
+          height: 180.0,
           child: PageView(
             controller: _pageController,
             children: _exercise.exercise!.photos
@@ -389,7 +389,7 @@ class _ExerciseTabState extends State<_ExerciseTab> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: _exercise.setsCount != null
                 ? [
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 8.0),
                     const Text(
                       'workout_exercises_view.completed_sets',
                       textAlign: TextAlign.center,
@@ -433,7 +433,7 @@ class _ExerciseTabState extends State<_ExerciseTab> {
             ),
           ],
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -448,7 +448,7 @@ class _ExerciseTabState extends State<_ExerciseTab> {
             ),
           ],
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

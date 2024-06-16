@@ -144,8 +144,8 @@ class ProfileView extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(backgroundImage: user.photo, radius: 48.0),
-        const SizedBox(width: 24.0),
+        CircleAvatar(backgroundImage: user.photo, radius: 36.0),
+        const SizedBox(width: 16.0),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +234,7 @@ class ProfileView extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(width: 48.0),
+          const SizedBox(width: 16.0),
           _buildLevelProgress(textTheme, colorScheme),
         ],
       ),
@@ -294,39 +294,45 @@ class ProfileView extends ConsumerWidget {
         fontWeight: FontWeight.w700,
       ),
     );
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: FitnessLevel.values.indexed
-          .map((t) => Skeleton.leaf(
-                child: SizedBox(
-                  width: 61.0,
-                  height: 53.0,
-                  child: RadioTile(
-                    style: tileStyle as RadioTileStyle,
-                    value: t.$2,
-                    addRadio: false,
-                    groupValue: customer.level,
-                    onChanged: (level) async {
-                      final notifier = ref.read(
-                        currentCustomerNotifierProvider.notifier,
-                      );
-                      final result = await notifier.updateCustomer(
-                        customer.copyWith(
-                          level: customer.level != level ? level : null,
+    return SizedBox(
+      height: 48.0,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: FitnessLevel.values.indexed
+            .map((t) => Skeleton.leaf(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    child: SizedBox(
+                      width: 61.0,
+                      height: 53.0,
+                      child: RadioTile(
+                        style: tileStyle as RadioTileStyle,
+                        value: t.$2,
+                        addRadio: false,
+                        groupValue: customer.level,
+                        onChanged: (level) async {
+                          final notifier = ref.read(
+                            currentCustomerNotifierProvider.notifier,
+                          );
+                          final result = await notifier.updateCustomer(
+                            customer.copyWith(
+                              level: customer.level != level ? level : null,
+                            ),
+                          );
+                          if (result case Right(value: final error)) {
+                            presentError(error, widgetRef: ref);
+                          }
+                        },
+                        child: Text(
+                          '${t.$1 + 1}/${FitnessLevel.values.length}',
+                          textAlign: TextAlign.center,
                         ),
-                      );
-                      if (result case Right(value: final error)) {
-                        presentError(error, widgetRef: ref);
-                      }
-                    },
-                    child: Text(
-                      '${t.$1 + 1}/${FitnessLevel.values.length}',
-                      textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-              ))
-          .toList(),
+                ))
+            .toList(),
+      ),
     );
   }
 

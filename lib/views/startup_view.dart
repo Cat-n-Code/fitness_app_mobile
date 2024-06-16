@@ -47,10 +47,13 @@ class _StartupViewBody extends StatelessWidget {
   }
 
   Widget _buildImage() {
-    return SizedBox.expand(
-      child: Image.asset(
-        'assets/images/startup_background.png',
-        fit: BoxFit.contain,
+    return Center(
+      child: SizedBox(
+        height: 400.0,
+        child: Image.asset(
+          'assets/images/startup_background.png',
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
@@ -61,7 +64,7 @@ class _StartupViewBody extends StatelessWidget {
     ColorScheme colorScheme,
   ) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 80.0, 16.0, 80.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 80.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -71,6 +74,7 @@ class _StartupViewBody extends StatelessWidget {
                 Text(
                   'start_up_view.title_1',
                   style: titleTextStyle.copyWith(fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
                 ).tr(),
                 Text('start_up_view.title_2', style: titleTextStyle).tr(),
               ],
@@ -88,7 +92,7 @@ class _StartupViewBody extends StatelessWidget {
                   child: const Text('common.login_button').tr(),
                 ),
               ),
-              const SizedBox(width: 16.0),
+              const SizedBox(width: 8.0),
               Expanded(
                 child: FilledButton(
                   style: backgroundButton,

@@ -125,13 +125,13 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
         MiniCalendar(onWeekdaySelected: (w) => (), color: color),
         const SizedBox(height: 16.0),
         SizedBox(
-          height: 80.0,
+          height: 90.0,
           child: Row(
             children: [
               Expanded(
                 child: _buildStepsTile(radioTileStyle, color),
               ),
-              const SizedBox(width: 32.0),
+              const SizedBox(width: 16.0),
               Expanded(
                 child: _buildHydrationTile(radioTileStyle, color),
               )
@@ -191,7 +191,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24.0),
+                  const SizedBox(height: 8.0),
                   const Text('customer_progress_view.streak_motivation')
                       .tr(args: ['100'])
                 ],
@@ -210,8 +210,8 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     const endColor = Color.fromARGB(255, 219, 117, 255);
 
     return SizedBox(
-      width: 100.0,
-      height: 100.0,
+      width: 80.0,
+      height: 80.0,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -224,7 +224,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
               child: Text(
                 '25%',
                 style: TextStyle(
-                  fontSize: 28.0,
+                  fontSize: 24.0,
                   fontWeight: FontWeight.w700,
                   color: colorScheme.primary,
                 ),
@@ -341,7 +341,10 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
                 children: [
                   Text('customer_progress_view.water_tab_label'.tr()),
                   const SizedBox(height: 4.0),
-                  Text('common.water_value'.tr(args: ['500'])),
+                  Text(
+                    'common.water_value'.tr(args: ['500']),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),

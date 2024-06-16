@@ -24,8 +24,7 @@ class FitnessLevelField extends StatelessWidget {
       color: darkColor,
     );
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return ListView(
       children: FitnessLevel.values.map(
         (level) {
           return Padding(
