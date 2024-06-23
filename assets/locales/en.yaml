@@ -92,13 +92,13 @@ common:
     calm: Calm
     excited: Excited
   mood_reasons:
-    "1": Family
-    "2": Self-esteem
-    "3": Work
-    "4": Weather
-    "5": Sleep
-    "6": Food
-    "7": Social
+    family: Family
+    self_esteem: Self-esteem
+    work: Work
+    weather: Weather
+    sleep: Sleep
+    food: Food
+    social: Social
 
 validation:
   field_is_empty: This field is required
