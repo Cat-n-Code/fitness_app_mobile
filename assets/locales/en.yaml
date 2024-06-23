@@ -122,6 +122,7 @@ errors:
   internal_error: Server side error happened
   invalid_format: Invalid client request format
   same_user_exists: User with given Email already exists
+  pedometer_not_available: This device does not support step counting
 
 user_card:
   user_greet: Hello, __{}!__

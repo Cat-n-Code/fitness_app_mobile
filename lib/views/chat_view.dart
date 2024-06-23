@@ -1,19 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:fitness_app/models/uploads.dart';
+import 'package:path/path.dart' as path;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fitness_app/models/chat.dart';
 import 'package:fitness_app/models/users.dart';
 import 'package:fitness_app/providers/chat.dart';
 import 'package:fitness_app/providers/users.dart';
-import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/api.dart';
 import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:record/record.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ChatView extends ConsumerStatefulWidget {
@@ -30,9 +34,12 @@ class _ChatViewState extends ConsumerState<ChatView> {
   static const pageSize = 10;
 
   final _textController = TextEditingController();
+  final _recorder = AudioRecorder();
   final _usedPages = <int>{};
   late final Timer _timer;
 
+  bool _showVoiceButton = false;
+  bool _isRecording = false;
   bool _isLoading = false;
 
   @override
@@ -64,11 +71,16 @@ class _ChatViewState extends ConsumerState<ChatView> {
         }
       },
     );
+
+    _textController.addListener(() {
+      _showVoiceButton = _textController.text.isEmpty;
+    });
   }
 
   @override
   void dispose() {
     _timer.cancel();
+    _recorder.dispose();
     super.dispose();
   }
 
@@ -142,6 +154,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
     AsyncValue<Chat> chatValue,
     BuildContext context,
   ) {
+    final theme = Theme.of(context);
     _usedPages.clear();
 
     return Padding(
@@ -201,13 +214,13 @@ class _ChatViewState extends ConsumerState<ChatView> {
             ),
           ),
           const SizedBox(height: 16.0),
-          _buildInputBar(chatValue.valueOrNull, ref),
+          _buildInputBar(chatValue.valueOrNull, ref, theme.colorScheme),
         ],
       ),
     );
   }
 
-  Widget _buildInputBar(Chat? chat, WidgetRef ref) {
+  Widget _buildInputBar(Chat? chat, WidgetRef ref, ColorScheme colorScheme) {
     return Skeletonizer(
       enabled: _isLoading,
       child: Row(
@@ -225,25 +238,61 @@ class _ChatViewState extends ConsumerState<ChatView> {
             ),
           ),
           const SizedBox(width: 8.0),
-          IconButton.filled(
-            onPressed: () => _onSend(chat!, ref),
-            style: iconPrimaryButton,
-            icon: const Icon(Icons.send),
-          )
+          _buildSendButton(chat, colorScheme),
         ],
       ),
     );
   }
 
+  Widget _buildSendButton(Chat? chat, ColorScheme colorScheme) {
+    return TweenAnimationBuilder(
+      tween: Tween(end: _isRecording ? 1.0 : 0.0),
+      duration: Durations.short4,
+      curve: Curves.easeOut,
+      builder: (context, value, child) => Transform.scale(
+        scale: lerpDouble(1.0, 1.4, value),
+        child: GestureDetector(
+          onLongPressStart: (details) => _onRecordingStarted(),
+          onLongPressEnd: (details) => _onRecordingFinished(chat!),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 48.0,
+              minHeight: 48.0,
+            ),
+            child: Skeleton.shade(
+              child: Material(
+                borderRadius: BorderRadius.circular(24.0),
+                color: Color.lerp(
+                  colorScheme.primary,
+                  colorScheme.secondary,
+                  value,
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: InkWell(
+                  onTap: () => _onSend(chat!, ref),
+                  child: Center(
+                    child: Icon(
+                      _showVoiceButton ? Icons.mic : Icons.send,
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void _onSend(Chat chat, WidgetRef ref) async {
-    if (_textController.text.isEmpty) {
+    final content = _textController.text.trim();
+
+    if (content.isEmpty) {
       return;
     }
 
-    final message = MessageSend(
-      content: _textController.text.trim(),
-      files: [],
-    );
+    final message = MessageSend(content: content.trim(), files: []);
 
     setState(() {
       _isLoading = true;
@@ -264,6 +313,65 @@ class _ChatViewState extends ConsumerState<ChatView> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void _onRecordingStarted() async {
+    if (_isRecording) {
+      return;
+    }
+
+    if (!(await _recorder.hasPermission())) {
+      return;
+    }
+
+    setState(() => _isRecording = true);
+
+    final tempDir = await getTemporaryDirectory();
+    await _recorder.start(
+      const RecordConfig(
+        encoder: AudioEncoder.aacLc,
+      ),
+      path: path.join(tempDir.path, 'voice.m4a'),
+    );
+  }
+
+  void _onRecordingFinished(Chat chat) async {
+    setState(() {
+      _isLoading = true;
+      _isRecording = false;
+    });
+
+    final path = await _recorder.stop();
+
+    try {
+      if (path == null) {
+        return;
+      }
+
+      final file = await uploadFile(path, widgetRef: ref);
+      if (file case Right(value: final exception)) {
+        presentError(exception, widgetRef: ref);
+        return;
+      }
+
+      final message = MessageSend(
+        content: '',
+        voiceFilename: (file as Left<Upload, Exception>).value.filename,
+      );
+
+      final result = await apiFetch(
+        HttpMethod.post,
+        '/messages/${chat.id}',
+        widgetRef: ref,
+        body: jsonEncode(message),
+      );
+
+      if (result case Right(value: final exception)) {
+        presentError(exception, widgetRef: ref);
+      }
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   void _onFileAttachClicked() async {

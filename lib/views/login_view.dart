@@ -19,10 +19,18 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+
     return Scaffold(
       appBar: AppBar(),
-      body: _LoginViewBody(),
-      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: media.size.height - media.viewPadding.vertical - 56.0,
+          ),
+          child: _LoginViewBody(),
+        ),
+      ),
     );
   }
 }

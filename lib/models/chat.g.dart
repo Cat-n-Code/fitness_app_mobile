@@ -34,7 +34,12 @@ _$MessageImpl _$$MessageImplFromJson(Map<String, dynamic> json) =>
       chatId: (json['chat_id'] as num).toInt(),
       senderId: (json['sender_id'] as num).toInt(),
       timestamp: DateTime.parse(json['timestamp'] as String),
-      content: json['content'] as String,
+      content: json['content'] as String? ?? '',
+      fileUrls: (json['file_urls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      voiceUrl: json['voice_url'] as String?,
     );
 
 Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
@@ -44,16 +49,23 @@ Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
       'sender_id': instance.senderId,
       'timestamp': instance.timestamp.toIso8601String(),
       'content': instance.content,
+      'file_urls': instance.fileUrls,
+      'voice_url': instance.voiceUrl,
     };
 
 _$MessageSendImpl _$$MessageSendImplFromJson(Map<String, dynamic> json) =>
     _$MessageSendImpl(
-      content: json['content'] as String,
-      files: (json['files'] as List<dynamic>).map((e) => e as String).toList(),
+      content: json['content'] as String? ?? '',
+      files: (json['filenames'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      voiceFilename: json['voice_filename'] as String?,
     );
 
 Map<String, dynamic> _$$MessageSendImplToJson(_$MessageSendImpl instance) =>
     <String, dynamic>{
       'content': instance.content,
-      'files': instance.files,
+      'filenames': instance.files,
+      'voice_filename': instance.voiceFilename,
     };

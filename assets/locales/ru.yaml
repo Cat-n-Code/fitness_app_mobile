@@ -122,6 +122,7 @@ errors:
   internal_error: Ошибка со стороны сервера
   invalid_format: Неверный формат запроса
   same_user_exists: Пользователь с указанной почтой уже существует
+  pedometer_not_available: Данное устройство не поддерживает подсчет шагов
 
 user_card:
   user_greet: Добро пожаловать, __{}!__

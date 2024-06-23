@@ -1,17 +1,23 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fitness_app/models/progress_entry.dart';
 import 'package:fitness_app/models/radio_tile_style.dart';
 import 'package:fitness_app/providers/progress.dart';
+import 'package:fitness_app/providers/scaffold_messenger.dart';
 import 'package:fitness_app/theme.dart';
+import 'package:fitness_app/utils/error_presenter.dart';
 import 'package:fitness_app/widgets/date_diagram.dart';
 import 'package:fitness_app/widgets/date_range_dropdown.dart';
 import 'package:fitness_app/widgets/mini_calendar.dart';
 import 'package:fitness_app/widgets/radio_tile.dart';
+import 'package:fitness_app/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:pedometer/pedometer.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 enum _ProgressViewTab { steps, water }
@@ -26,21 +32,84 @@ class CustomerProgressView extends ConsumerStatefulWidget {
 
 class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     with SingleTickerProviderStateMixin {
+  late StreamSubscription<StepCount> _stepCountSubscription;
+
   var _activeTab = _ProgressViewTab.steps;
   var _activeRange = DateRange.thisWeek;
 
   @override
   void initState() {
     super.initState();
+
+    _stepCountSubscription = Pedometer.stepCountStream.listen(
+      (steps) async {
+        final notifier = ref.read(todayStepsProgressProvider.notifier);
+        final result = await notifier.updateSteps(steps.steps);
+        if (result case Right(value: final exception)) {
+          presentError(exception, widgetRef: ref);
+        }
+      },
+      onError: (error) {
+        if (error case Exception()) {
+          if (error case PlatformException()) {
+            final snackBar = buildErrorSnackBar(
+              'errors.pedometer_not_available'.tr(),
+            );
+
+            ref.read(scaffoldMessengerProvider)?.showSnackBar(snackBar);
+          } else {
+            presentError(error, widgetRef: ref);
+          }
+        } else {
+          throw error;
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _stepCountSubscription.cancel();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final progressValue = ref.watch(
-      myProgressProvider(_activeRange.startTime, _activeRange.endTime),
-    );
+
+    final stepsEntries = ref
+        .watch(
+          stepsProgressProvider(
+            _activeRange.startTime,
+            _activeRange.endTime,
+          ),
+        )
+        .map(
+          data: (data) => AsyncData(
+            data.value.map((s) => s.asTuple()).toList(),
+          ),
+          error: (error) => AsyncError<List<DateDiagramEntry>>(
+            error.error,
+            error.stackTrace,
+          ),
+          loading: (loading) => const AsyncLoading<List<DateDiagramEntry>>(),
+        );
+    final waterEntries = ref
+        .watch(
+          waterProgressProvider(_activeRange.startTime, _activeRange.endTime),
+        )
+        .map(
+          data: (data) => AsyncData(
+            data.value.map((s) => s.asTuple()).toList(),
+          ),
+          error: (error) => AsyncError<List<DateDiagramEntry>>(
+            error.error,
+            error.stackTrace,
+          ),
+          loading: (loading) => const AsyncLoading<List<DateDiagramEntry>>(),
+        );
 
     return TweenAnimationBuilder(
       tween: ColorTween(
@@ -52,7 +121,14 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
       duration: Durations.short2,
       builder: (context, value, child) => Scaffold(
         appBar: _buildAppBar(value!, context),
-        body: _buildBody(progressValue, context, value),
+        body: _buildBody(
+          switch (_activeTab) {
+            _ProgressViewTab.steps => stepsEntries,
+            _ProgressViewTab.water => waterEntries,
+          },
+          context,
+          value,
+        ),
       ),
     );
   }
@@ -70,7 +146,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
   }
 
   Widget _buildBody(
-    AsyncValue<List<ProgressEntry>> progressValue,
+    AsyncValue<List<DateDiagramEntry>> progressValue,
     BuildContext context,
     Color value,
   ) {
@@ -78,11 +154,18 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
 
     return RefreshIndicator.adaptive(
       onRefresh: () async {
-        ref.invalidate(myProgressProvider);
-        await ref.read(myProgressProvider(
-          _activeRange.startTime,
-          _activeRange.endTime,
-        ).future);
+        ref.invalidate(stepsProgressProvider);
+        ref.invalidate(waterProgressProvider);
+        await Future.wait([
+          ref.read(stepsProgressProvider(
+            _activeRange.startTime,
+            _activeRange.endTime,
+          ).future),
+          ref.read(waterProgressProvider(
+            _activeRange.startTime,
+            _activeRange.endTime,
+          ).future)
+        ]);
       },
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -101,7 +184,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
   }
 
   Widget _buildContent(
-    List<ProgressEntry> progress,
+    List<DateDiagramEntry> progress,
     Color color,
     TextTheme textTheme,
     ColorScheme colorScheme,
@@ -141,17 +224,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
         const SizedBox(height: 16.0),
         _buildHeader(context, textTheme),
         const SizedBox(height: 16.0),
-        DateDiagram(
-          color: color,
-          values: progress
-              .map((e) => (
-                    e.timestamp,
-                    _activeTab == _ProgressViewTab.steps
-                        ? e.steps.toDouble()
-                        : e.waterVolume,
-                  ))
-              .toList(),
-        )
+        DateDiagram(color: color, values: progress)
       ],
     );
   }
@@ -349,146 +422,6 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
               ),
             ),
             const Icon(Icons.water_drop_outlined, size: 40.0),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _StepsView extends StatelessWidget {
-  const _StepsView();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          _buildHeader(theme.textTheme),
-          const SizedBox(height: 8.0),
-          _VerticalDiagram(color: theme.colorScheme.primary),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(TextTheme textTheme) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('shared.average'.tr(), style: textTheme.titleMedium),
-            Text(
-              'shared.x_steps'.tr(args: ['5,342']),
-              style: textTheme.bodyMedium!.copyWith(fontSize: 18.0),
-            )
-          ],
-        ),
-        // DateRangeField(selectedPeriodIndex: 0, onPeriodChanged: (i) => ()),
-      ],
-    );
-  }
-}
-
-class _HydrationView extends StatelessWidget {
-  const _HydrationView();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          _buildHeader(theme.textTheme),
-          const SizedBox(height: 8.0),
-          _VerticalDiagram(color: theme.colorScheme.secondary),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(TextTheme textTheme) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('shared.average'.tr(), style: textTheme.titleMedium),
-            Text(
-              'shared.water_ml'.tr(args: ['1,700']),
-              style: textTheme.bodyMedium!.copyWith(fontSize: 18.0),
-            )
-          ],
-        ),
-        // DateRangeField(selectedPeriodIndex: 0, onPeriodChanged: (i) => ()),
-      ],
-    );
-  }
-}
-
-class _VerticalDiagram extends StatelessWidget {
-  const _VerticalDiagram({required this.color});
-
-  static final progressValues = [0.6, 0.5, 0.7, 0.8, 0.55, 0.2, 0.3];
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return SizedBox(
-      height: 200.0,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: colorScheme.onBackground.withAlpha(50),
-            width: 2.0,
-          ),
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            for (int i = -6; i <= 0; ++i)
-              _buildColumn(
-                DateFormat.E().format(
-                  DateTime.now().add(Duration(days: i)),
-                ),
-                progressValues[i + 6],
-              )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildColumn(String label, double progress) {
-    return SizedBox(
-      height: double.infinity,
-      child: FractionallySizedBox(
-        heightFactor: progress,
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                width: 10.0,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-              ),
-            ),
-            Text(label)
           ],
         ),
       ),

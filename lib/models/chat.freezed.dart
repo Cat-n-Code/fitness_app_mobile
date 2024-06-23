@@ -233,6 +233,10 @@ mixin _$Message {
   int get senderId => throw _privateConstructorUsedError;
   DateTime get timestamp => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: 'file_urls')
+  List<String> get fileUrls => throw _privateConstructorUsedError;
+  @JsonKey(name: 'voice_url')
+  String? get voiceUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -249,7 +253,9 @@ abstract class $MessageCopyWith<$Res> {
       @JsonKey(name: 'chat_id') int chatId,
       @JsonKey(name: 'sender_id') int senderId,
       DateTime timestamp,
-      String content});
+      String content,
+      @JsonKey(name: 'file_urls') List<String> fileUrls,
+      @JsonKey(name: 'voice_url') String? voiceUrl});
 }
 
 /// @nodoc
@@ -270,6 +276,8 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? senderId = null,
     Object? timestamp = null,
     Object? content = null,
+    Object? fileUrls = null,
+    Object? voiceUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -292,6 +300,14 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      fileUrls: null == fileUrls
+          ? _value.fileUrls
+          : fileUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      voiceUrl: freezed == voiceUrl
+          ? _value.voiceUrl
+          : voiceUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -308,7 +324,9 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       @JsonKey(name: 'chat_id') int chatId,
       @JsonKey(name: 'sender_id') int senderId,
       DateTime timestamp,
-      String content});
+      String content,
+      @JsonKey(name: 'file_urls') List<String> fileUrls,
+      @JsonKey(name: 'voice_url') String? voiceUrl});
 }
 
 /// @nodoc
@@ -327,6 +345,8 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? senderId = null,
     Object? timestamp = null,
     Object? content = null,
+    Object? fileUrls = null,
+    Object? voiceUrl = freezed,
   }) {
     return _then(_$MessageImpl(
       id: null == id
@@ -349,6 +369,14 @@ class __$$MessageImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      fileUrls: null == fileUrls
+          ? _value._fileUrls
+          : fileUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      voiceUrl: freezed == voiceUrl
+          ? _value.voiceUrl
+          : voiceUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -361,7 +389,10 @@ class _$MessageImpl implements _Message {
       @JsonKey(name: 'chat_id') required this.chatId,
       @JsonKey(name: 'sender_id') required this.senderId,
       required this.timestamp,
-      required this.content});
+      this.content = '',
+      @JsonKey(name: 'file_urls') final List<String> fileUrls = const [],
+      @JsonKey(name: 'voice_url') this.voiceUrl})
+      : _fileUrls = fileUrls;
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageImplFromJson(json);
@@ -377,11 +408,24 @@ class _$MessageImpl implements _Message {
   @override
   final DateTime timestamp;
   @override
+  @JsonKey()
   final String content;
+  final List<String> _fileUrls;
+  @override
+  @JsonKey(name: 'file_urls')
+  List<String> get fileUrls {
+    if (_fileUrls is EqualUnmodifiableListView) return _fileUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fileUrls);
+  }
+
+  @override
+  @JsonKey(name: 'voice_url')
+  final String? voiceUrl;
 
   @override
   String toString() {
-    return 'Message(id: $id, chatId: $chatId, senderId: $senderId, timestamp: $timestamp, content: $content)';
+    return 'Message(id: $id, chatId: $chatId, senderId: $senderId, timestamp: $timestamp, content: $content, fileUrls: $fileUrls, voiceUrl: $voiceUrl)';
   }
 
   @override
@@ -395,13 +439,16 @@ class _$MessageImpl implements _Message {
                 other.senderId == senderId) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            const DeepCollectionEquality().equals(other._fileUrls, _fileUrls) &&
+            (identical(other.voiceUrl, voiceUrl) ||
+                other.voiceUrl == voiceUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, chatId, senderId, timestamp, content);
+  int get hashCode => Object.hash(runtimeType, id, chatId, senderId, timestamp,
+      content, const DeepCollectionEquality().hash(_fileUrls), voiceUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -423,7 +470,9 @@ abstract class _Message implements Message {
       @JsonKey(name: 'chat_id') required final int chatId,
       @JsonKey(name: 'sender_id') required final int senderId,
       required final DateTime timestamp,
-      required final String content}) = _$MessageImpl;
+      final String content,
+      @JsonKey(name: 'file_urls') final List<String> fileUrls,
+      @JsonKey(name: 'voice_url') final String? voiceUrl}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
@@ -440,6 +489,12 @@ abstract class _Message implements Message {
   @override
   String get content;
   @override
+  @JsonKey(name: 'file_urls')
+  List<String> get fileUrls;
+  @override
+  @JsonKey(name: 'voice_url')
+  String? get voiceUrl;
+  @override
   @JsonKey(ignore: true)
   _$$MessageImplCopyWith<_$MessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -452,7 +507,10 @@ MessageSend _$MessageSendFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MessageSend {
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: 'filenames')
   List<String> get files => throw _privateConstructorUsedError;
+  @JsonKey(name: 'voice_filename')
+  String? get voiceFilename => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -466,7 +524,10 @@ abstract class $MessageSendCopyWith<$Res> {
           MessageSend value, $Res Function(MessageSend) then) =
       _$MessageSendCopyWithImpl<$Res, MessageSend>;
   @useResult
-  $Res call({String content, List<String> files});
+  $Res call(
+      {String content,
+      @JsonKey(name: 'filenames') List<String> files,
+      @JsonKey(name: 'voice_filename') String? voiceFilename});
 }
 
 /// @nodoc
@@ -484,6 +545,7 @@ class _$MessageSendCopyWithImpl<$Res, $Val extends MessageSend>
   $Res call({
     Object? content = null,
     Object? files = null,
+    Object? voiceFilename = freezed,
   }) {
     return _then(_value.copyWith(
       content: null == content
@@ -494,6 +556,10 @@ class _$MessageSendCopyWithImpl<$Res, $Val extends MessageSend>
           ? _value.files
           : files // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      voiceFilename: freezed == voiceFilename
+          ? _value.voiceFilename
+          : voiceFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -506,7 +572,10 @@ abstract class _$$MessageSendImplCopyWith<$Res>
       __$$MessageSendImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String content, List<String> files});
+  $Res call(
+      {String content,
+      @JsonKey(name: 'filenames') List<String> files,
+      @JsonKey(name: 'voice_filename') String? voiceFilename});
 }
 
 /// @nodoc
@@ -522,6 +591,7 @@ class __$$MessageSendImplCopyWithImpl<$Res>
   $Res call({
     Object? content = null,
     Object? files = null,
+    Object? voiceFilename = freezed,
   }) {
     return _then(_$MessageSendImpl(
       content: null == content
@@ -532,6 +602,10 @@ class __$$MessageSendImplCopyWithImpl<$Res>
           ? _value._files
           : files // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      voiceFilename: freezed == voiceFilename
+          ? _value.voiceFilename
+          : voiceFilename // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -540,16 +614,20 @@ class __$$MessageSendImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MessageSendImpl implements _MessageSend {
   const _$MessageSendImpl(
-      {required this.content, required final List<String> files})
+      {this.content = '',
+      @JsonKey(name: 'filenames') final List<String> files = const [],
+      @JsonKey(name: 'voice_filename') this.voiceFilename})
       : _files = files;
 
   factory _$MessageSendImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageSendImplFromJson(json);
 
   @override
+  @JsonKey()
   final String content;
   final List<String> _files;
   @override
+  @JsonKey(name: 'filenames')
   List<String> get files {
     if (_files is EqualUnmodifiableListView) return _files;
     // ignore: implicit_dynamic_type
@@ -557,8 +635,12 @@ class _$MessageSendImpl implements _MessageSend {
   }
 
   @override
+  @JsonKey(name: 'voice_filename')
+  final String? voiceFilename;
+
+  @override
   String toString() {
-    return 'MessageSend(content: $content, files: $files)';
+    return 'MessageSend(content: $content, files: $files, voiceFilename: $voiceFilename)';
   }
 
   @override
@@ -567,13 +649,15 @@ class _$MessageSendImpl implements _MessageSend {
         (other.runtimeType == runtimeType &&
             other is _$MessageSendImpl &&
             (identical(other.content, content) || other.content == content) &&
-            const DeepCollectionEquality().equals(other._files, _files));
+            const DeepCollectionEquality().equals(other._files, _files) &&
+            (identical(other.voiceFilename, voiceFilename) ||
+                other.voiceFilename == voiceFilename));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, content, const DeepCollectionEquality().hash(_files));
+  int get hashCode => Object.hash(runtimeType, content,
+      const DeepCollectionEquality().hash(_files), voiceFilename);
 
   @JsonKey(ignore: true)
   @override
@@ -591,8 +675,10 @@ class _$MessageSendImpl implements _MessageSend {
 
 abstract class _MessageSend implements MessageSend {
   const factory _MessageSend(
-      {required final String content,
-      required final List<String> files}) = _$MessageSendImpl;
+          {final String content,
+          @JsonKey(name: 'filenames') final List<String> files,
+          @JsonKey(name: 'voice_filename') final String? voiceFilename}) =
+      _$MessageSendImpl;
 
   factory _MessageSend.fromJson(Map<String, dynamic> json) =
       _$MessageSendImpl.fromJson;
@@ -600,7 +686,11 @@ abstract class _MessageSend implements MessageSend {
   @override
   String get content;
   @override
+  @JsonKey(name: 'filenames')
   List<String> get files;
+  @override
+  @JsonKey(name: 'voice_filename')
+  String? get voiceFilename;
   @override
   @JsonKey(ignore: true)
   _$$MessageSendImplCopyWith<_$MessageSendImpl> get copyWith =>

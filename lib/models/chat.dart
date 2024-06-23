@@ -31,7 +31,9 @@ class Message with _$Message {
     @JsonKey(name: 'chat_id') required int chatId,
     @JsonKey(name: 'sender_id') required int senderId,
     required DateTime timestamp,
-    required String content,
+    @Default('') String content,
+    @JsonKey(name: 'file_urls') @Default([]) List<String> fileUrls,
+    @JsonKey(name: 'voice_url') String? voiceUrl,
   }) = _Message;
 
   factory Message.fromJson(Map<String, Object?> json) =>
@@ -49,8 +51,9 @@ class Message with _$Message {
 @freezed
 class MessageSend with _$MessageSend {
   const factory MessageSend({
-    required String content,
-    required List<String> files,
+    @Default('') String content,
+    @JsonKey(name: 'filenames') @Default([]) List<String> files,
+    @JsonKey(name: 'voice_filename') String? voiceFilename,
   }) = _MessageSend;
 
   factory MessageSend.fromJson(Map<String, Object?> json) =>

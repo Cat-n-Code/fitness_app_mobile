@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fitness_app/providers/workouts.dart';
 import 'package:flutter/material.dart';
 
 FormFieldValidator<T> compositeValidator<T>(

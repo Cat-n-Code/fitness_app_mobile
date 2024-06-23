@@ -24,6 +24,7 @@ class _CustomerDiaryViewState extends State<CustomerDiaryView> {
     return Scaffold(
       appBar: _buildAppBar(theme.colorScheme),
       body: _buildBody(theme.textTheme, theme.colorScheme),
+      resizeToAvoidBottomInset: false,
     );
   }
 

@@ -11,7 +11,10 @@ class StartupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: _StartupViewBody());
+    return const Scaffold(
+      body: _StartupViewBody(),
+      resizeToAvoidBottomInset: false,
+    );
   }
 }
 
