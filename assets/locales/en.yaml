@@ -214,6 +214,7 @@ customer_progress_view:
   water_average_value: |
     __Average__  
     __{}__ ml
+  hydration_picker_label: Water drunk today (in cups)
 
 customer_diary_view:
   title: Mood Tracker

@@ -7,8 +7,10 @@ import 'package:fitness_app/providers/progress.dart';
 import 'package:fitness_app/providers/scaffold_messenger.dart';
 import 'package:fitness_app/theme.dart';
 import 'package:fitness_app/utils/error_presenter.dart';
+import 'package:fitness_app/utils/extensions.dart';
 import 'package:fitness_app/widgets/date_diagram.dart';
 import 'package:fitness_app/widgets/date_range_dropdown.dart';
+import 'package:fitness_app/widgets/increment_counter.dart';
 import 'package:fitness_app/widgets/mini_calendar.dart';
 import 'package:fitness_app/widgets/radio_tile.dart';
 import 'package:fitness_app/widgets/snackbars.dart';
@@ -34,8 +36,11 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     with SingleTickerProviderStateMixin {
   late StreamSubscription<StepCount> _stepCountSubscription;
 
+  static const waterVolumePerCup = 250;
+
   var _activeTab = _ProgressViewTab.steps;
   var _activeRange = DateRange.thisWeek;
+  bool _isWaterUpdating = false;
 
   @override
   void initState() {
@@ -222,9 +227,14 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
           ),
         ),
         const SizedBox(height: 16.0),
-        _buildHeader(context, textTheme),
+        _buildHeader(progress, context, textTheme),
         const SizedBox(height: 16.0),
-        DateDiagram(color: color, values: progress)
+        DateDiagram(color: color, values: progress),
+        if (_activeTab == _ProgressViewTab.water) ...[
+          const SizedBox(height: 16.0),
+          const Text('customer_progress_view.hydration_picker_label').tr(),
+          _buildHydrationPicker(colorScheme),
+        ],
       ],
     );
   }
@@ -332,7 +342,14 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     );
   }
 
-  Widget _buildHeader(BuildContext context, TextTheme textTheme) {
+  Widget _buildHeader(
+    List<DateDiagramEntry> progress,
+    BuildContext context,
+    TextTheme textTheme,
+  ) {
+    final averageValue =
+        progress.map((t) => t.$2).average()?.toStringAsFixed(0) ?? '0.0';
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -341,11 +358,11 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
             _ProgressViewTab.steps =>
               'customer_progress_view.steps_average_value'.tr(
                 context: context,
-                args: ['5,342'],
+                args: [averageValue],
               ),
             _ProgressViewTab.water =>
               'customer_progress_view.water_average_value'
-                  .tr(context: context, args: ['1,700'])
+                  .tr(context: context, args: [averageValue])
           },
           styleSheet: MarkdownStyleSheet(
             p: textTheme.bodyLarge?.copyWith(fontSize: 17.0),
@@ -363,6 +380,8 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     RadioTileStyle style,
     Color color,
   ) {
+    final stepsValue = ref.watch(todayStepsProgressProvider);
+
     return RadioTile(
       value: _ProgressViewTab.steps,
       groupValue: _activeTab,
@@ -381,7 +400,7 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
                 children: [
                   Text('customer_progress_view.steps_tab_label'.tr()),
                   const SizedBox(height: 4.0),
-                  Text('6,035'),
+                  Text(stepsValue.valueOrNull?.steps.toString() ?? '1000'),
                 ],
               ),
             ),
@@ -396,6 +415,8 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
     RadioTileStyle style,
     Color color,
   ) {
+    final waterValue = ref.watch(todayWaterProgressProvider);
+
     return RadioTile(
       value: _ProgressViewTab.water,
       groupValue: _activeTab,
@@ -415,7 +436,9 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
                   Text('customer_progress_view.water_tab_label'.tr()),
                   const SizedBox(height: 4.0),
                   Text(
-                    'common.water_value'.tr(args: ['500']),
+                    'common.water_value'.tr(args: [
+                      waterValue.valueOrNull?.waterVolume.toString() ?? '1000'
+                    ]),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -424,6 +447,31 @@ class _CustomerProgressViewState extends ConsumerState<CustomerProgressView>
             const Icon(Icons.water_drop_outlined, size: 40.0),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildHydrationPicker(ColorScheme colorScheme) {
+    final waterValue = ref.watch(todayWaterProgressProvider);
+
+    return Skeletonizer(
+      enabled: _isWaterUpdating,
+      child: IncrementCounter(
+        min: 0,
+        value: (waterValue.valueOrNull?.waterVolume ?? 0) ~/ waterVolumePerCup,
+        onChanged: (value) async {
+          setState(() => _isWaterUpdating = true);
+
+          final result = await ref
+              .read(todayWaterProgressProvider.notifier)
+              .updateWater(value * waterVolumePerCup);
+          if (result case Right(value: final exception)) {
+            presentError(exception, widgetRef: ref);
+          }
+
+          setState(() => _isWaterUpdating = false);
+        },
+        color: colorScheme.secondary,
       ),
     );
   }

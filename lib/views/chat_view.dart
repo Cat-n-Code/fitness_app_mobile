@@ -41,6 +41,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
   bool _showVoiceButton = false;
   bool _isRecording = false;
   bool _isLoading = false;
+  bool _hasVoicePermission = false;
 
   @override
   void initState() {
@@ -71,6 +72,10 @@ class _ChatViewState extends ConsumerState<ChatView> {
         }
       },
     );
+
+    _recorder.hasPermission().then(
+          (permission) => setState(() => _hasVoicePermission = permission),
+        );
 
     _textController.addListener(() {
       _showVoiceButton = _textController.text.isEmpty;
@@ -262,14 +267,18 @@ class _ChatViewState extends ConsumerState<ChatView> {
             child: Skeleton.shade(
               child: Material(
                 borderRadius: BorderRadius.circular(24.0),
-                color: Color.lerp(
-                  colorScheme.primary,
-                  colorScheme.secondary,
-                  value,
-                ),
+                color: !_showVoiceButton || _hasVoicePermission
+                    ? Color.lerp(
+                        colorScheme.primary,
+                        colorScheme.secondary,
+                        value,
+                      )
+                    : colorScheme.surfaceContainerHighest,
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
-                  onTap: () => _onSend(chat!, ref),
+                  onTap: !_showVoiceButton || _hasVoicePermission
+                      ? () => _onSend(chat!, ref)
+                      : null,
                   child: Center(
                     child: Icon(
                       _showVoiceButton ? Icons.mic : Icons.send,
@@ -317,10 +326,6 @@ class _ChatViewState extends ConsumerState<ChatView> {
 
   void _onRecordingStarted() async {
     if (_isRecording) {
-      return;
-    }
-
-    if (!(await _recorder.hasPermission())) {
       return;
     }
 

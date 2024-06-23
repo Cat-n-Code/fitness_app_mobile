@@ -212,6 +212,7 @@ customer_progress_view:
   water_average_value: |
     __В среднем__  
     __{}__ мл.
+  hydration_picker_label: Воды выпито сегодня (в стаканах)
 
 customer_diary_view:
   title: Трекер Настроения
